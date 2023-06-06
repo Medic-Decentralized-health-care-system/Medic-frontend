@@ -1,6 +1,7 @@
 .App {
   margin: 0;
-  
+  height: auto;
+  /* border: 10px solid black; */
 }
 
 

@@ -1,11 +1,11 @@
-import logo from './assets/images/logo.svg';
+
 import './App.css';
+import Home from './components/Home/Home.jsx';
 
 function App() {
   return (
     <div className="App">
-        <img src={logo} className="App-logo" alt="logo" />
-        
+        <Home/>
     </div>
   );
 }
