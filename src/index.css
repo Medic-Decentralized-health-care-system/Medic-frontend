@@ -15,7 +15,7 @@ html {
 }
 
 #root {
-  height: auto;
+  height: 100%;
   /* border: 10px solid rgb(54, 40, 126); */
 }
 

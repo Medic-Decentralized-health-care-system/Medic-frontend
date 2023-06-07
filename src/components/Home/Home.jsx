@@ -5,6 +5,7 @@ import Homestyle from "./Home.module.css";
 import ButtonLight from "../Buttons/ButtonLight.jsx";
 import ButtonDark from "../Buttons/ButtonDark.jsx";
 import ButtonHollow from "../Buttons/ButtonHollow.jsx";
+import Menubar from "../Menubar/Menubar";
 
 function Home () {
 	return(
@@ -14,16 +15,30 @@ function Home () {
 					<div className={Homestyle.navbar}>
 						<p className={Homestyle.logotext}>MEDIC.</p>
 						<p className={Homestyle.bannertext}>Make an appointment with a doctor without a queue. Buy medicines</p>
-						<ButtonDark text="Login" />
+						<ButtonDark text="LOGIN" />
 						<ButtonLight text="Are you a doctor?" />
 					</div>
-					<div className={Homestyle.menubar}>
-						<ButtonHollow text="Pricing"></ButtonHollow>
-						<ButtonHollow text="How it works"></ButtonHollow>
-						<ButtonHollow text="Help Center"></ButtonHollow>
-						<ButtonHollow text="News"></ButtonHollow>
-						<hr className={Homestyle.divider}></hr>
+					<Menubar/>
+				</div>
+				<div className={Homestyle.main}>
+					<div className={Homestyle.mainLeft}>
+						<p style={{fontSize: "4rem", color: "white", margin: "0", padding: "50px"}}>CONSULT ON</p>
+						<div className={Homestyle.mainLeftSecond}>
+							<p style={{fontSize: "0.8rem", color: "white",maxWidth: "fit-content", margin: "0"}}>Store all your<br/> medical records in a <br/> secure vault with <br/> our decentralized<br/> solution</p>
+							<p style={{fontSize: "4rem", margin: "0"}}>ANY ISSUE</p>
+						</div>
+						<div className={Homestyle.mainLeftThird}>
+							<img src={require("../../assets/images/avatargroupimg.png")} height="60rem"/>
+							<p style={{color:"white",fontSize: "4rem",margin:"0", padding: "50px"}}>ONLINE</p>
+						</div>
 					</div>
+					<div className={Homestyle.mainRight}>
+						<img src={require("../../assets/images/mainleftimg.png")}/>
+					</div>
+				</div>
+				<div className={Homestyle.mainDown}>
+					<ButtonDark text="Book an Appointment"/>
+					<ButtonHollow text="Search for doctors"/>
 				</div>
 			</div>
 			{/* TODO: Make a footer component: */}

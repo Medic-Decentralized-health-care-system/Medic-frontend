@@ -1,0 +1,11 @@
+.menubar {
+	display: flex;
+	align-items: center;
+	
+}
+
+
+.divider {
+	width: 100%;
+	border-bottom: 2px solid black;
+}
