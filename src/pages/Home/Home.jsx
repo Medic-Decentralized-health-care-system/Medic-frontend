@@ -1,13 +1,18 @@
-import React from "react";
+import React, { useState } from "react";
 import { ReactDOM } from "react-dom";
 import Homestyle from "./Home.module.css";
 
-import ButtonLight from "../Buttons/ButtonLight.jsx";
-import ButtonDark from "../Buttons/ButtonDark.jsx";
-import ButtonHollow from "../Buttons/ButtonHollow.jsx";
-import Menubar from "../Menubar/Menubar";
+import {Link} from 'react-router-dom';
+
+import ButtonLight from "../../components/Buttons/ButtonLight.jsx";
+import ButtonDark from "../../components/Buttons/ButtonDark.jsx";
+import ButtonHollow from "../../components/Buttons/ButtonHollow.jsx";
+import Menubar from "../../components/Menubar/Menubar";
+
+
 
 function Home () {
+	const [onClick, setOnClick] = useState(); 
 	return(
 		<div className={Homestyle.container}>
 			<div className={Homestyle.section}>
@@ -15,7 +20,8 @@ function Home () {
 					<div className={Homestyle.navbar}>
 						<p className={Homestyle.logotext}>MEDIC.</p>
 						<p className={Homestyle.bannertext}>Make an appointment with a doctor without a queue. Buy medicines</p>
-						<ButtonDark text="LOGIN" />
+						<ButtonDark text="LOGIN">
+						</ButtonDark>
 						<ButtonLight text="Are you a doctor?" />
 					</div>
 					<Menubar/>

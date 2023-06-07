@@ -44,6 +44,11 @@
 	flex-basis: 60%;
 }
 
+.link {
+	background-color: black;
+	width: 10%;
+	height: 10%;
+}
 
 .section {
 	background-image: url('../../assets/images/bgimage.png');

@@ -1,12 +1,15 @@
 import React from "react";
 import { ReactDOM } from "react-dom";
 
-function LoginPatient () {
+function LoginDoc () {
 	return(
 		<>
-			
+		
 		</>
 	)
 }
 
-export default LoginPatient;
+export default LoginDoc;
+
+
+  
