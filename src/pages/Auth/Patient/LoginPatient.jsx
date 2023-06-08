@@ -11,7 +11,7 @@ function LoginPatient() {
 			<text className={loginPatientStyles.logotext}>MEDIC.</text>
 			<div className={loginPatientStyles.fullscreenFrame}>
 				<div className={loginPatientStyles.fullLeft} >
-					{/* Idhar se baki styles baki*/}
+					
 					<div className={loginPatientStyles.loginBox}>
 						<div className={loginPatientStyles.loginPrompt}>
 							<text className={loginPatientStyles.text1}>Log In</text>
@@ -37,7 +37,7 @@ function LoginPatient() {
 				<div className={loginPatientStyles.fullRight}>
 					<div className={loginPatientStyles.banner}>
 						<div className={loginPatientStyles.logoImg}>
-							<img src={require("../../../assets/images/Mediclogokinda.png")} alt="mediclogo" style={{width: "14rem"}}/>
+							<img src={require("../../../assets/images/Mediclogokinda.png")} alt="mediclogo"/>
 						</div>
 						<hr style={{textAlign: "center" ,width: "25%", border: "solid 2px black"}}></hr>
 						<p style={{textAlign: "center", color: "white"}}>Medic keeps all your records secure in our decentralized vault.</p>
