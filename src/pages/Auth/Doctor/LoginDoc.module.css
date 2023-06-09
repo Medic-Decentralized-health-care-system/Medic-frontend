@@ -231,12 +231,8 @@
 	text-align: center;
 }
 
-@media all and (max-width: 768px){
-	.fullscreenFrame{
-		background-color: white;
-	}
-	
-}
+
+
 
 @media all and (min-width: 768px) and (max-width: 1100px) {
 	.logotext {
@@ -388,5 +384,3 @@
 		width: 8rem;
 	}
 }
-
-
