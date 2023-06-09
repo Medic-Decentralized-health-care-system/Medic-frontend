@@ -1,3 +1,7 @@
+## Current Status:
+[]- Update the logindoc and loginpatient pages to look the same as the loginadmin page
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
