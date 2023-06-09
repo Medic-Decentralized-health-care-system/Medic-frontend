@@ -21,7 +21,7 @@
 	/* identical to box height, or 58px */
 	z-index: 100;
 	color: #051923;
-	transition: all 2s;
+	transition: all cubic-bezier(0.075, 0.82, 0.165, 1) .2s;
 }
 
 .logotext:hover {
@@ -60,7 +60,7 @@
 	flex-grow: 0;
 }
 
-.loginBox {
+.registerBox {
 	display: flex;
 	flex-direction: column;
 	justify-content: space-evenly;
@@ -77,14 +77,14 @@
 	transition: all .5s;
 }
 
-/* .loginBox:hover{
+/* .registerBox:hover{
 	background-color: rgb(179, 179, 179);
 	scale: 1.03;
 	box-shadow: -70px 69px 39px -10px rgba(0, 0, 0, 0.2);
 
 } */
 
-.loginPrompt {
+.regPrompt {
 	display: flex;
 	flex-direction: column;
 	justify-content: space-evenly;
@@ -132,8 +132,8 @@
 	flex-grow: 0;
 }
 
-.inputFieldFlexBox,
-.inputFieldFlexBox > form {
+.regFormBox,
+.regFormBox > form {
 	font-size: 1rem;
 	display: flex;
 	flex-direction: column;
@@ -175,7 +175,7 @@
 	text-align: center;
 }
 
-.signinFlexBox {
+.signUpFlexBox {
 	display: flex;
 	flex-direction: column;
 	align-items: center;
@@ -191,7 +191,7 @@
 	flex-grow: 0;
 }
 
-.signinFlexBox > text {
+.signUpFlexBox > text {
 	font-style: normal;
 	font-weight: 300;
 	font-size: 1rem;
@@ -296,7 +296,7 @@
 		box-shadow: 0px -62px 39px -10px rgba(0, 0, 0, 0.2);
 	}
 
-	.loginBox {
+	.registerBox {
 		display: flex;
 		flex-direction: column;
 		justify-content: space-evenly;
@@ -342,7 +342,7 @@
 		box-shadow: 0px -62px 39px -10px rgba(0, 0, 0, 0.2);
 	}
 
-	.loginBox {
+	.registerBox {
 		display: flex;
 		flex-direction: column;
 		justify-content: space-evenly;
@@ -393,7 +393,7 @@
 		box-shadow: 0px -62px 39px -10px rgba(0, 0, 0, 0.2);
 	}
 
-	.loginBox {
+	.registerBox {
 		display: flex;
 		flex-direction: column;
 		justify-content: space-evenly;
@@ -408,7 +408,7 @@
 		font-size: 0.8rem;
 	}
 
-	.loginPrompt {
+	.regPrompt {
 		display: flex;
 		flex-direction: column;
 		justify-content: space-evenly;
@@ -422,7 +422,7 @@
 		flex-grow: 0;
 	}
 
-	.signinFlexBox > text {
+	.signUpFlexBox > text {
 		font-size: 0.9rem;
 	}
 

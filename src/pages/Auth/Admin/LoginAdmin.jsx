@@ -31,7 +31,7 @@ function LoginAdmin() {
 						</div>
 						<div className={loginAdminStyles.signinFlexBox}>
 							<ButtonDark text="Login" style={{ width: "100%" }}></ButtonDark>
-							<text>New User? <Link to='/registerpatient'>Sign Up</Link></text>
+							<text>New User? <Link to='/registeradmin'>Sign Up</Link></text>
 						</div>
 					</div>
 				</div>

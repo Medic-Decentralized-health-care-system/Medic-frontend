@@ -29,7 +29,7 @@ function LoginPatient() {
 							</form>
 						</div>
 						<div className={loginPatientStyles.signinFlexBox}>
-							<ButtonDark text="Login" style={{width: "100%", borderRadius: "0.4rem"}}></ButtonDark>
+							<ButtonDark text="Login" style={{width: "100%"}}></ButtonDark>
 							<text>New User? <Link to='/registerpatient'>Sign Up</Link></text>
 						</div>
 					</div>
