@@ -1,10 +1,5 @@
 ## Current Status:
-- [ ] Update the logindoc and loginpatient pages to look the same as the loginadmin page. <br>
-  - [ ] Insert media query for max-width: 798px  
-    - [ ] Set media query to render:
-      - [ ]  the background color as white for the fullLeft div
-      - [ ]  loginBox to have no background color i.e. transparent
-      - [ ]  usernameInputField and passwordInputField to have default borders of 1px solid black when inactive
+- [ ] Login Page completed without using a lot of components (almost pure JSX i.e. returning the pure html)
 - [ ]  Start working on registration page
 
 
