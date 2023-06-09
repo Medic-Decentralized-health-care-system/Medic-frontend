@@ -1,5 +1,6 @@
 ## Current Status:
-[]- Update the logindoc and loginpatient pages to look the same as the loginadmin page
+- [x] Login Page completed without using a lot of components (almost pure JSX i.e. returning the pure html)
+- [ ]  Start working on registration page
 
 
 # Getting Started with Create React App
