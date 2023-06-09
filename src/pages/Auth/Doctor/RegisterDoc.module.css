@@ -2,8 +2,6 @@
 	--width-fullLeft: 50%;
 }
 
-
-
 .logotext {
 	position: absolute;
 	width: 131px;
@@ -21,7 +19,7 @@
 	/* identical to box height, or 58px */
 	z-index: 100;
 	color: #051923;
-	transition: all cubic-bezier(0.075, 0.82, 0.165, 1) .2s;
+	transition: all cubic-bezier(0.075, 0.82, 0.165, 1) 0.2s;
 }
 
 .logotext:hover {
@@ -31,7 +29,7 @@
 .fullscreenFrame {
 	/* background-image: url('../../../assets/images/cool-background.png');
 	background-size: cover; */
-	background-color: #E7ECEF;
+	background-color: #e7ecef;
 	display: flex;
 	flex-direction: row;
 	justify-content: space-between;
@@ -43,7 +41,6 @@
 	left: 0px;
 	top: 0px;
 }
-
 
 .fullLeft {
 	display: flex;
@@ -65,7 +62,7 @@
 	flex-direction: column;
 	justify-content: space-evenly;
 	align-items: center;
-	background-color: #E7ECEF;
+	background-color: #e7ecef;
 	padding: 1.5rem;
 	border-radius: 1.2rem;
 	/* box-shadow: -40px 0px 39px -10px rgba(0, 0, 0, 0.2); */
@@ -74,7 +71,7 @@
 	flex: none;
 	order: 0;
 	flex-grow: 0;
-	transition: all .5s;
+	transition: all 0.5s;
 }
 
 /* .registerBox:hover{
@@ -100,7 +97,6 @@
 }
 
 .text1 {
-
 	font-style: normal;
 	font-weight: 500;
 	font-size: 1.8rem;
@@ -142,12 +138,19 @@
 	padding: 0px;
 
 	width: 100%;
-	height: 148px;
+	/* height: 148px; */
+}
 
-	flex: none;
-	order: 1;
-	align-self: stretch;
-	flex-grow: 0;
+.pfpBox {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+
+.pfpBox > img {
+	width: 80px;
+	height: 80px;
 }
 
 /* .usernameInputField ,.passwordInputField {
@@ -156,23 +159,82 @@
 	
 } */
 
-
-.formContainer {
+.form {
 	display: flex;
 	flex-direction: column;
-	justify-content: space-evenly;
-	height: 100%;
+	width: 100%;
+	margin-bottom: 1rem;
+}
+
+.regForm {
+	font-size: 0.85rem;
+	display: flex;
+	flex-direction: column;
+	width: 100%;
+	align-items: center;
+	align-items: stretch;
+}
+
+.nameFlexBox {
+	box-sizing: border-box;
+	/* padding: 0.3rem; */
+	padding: 0.3rem 0 0.3rem 0;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: space-between;
+	width: 100%;
+	border: none;
+}
+
+.nameFlexBox input {
+	border: none;
+	padding: 0.3rem;
+	border-radius: 0.4rem;
+	width: 45%;
+}
+
+.usernameField {
+	box-sizing: border-box;
+	border: none;
+	width: 100%;
+	padding: 0.3rem;
+	border-radius: 0.4rem;
+}
+
+.dobSexFlexBox {
+	box-sizing: border-box;
+	padding: 0.3rem 0 0.3rem 0;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: space-between;
 	width: 100%;
 }
 
-.formContainer > input {
+.dobSexFlexBox input,
+select {
 	border: none;
-	margin-top: 0.6rem;
-	margin-bottom: 0.6rem;
-	padding: 0.2rem;
+	padding: 0.3rem;
 	border-radius: 0.4rem;
-	height: 100%;
-	text-align: center;
+	width: 45%;
+}
+
+select:required:invalid {
+  color: gray;
+}
+option[value=""][disabled] {
+  display: none;
+}
+option {
+	color: black;
+}
+
+.pwdField {
+	box-sizing: border-box;
+	border: none;
+	padding: 0.3rem;
+	border-radius: 0.4rem;
 }
 
 .signUpFlexBox {
@@ -260,18 +322,12 @@
 	text-align: center;
 }
 
-@media all and (max-width: 768px){
-	.fullscreenFrame{
-		background-color: white;
+@media all and (max-width: 480px) {
+	.fullscreenFrame {
+		background-color: #e7ecef;
 	}
 
-	.usernameInputField ,.passwordInputField {
-		border: 1px;
-		
-	}
-	
 }
-
 
 @media all and (min-width: 768px) and (max-width: 1100px) {
 	.logotext {
@@ -347,11 +403,27 @@
 		flex-direction: column;
 		justify-content: space-evenly;
 		align-items: center;
+		padding: 9rem;
 		width: 100%;
 		flex: none;
 		order: 0;
 		flex-grow: 0;
 	}
+
+	.regPrompt {
+		display: flex;
+		flex-direction: column;
+		padding: 0;
+		/* gap: 1rem; */
+		width: 100%;
+		height: 50%;
+		/* flex: none; */
+		/* order: 0; */
+		align-self: stretch;
+		flex-grow: 0;
+		justify-content: space-evenly;
+	}
+
 	.logoImg > img {
 		width: 8rem;
 	}
@@ -359,10 +431,9 @@
 
 @media all and (max-width: 480px) {
 	.logotext {
-		font-size: medium;
 		display: flex;
 		position: relative;
-		width: 50%;
+		width: 30%;
 		z-index: 100;
 		text-align: center;
 	}
@@ -378,14 +449,6 @@
 		width: 66%;
 	}
 
-	.text1 {
-		font-size: large;
-	}
-
-	.text2 {
-		font-size: 0.9rem;
-	}
-
 	.fullRight {
 		width: 100%;
 		border-bottom-left-radius: 0px;
@@ -398,35 +461,34 @@
 		flex-direction: column;
 		justify-content: space-evenly;
 		align-items: center;
+		padding: 0rem;
 		width: 100%;
 		flex: none;
 		order: 0;
 		flex-grow: 0;
-	}
 
-	.formContainer >input {
-		font-size: 0.8rem;
 	}
 
 	.regPrompt {
+		
 		display: flex;
 		flex-direction: column;
-		justify-content: space-evenly;
-		padding: 0px;
-		gap: 1rem;
+		padding: 0;
+		/* gap: 1rem; */
 		width: 100%;
 		height: 50%;
-		flex: none;
-		order: 0;
+		/* flex: none; */
+		/* order: 0; */
 		align-self: stretch;
 		flex-grow: 0;
+		justify-content: space-evenly;
 	}
-
-	.signUpFlexBox > text {
-		font-size: 0.9rem;
+	
+	.text1 {
+		font-size: 0;
 	}
 
 	.logoImg > img {
-		width: 5rem;
+		width: 8rem;
 	}
 }

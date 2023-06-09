@@ -18,30 +18,30 @@ function RegisterDoc() {
 						</div>
 						<div className={registerDocStyles.regFormBox}>
 							<div className={registerDocStyles.pfpBox}>
-								<img src={require('../../../assets/images/pfptemplate.png')} />
-								<ButtonDark text="Upload Profile Picture" style={{ width: "100%" }} />
+								<img className={registerDocStyles.pfp} src={require('../../../assets/images/pfptemplate.png')} />
+								<ButtonDark size="small" text="Upload Profile Picture" style={{width: "100%", fontSize: "0.8rem", padding: "0.28rem"}} />
 							</div>
+							<hr style={{width: "100%"}}></hr>
 							<form className={registerDocStyles.form} action="" method="post">
 								<div className={registerDocStyles.regForm}>
 									<div className={registerDocStyles.nameFlexBox}>
-										<label for="fname"></label>
+										{/* <label for="fname"></label> */}
 										<input className={registerDocStyles.fnameField} type="text" placeholder="First Name" name="fname" required />
-										<label for="lname"></label>
-										<input className={registerDocStyles.lnameField} type="password" placeholder="Last Name" name="lname" />
+										{/* <label for="lname"></label> */}
+										<input className={registerDocStyles.lnameField} type="text" placeholder="Last Name" name="lname" />
 									</div>
 									<label for="uname"></label>
 									<input className={registerDocStyles.usernameField} type="text" placeholder="Username" name="uname" required />
 									<div className={registerDocStyles.dobSexFlexBox}>
-										<label for="dob"></label>
+										{/* <label for="dob"></label> */}
 										<input className={registerDocStyles.dobField} type="date" placeholder="dd/mm/yyyy" name="dob" required />
-										<label for="gender"></label>
-										<label for="cars"></label>
-										<select className={registerDocStyles.genderField} name="cars" id="cars" text="rfvg">
-											<option value="" disabled selected style={{backgroundColor: "gray"}}>Gender</option>
-											<option value="volvo">Volvo</option>
-											<option value="saab">Saab</option>
-											<option value="opel">Opel</option>
-											<option value="audi">Audi</option>
+										{/* <label for="gender"></label> */}
+										
+										<select className={registerDocStyles.genderField} name="gender" id="gender">
+											<option value="" required disabled selected >Gender</option>
+											<option value="male">Male</option>
+											<option value="female">Female</option>
+											<option value="non-binary">Non-binary</option>
 										</select>
 									</div>
 									<label for="psw"></label>
@@ -51,7 +51,7 @@ function RegisterDoc() {
 							</form>
 						</div>
 						<div className={registerDocStyles.signUpFlexBox}>
-							<ButtonDark text="Sign Up" style={{ width: "100%" }}></ButtonDark>
+							<ButtonDark  text="Sign Up" style={{ width: "75%", fontSize: "0.8rem" }}></ButtonDark>
 							<text>Already have an account? <Link to='/logindoc'>Log In</Link></text>
 						</div>
 					</div>
