@@ -1,5 +1,5 @@
 ## Current Status:
-- [ ] Login Page completed without using a lot of components (almost pure JSX i.e. returning the pure html)
+- [x] Login Page completed without using a lot of components (almost pure JSX i.e. returning the pure html)
 - [ ]  Start working on registration page
 
 
