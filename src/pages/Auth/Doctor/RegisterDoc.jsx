@@ -52,7 +52,7 @@ function RegisterDoc() {
 						</div>
 						<div className={registerDocStyles.signUpFlexBox}>
 							<ButtonDark  text="Sign Up" style={{ width: "75%", fontSize: "0.8rem" }}></ButtonDark>
-							<text>Already have an account? <Link to='/logindoc'>Log In</Link></text>
+							<text>Already have an account? <Link to='/login'>Log In</Link></text>
 						</div>
 					</div>
 				</div>

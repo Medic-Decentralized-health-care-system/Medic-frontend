@@ -24,6 +24,7 @@
   .btn:hover {
 	background: #3f3f3f;
 	text-decoration: none;
+	cursor:pointer;
   }
 
   .btnSmall:hover {
