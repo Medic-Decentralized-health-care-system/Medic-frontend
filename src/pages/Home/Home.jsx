@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { ReactDOM } from "react-dom";
 import Homestyle from "./Home.module.css";
 
-import {Link} from 'react-router-dom';
+import {Link, useNavigate} from 'react-router-dom';
 
 import ButtonLight from "../../components/Buttons/ButtonLight.jsx";
 import ButtonDark from "../../components/Buttons/ButtonDark.jsx";
@@ -13,6 +13,10 @@ import Menubar from "../../components/Menubar/Menubar";
 
 function Home () {
 	const [onClick, setOnClick] = useState(); 
+	const navigate = useNavigate();
+	const handleClick= ()=>{
+		navigate("/login");
+	}
 	return(
 		<div className={Homestyle.container}>
 			<div className={Homestyle.section}>
@@ -20,7 +24,7 @@ function Home () {
 					<div className={Homestyle.navbar}>
 						<p className={Homestyle.logotext}>MEDIC.</p>
 						<p className={Homestyle.bannertext}>Make an appointment with a doctor without a queue. Buy medicines</p>
-						<ButtonDark>Login
+						<ButtonDark text="LOGIN" handleClick={handleClick}>
 						</ButtonDark>
 						<ButtonLight children="Are you a doctor?" />
 					</div>

@@ -8,6 +8,13 @@
 	transition: background-color 0.3s ease;
   }
   
-  .blackButton:hover {
-	background-color: rgb(42, 42, 42);
+  .btn:hover {
+	background: #3f3f3f;
+	text-decoration: none;
+	cursor:pointer;
+  }
+
+  .btnSmall:hover {
+	background: #3f3f3f;
+	text-decoration: none;
   }
