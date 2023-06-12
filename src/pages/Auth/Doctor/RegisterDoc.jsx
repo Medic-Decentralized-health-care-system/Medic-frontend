@@ -2,8 +2,14 @@ import React from "react";
 import { ReactDOM } from "react-dom";
 import { Link } from 'react-router-dom';
 import ButtonDark from '../../../components/Buttons/ButtonDark';
-
 import registerDocStyles from './RegisterDoc.module.css';
+import data from "./data";
+
+const handleSpecialtyChange = (event) => {
+	const selectedSpecialty = event.target.value;
+	// Handle the selected specialty
+};
+
 
 function RegisterDoc() {
 	return (
@@ -19,9 +25,9 @@ function RegisterDoc() {
 						<div className={registerDocStyles.regFormBox}>
 							<div className={registerDocStyles.pfpBox}>
 								<img className={registerDocStyles.pfp} src={require('../../../assets/images/pfptemplate.png')} />
-								<ButtonDark size="small" text="Upload Profile Picture" style={{width: "100%", fontSize: "0.8rem", padding: "0.28rem"}} />
+								<ButtonDark size="small" text="Upload Profile Picture" style={{ width: "100%", fontSize: "0.8rem", padding: "0.28rem" }} />
 							</div>
-							<hr style={{width: "100%"}}></hr>
+							<hr style={{ width: "100%" }}></hr>
 							<form className={registerDocStyles.form} action="" method="post">
 								<div className={registerDocStyles.regForm}>
 									<div className={registerDocStyles.nameFlexBox}>
@@ -32,26 +38,30 @@ function RegisterDoc() {
 									</div>
 									<label for="uname"></label>
 									<input className={registerDocStyles.usernameField} type="text" placeholder="Username" name="uname" required />
-									<div className={registerDocStyles.dobSexFlexBox}>
-										{/* <label for="dob"></label> */}
-										<input className={registerDocStyles.dobField} type="date" placeholder="dd/mm/yyyy" name="dob" required />
-										{/* <label for="gender"></label> */}
-										
-										<select className={registerDocStyles.genderField} name="gender" id="gender">
-											<option value="" required disabled selected >Gender</option>
-											<option value="male">Male</option>
-											<option value="female">Female</option>
-											<option value="non-binary">Non-binary</option>
+									<div className={registerDocStyles.degSpecialtyFlexBox}>
+										<label for="degree" style={{ display: 'none' }}></label>
+										<input className={registerDocStyles.degField} type="text" placeholder="Degree" name="degree" required />
+										<label for="specialty" style={{ display: "none" }}></label>
+										<select className={registerDocStyles.specialtyField} name="specialty" id="specialty" onChange={handleSpecialtyChange}>
+											{data.specialties.map((specialty, index) => (
+												<option key={index} value={specialty}>{specialty}</option>
+											))}
 										</select>
+									</div>
+									<div className={registerDocStyles.expAddressFlexBox}>
+									<label for="degree" style={{ display: 'none' }}></label>
+										<input className={registerDocStyles.expField} type="text" placeholder="Experience" name="exp" required />
+										<label for="clinic address" style={{ display: "none" }}></label>
+										<input className={registerDocStyles.AddressField} type="text" placeholder="Clinic Address" name="address" required/>
 									</div>
 									<label for="psw"></label>
 									<input className={registerDocStyles.pwdField} type="password" placeholder="Password" name="psw" required />
-									
+
 								</div>
 							</form>
 						</div>
 						<div className={registerDocStyles.signUpFlexBox}>
-							<ButtonDark  text="Sign Up" style={{ width: "75%", fontSize: "0.8rem" }}></ButtonDark>
+							<ButtonDark text="Sign Up" style={{ width: "75%", fontSize: "0.8rem" }}></ButtonDark>
 							<text>Already have an account? <Link to='/logindoc'>Log In</Link></text>
 						</div>
 					</div>

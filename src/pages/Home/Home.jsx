@@ -20,9 +20,9 @@ function Home () {
 					<div className={Homestyle.navbar}>
 						<p className={Homestyle.logotext}>MEDIC.</p>
 						<p className={Homestyle.bannertext}>Make an appointment with a doctor without a queue. Buy medicines</p>
-						<ButtonDark text="LOGIN">
+						<ButtonDark>Login
 						</ButtonDark>
-						<ButtonLight text="Are you a doctor?" />
+						<ButtonLight children="Are you a doctor?" />
 					</div>
 					<Menubar/>
 				</div>
@@ -43,8 +43,8 @@ function Home () {
 					</div>
 				</div>
 				<div className={Homestyle.mainDown}>
-					<ButtonDark text="Book an Appointment"/>
-					<ButtonHollow text="Search for doctors"/>
+					<ButtonDark children="Book an Appointment"/>
+					<ButtonHollow>Search for doctors</ButtonHollow>
 				</div>
 			</div>
 			{/* TODO: Make a footer component: */}

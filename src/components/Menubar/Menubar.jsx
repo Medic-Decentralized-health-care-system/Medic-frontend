@@ -2,13 +2,29 @@ import React from "react";
 import { ReactDOM } from "react-dom";
 import MenubarStyle from "./Menubar.module.css";
 import ButtonHollow from "../Buttons/ButtonHollow.jsx";
-function Menubar (props) {
-	return(
+
+
+const navbarPages = {
+	'text': [
+		'Pricing',
+		'How it works',
+		'Help Center',
+		'News'
+	]
+}
+
+const buttonType = "white";
+
+function Menubar(props) {
+	return (
+
+
 		<div className={MenubarStyle.menubar}>
-			<ButtonHollow text="Pricing"></ButtonHollow>
-			<ButtonHollow text="How it works"></ButtonHollow>
-			<ButtonHollow text="Help Center"></ButtonHollow>
-			<ButtonHollow text="News"></ButtonHollow>
+			{
+				navbarPages.text.map((btnText, index) => (
+						<ButtonHollow type={buttonType} key={index} value={btnText}>{btnText}</ButtonHollow>
+					))
+			}
 			<hr className={MenubarStyle.divider}></hr>
 		</div>
 	)

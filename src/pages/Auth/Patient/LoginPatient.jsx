@@ -37,7 +37,7 @@ function LoginPatient() {
 				<div className={loginPatientStyles.fullRight}>
 					<div className={loginPatientStyles.banner}>
 						<div className={loginPatientStyles.logoImg}>
-							<img src={require("../../../assets/images/Mediclogokinda.png")} alt="mediclogo"/>
+							<img src={require("../../../assets/images/Mediclogokinda.png")} alt="mediclogo" draggable="false"/>
 						</div>
 						<hr style={{textAlign: "center" ,width: "25%", border: "solid 2px black"}}></hr>
 						<p style={{textAlign: "center", color: "white"}}>Medic keeps all your records secure in our decentralized vault.</p>

@@ -15,12 +15,12 @@ function App() {
     <BrowserRouter>
     <Routes>
       <Route path='/' element={<Home/>}/>
-      <Route path='/logindoc' element={<LoginDoc />}/>
-      <Route path='/registerdoc' element={<RegisterDoc />}/>
-      <Route path='/loginpatient' element={<LoginPatient />}/>
-      <Route path='/registerpatient' element={<RegisterPatient />}/>
-      <Route path='/loginadmin' element={<LoginAdmin/>} />
-      <Route path='/registeradmin' element={<RegisterAdmin/>} />
+      <Route path='/auth/logindoc' element={<LoginDoc />}/>
+      <Route path='/auth/registerdoc' element={<RegisterDoc />}/>
+      <Route path='/auth/loginpatient' element={<LoginPatient />}/>
+      <Route path='/auth/registerpatient' element={<RegisterPatient />}/>
+      <Route path='/auth/loginadmin' element={<LoginAdmin/>} />
+      <Route path='/auth/registeradmin' element={<RegisterAdmin/>} />
     </Routes>
     </BrowserRouter>
   );
