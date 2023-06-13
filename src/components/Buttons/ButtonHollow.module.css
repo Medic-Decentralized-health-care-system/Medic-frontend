@@ -1,21 +1,43 @@
-.btn {
+.basicButton-primary {
 	background-color: transparent;
-	-webkit-border-radius: 5;
-	-moz-border-radius: 5;
-	border-radius: 1.8125rem;
-	font-family: 'Rubik', sans-serif;
-	color: #ffffff;
-	font-size: 20px;
-	font-size: 1rem;
-	padding: 0.9rem;
-	margin: 0.3rem;
-	border: solid #ffffff 1px;
-	text-decoration: none;
-	min-width: max-content;
+	opacity: 1;
+	color: black;
+	border: 1px solid rgba(0, 0, 0, 0.1);
+	padding: 0.5rem 1rem;
+	border-radius: 4px;
+	cursor: pointer;
+	transition: 0.2s ease;
+	box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.5) inset;
+	border: "1px solid white",
+	
   }
   
-  .btn:hover {
-	border: solid #f0f0f0 1px;
-	color: #f0f0f0;
-	text-decoration: none;
+  .basicButton-primary:hover {
+	border: 1px solid rgba(0, 0, 0, 1);
+	/* background-color: rgb(0, 0, 0);
+	/* color: white; */
+	/* border: 1px solid grey; */
+  }
+
+  .basicButton-white {
+	background-color: transparent;
+	opacity: 1;
+	color: black;
+	border: 1px solid rgba(0, 0, 0, 0.1);
+	padding: 0.5rem 1rem;
+	border-radius: 4px;
+	cursor: pointer;
+	transition: 0.2s ease;
+	box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.5) inset;
+	border: "1px solid white",
+	
+	
+	
+  }
+  
+  .basicButton-white:hover {
+	border: 1px solid rgba(0, 0, 0, 1);
+	/* background-color: rgb(0, 0, 0);
+	/* color: white; */
+	/* border: 1px solid grey; */
   }

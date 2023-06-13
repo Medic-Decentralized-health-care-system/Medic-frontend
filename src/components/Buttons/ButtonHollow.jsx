@@ -2,12 +2,11 @@ import React from "react";
 import { ReactDOM } from "react-dom";
 import ButtonHollowstyle from "./ButtonHollow.module.css";
 
-function ButtonHollow (props) {
-	const styleObj = {};
-	 
+function ButtonHollow ({children, onClick, style, variant}) {
+	// const styleObj = {};
+  variant = "white";
 	return(
-			<button className={ButtonHollowstyle.btn} onClick={props.handleClick}>{props.text}</button>
-
+			<button style={style} className={`ButtonHollowstyle.basicButton-${variant}`} onClick={onClick}>{children}</button>
 	)
 }
 
