@@ -24,7 +24,7 @@ function Home () {
 					<div className={Homestyle.navbar}>
 						<p className={Homestyle.logotext}>MEDIC.</p>
 						<p className={Homestyle.bannertext}>Make an appointment with a doctor without a queue. Buy medicines</p>
-						<ButtonDark text="LOGIN" handleClick={handleClick}>
+						<ButtonDark text="LOGIN" onClick={handleClick}>
 						</ButtonDark>
 						<ButtonLight children="Are you a doctor?" />
 					</div>
@@ -34,7 +34,7 @@ function Home () {
 					<div className={Homestyle.mainLeft}>
 						<p style={{fontSize: "4rem", color: "white", margin: "0", padding: "50px"}}>CONSULT ON</p>
 						<div className={Homestyle.mainLeftSecond}>
-							<p style={{fontSize: "0.8rem", color: "white",maxWidth: "fit-content", margin: "0"}}>Store all your<br/> medical records in a <br/> secure vault with <br/> our decentralized<br/> solution</p>
+							{/* <p style={{fontSize: "0.8rem", color: "white",maxWidth: "fit-content", margin: "0"}}>Store all your<br/> medical records in a <br/> secure vault with <br/> our decentralized<br/> solution</p> */}
 							<p style={{fontSize: "4rem", margin: "0"}}>ANY ISSUE</p>
 						</div>
 						<div className={Homestyle.mainLeftThird}>
@@ -47,8 +47,8 @@ function Home () {
 					</div>
 				</div>
 				<div className={Homestyle.mainDown}>
-					<ButtonDark children="Book an Appointment"/>
-					<ButtonHollow>Search for doctors</ButtonHollow>
+					<ButtonDark text="Book an Appointment"/>
+					<ButtonHollow type="white" text="Search for doctors"></ButtonHollow>
 				</div>
 			</div>
 			{/* TODO: Make a footer component: */}

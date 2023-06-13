@@ -25,7 +25,7 @@ function RegisterDoc() {
 						<div className={registerDocStyles.regFormBox}>
 							<div className={registerDocStyles.pfpBox}>
 								<img className={registerDocStyles.pfp} src={require('../../../assets/images/pfptemplate.png')} />
-								<ButtonDark size="small" text="Upload Profile Picture" style={{ width: "100%", fontSize: "0.8rem", padding: "0.28rem" }} />
+								<ButtonDark size="small" text="Upload Profile Picture" style={{borderRadius: "1.5rem", width: "100%", fontSize: "0.8rem", padding: "0.28rem" }} />
 							</div>
 							<hr style={{ width: "100%" }}></hr>
 							<form className={registerDocStyles.form} action="" method="post">
@@ -61,7 +61,7 @@ function RegisterDoc() {
 							</form>
 						</div>
 						<div className={registerDocStyles.signUpFlexBox}>
-							<ButtonDark  text="Sign Up" style={{ width: "75%", fontSize: "0.8rem" }}></ButtonDark>
+							<ButtonDark  text="Sign Up" style={{ width: "75%", fontSize: "0.8rem", borderRadius: "1.5rem" }} ></ButtonDark>
 							<text>Already have an account? <Link to='/login'>Log In</Link></text>
 						</div>
 					</div>

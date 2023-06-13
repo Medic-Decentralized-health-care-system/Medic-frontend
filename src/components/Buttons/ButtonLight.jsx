@@ -16,11 +16,12 @@ import React from 'react';
 import { ReactDOM } from 'react-dom';
 import styles from './ButtonLight.module.css';
 
-const ButtonLight = ({children, onClick}) => {
+const ButtonLight = ({children, onClick, style}) => {
   return (
     <button
       className={styles.lightButton}
       onClick={onClick}
+      style={style}
     >
       {children}
     </button>

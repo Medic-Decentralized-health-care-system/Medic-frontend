@@ -19,7 +19,7 @@ function RegisterAdmin() {
 						<div className={registerAdminStyles.regFormBox}>
 							<div className={registerAdminStyles.pfpBox}>
 								<img className={registerAdminStyles.pfp} src={require('../../../assets/images/pfptemplate.png')} />
-								<ButtonDark size="small" text="Upload Profile Picture" style={{width: "100%", fontSize: "0.8rem", padding: "0.28rem"}} />
+								<ButtonDark size="small" text="Upload Profile Picture" style={{width: "100%",borderRadius: "1.5rem", fontSize: "0.8rem", padding: "0.28rem"}} />
 							</div>
 							<hr style={{width: "100%"}}></hr>
 							<form className={registerAdminStyles.form} action="" method="post">
@@ -51,7 +51,7 @@ function RegisterAdmin() {
 							</form>
 						</div>
 						<div className={registerAdminStyles.signUpFlexBox}>
-							<ButtonDark  text="Sign Up" style={{ width: "75%", fontSize: "0.8rem" }}></ButtonDark>
+							<ButtonDark  text="Sign Up" style={{ width: "75%",borderRadius: "1.5rem", fontSize: "0.8rem" }}></ButtonDark>
 							<text>Already have an account? <Link to='/loginadmin'>Log In</Link></text>
 						</div>
 					</div>

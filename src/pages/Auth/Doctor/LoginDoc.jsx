@@ -30,7 +30,7 @@ function LoginDoc() {
 							</form>
 						</div>
 						<div className={loginDocStyles.signinFlexBox}>
-							<ButtonDark text="Login" style={{ width: "100%"}}></ButtonDark>
+							<ButtonDark text="Login" style={{borderRadius:"15rem", width: "100%"}}></ButtonDark>
 							<text>New User? <Link to='/registerdoc'>Sign Up</Link></text>
 						</div>
 					</div>

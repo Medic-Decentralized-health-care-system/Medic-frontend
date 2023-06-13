@@ -13,8 +13,6 @@ const navbarPages = {
 	]
 }
 
-const buttonType = "white";
-
 function Menubar(props) {
 	return (
 
@@ -22,7 +20,7 @@ function Menubar(props) {
 		<div className={MenubarStyle.menubar}>
 			{
 				navbarPages.text.map((btnText, index) => (
-						<ButtonHollow type={buttonType} key={index} value={btnText}>{btnText}</ButtonHollow>
+						<ButtonHollow type="white" key={index} value={btnText} text={btnText}></ButtonHollow>
 					))
 			}
 			<hr className={MenubarStyle.divider}></hr>
