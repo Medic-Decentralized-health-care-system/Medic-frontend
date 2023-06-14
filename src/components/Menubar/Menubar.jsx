@@ -1,7 +1,7 @@
 import React from "react";
 import { ReactDOM } from "react-dom";
 import MenubarStyle from "./Menubar.module.css";
-import ButtonHollow from "../Buttons/ButtonHollow.jsx";
+import WhiteButton from "../Buttons/WhiteButton";
 
 
 const navbarPages = {
@@ -20,7 +20,7 @@ function Menubar(props) {
 		<div className={MenubarStyle.menubar}>
 			{
 				navbarPages.text.map((btnText, index) => (
-						<ButtonHollow type="white" key={index} value={btnText} text={btnText}></ButtonHollow>
+						<WhiteButton key={index} value={btnText}>{btnText}</WhiteButton>
 					))
 			}
 			<hr className={MenubarStyle.divider}></hr>
