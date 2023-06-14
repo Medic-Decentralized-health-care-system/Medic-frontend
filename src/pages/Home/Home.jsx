@@ -38,12 +38,12 @@ function Home () {
 							<p style={{fontSize: "4rem", margin: "0"}}>ANY ISSUE</p>
 						</div>
 						<div className={Homestyle.mainLeftThird}>
-							<img src={require("../../assets/images/avatargroupimg.png")} height="60rem"/>
+							<img src={require("../../assets/images/avatargroupimg.png")} alt="avatar" height="60rem"/>
 							<p style={{color:"white",fontSize: "4rem",margin:"0", padding: "50px"}}>ONLINE</p>
 						</div>
 					</div>
 					<div className={Homestyle.mainRight}>
-						<img src={require("../../assets/images/mainleftimg.png")}/>
+						<img src={require("../../assets/images/mainleftimg.png")} alt="healthpluslogo"/>
 					</div>
 				</div>
 				<div className={Homestyle.mainDown}>
