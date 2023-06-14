@@ -1,0 +1,18 @@
+.footer {
+	display: flex;
+	flex-direction: column;
+}
+
+.footer1 {
+	text-align: center;
+}
+
+.footer2 {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+.footer2>* {
+	
+	padding: 10px;
+}

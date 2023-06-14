@@ -8,7 +8,7 @@ import ButtonLight from "../../components/Buttons/ButtonLight.jsx";
 import ButtonDark from "../../components/Buttons/ButtonDark.jsx";
 import ButtonHollow from "../../components/Buttons/ButtonHollow.jsx";
 import Menubar from "../../components/Menubar/Menubar";
-
+import Footer from "../../components/Footer/Footer";
 
 
 function Home () {
@@ -51,19 +51,7 @@ function Home () {
 					<ButtonHollow type="white" text="Search for doctors"></ButtonHollow>
 				</div>
 			</div>
-			{/* TODO: Make a footer component: */}
-			<div className={Homestyle.footer}>
-				<div className={Homestyle.footer1}>
-					trusted by
-				</div>
-				<div className={Homestyle.footer2}>
-					<img src={require('../../assets/images/fblogo.png')} alt="facebook"width={"150px"}/>
-					<img src={require('../../assets/images/instalogo.png')} alt="instagram"width={"150px"}/>
-					<img src={require('../../assets/images/githublogo.png')} alt="github"width={"150px"}/>
-					<img src={require('../../assets/images/dribblelogo.png')} alt="dribble"width={"150px"}/>
-					<img src={require('../../assets/images/behancelogo.png')} alt="behance"width={"150px"}/>
-				</div>
-			</div>
+			<Footer/>
 		</div>
 	)
 }
