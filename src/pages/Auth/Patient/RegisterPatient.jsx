@@ -114,10 +114,8 @@ function RegisterPatient() {
                   fontSize: "0.8rem",
                 }}
               ></ButtonDark>
-              <p>
-                Already have an account? <Link to="/login">Log In</Link>
-              </p>
-              <p style={{backgroundColor: "transparent"}}>
+              <p style={{textAlign: "center"}}>
+                Already have an account? <Link to="/login">Log In</Link><br/>
                 Sign up as doctor <Link to="/registerdoc">Sign Up</Link>
               </p>
             </div>

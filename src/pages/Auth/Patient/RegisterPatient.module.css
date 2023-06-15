@@ -98,18 +98,14 @@
 
 .text1 {
 	font-style: normal;
-	font-weight: 500;
-	font-size: 1.8rem;
-	line-height: 100%;
-	text-align: center;
-	/* identical to box height, or 48px */
-	margin-top: 2.5rem;
-	color: #051923;
-	padding: 10px;
-	flex: none;
-	order: 0;
-	align-self: stretch;
-	flex-grow: 0;
+    font-weight: 500;
+    font-size: 1.8rem;
+    /* line-height: 100%; */
+    text-align: center;
+    margin-top: 0rem;
+    margin-bottom: 0;
+    color: #051923;
+    
 }
 
 .text2 {
