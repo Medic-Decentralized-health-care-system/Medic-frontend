@@ -1,8 +1,7 @@
 import React, { useState } from "react";
-import { ReactDOM } from "react-dom";
 import Homestyle from "./Home.module.css";
 
-import {Link, useNavigate} from 'react-router-dom';
+import { useNavigate} from 'react-router-dom';
 
 import ButtonLight from "../../components/Buttons/ButtonLight.jsx";
 import ButtonDark from "../../components/Buttons/ButtonDark.jsx";
