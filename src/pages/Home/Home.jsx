@@ -31,18 +31,18 @@ function Home () {
 				</div>
 				<div className={Homestyle.main}>
 					<div className={Homestyle.mainLeft}>
-						<p style={{fontSize: "3.75rem", color: "white", margin: "0", padding: "15px"}}>CONSULT ON</p>
+						<p className={Homestyle.text1} >CONSULT ON</p>
 						<div className={Homestyle.mainLeftSecond}>
 							{/* <p style={{fontSize: "0.8rem", color: "white",maxWidth: "fit-content", margin: "0"}}>Store all your<br/> medical records in a <br/> secure vault with <br/> our decentralized<br/> solution</p> */}
-							<p style={{fontSize: "3.75rem", margin: "0", padding: "15px"}}>ANY ISSUE</p>
+							<p className={Homestyle.text2} >ANY ISSUE</p>
 						</div>
 						<div className={Homestyle.mainLeftThird}>
 							<img src={require("../../assets/images/avatargroupimg.png")} alt="avatar" height="60rem"/>
-							<p style={{color:"white",fontSize: "3.75rem",margin:"0", padding: "15px"}}>ONLINE</p>
+							<p className={Homestyle.text1} >ONLINE</p>
 						</div>
 					</div>
 					<div className={Homestyle.mainRight}>
-						<img src={require("../../assets/images/mainleftimg.png")} alt="healthpluslogo" height="350px"/>
+						<img src={require("../../assets/images/mainleftimg.png")} alt="healthpluslogo"/>
 					</div>
 				</div>
 				<div className={Homestyle.mainDown}>
