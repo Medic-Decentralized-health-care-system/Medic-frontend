@@ -15,7 +15,10 @@ function Home () {
 	const navigate = useNavigate();
 	const handleClick= ()=>{
 		navigate("/login");
+		console.log("clicked");
 	}
+
+
 	return(
 		<div className={Homestyle.container}>
 			<div className={Homestyle.section}>
@@ -23,7 +26,7 @@ function Home () {
 					<div className={Homestyle.navbar}>
 						<p className={Homestyle.logotext}>MEDIC.</p>
 						
-						<ButtonDark text="LOGIN" onClick={handleClick} style={{fontSize: "15px", borderRadius: "20px", marginRight: "15px"}}>
+						<ButtonDark text="LOGIN" onClick={() => {navigate("/login")}} style={{fontSize: "15px", borderRadius: "20px", marginRight: "15px"}}>
 						</ButtonDark>
 						<ButtonLight children="Are you a doctor?" style={{fontSize: "15px", borderRadius: "20px", marginRight: "15px", minWidth: "max-content"}}/>
 					</div>

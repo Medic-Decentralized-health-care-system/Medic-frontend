@@ -19,7 +19,7 @@
   /* identical to box height, or 58px */
   z-index: 100;
   color: #051923;
-  transition: all cubic-bezier(0.075, 0.82, 0.165, 1) 0.2s;
+  transition: all 2s;
 }
 
 .logotext:hover {
@@ -57,7 +57,7 @@
   flex-grow: 0;
 }
 
-.registerBox {
+.loginBox {
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
@@ -74,14 +74,14 @@
   transition: all 0.5s;
 }
 
-/* .registerBox:hover{
+/* .loginBox:hover{
 	background-color: rgb(179, 179, 179);
 	scale: 1.03;
 	box-shadow: -70px 69px 39px -10px rgba(0, 0, 0, 0.2);
 
 } */
 
-.regPrompt {
+.loginPrompt {
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
@@ -128,8 +128,8 @@
   flex-grow: 0;
 }
 
-.regFormBox,
-.regFormBox > form {
+.inputFieldFlexBox,
+.inputFieldFlexBox > form {
   font-size: 1rem;
   display: flex;
   flex-direction: column;
@@ -138,19 +138,12 @@
   padding: 0px;
 
   width: 100%;
-  /* height: 148px; */
-}
+  height: 148px;
 
-.pfpBox {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
-
-.pfpBox > img {
-  width: 80px;
-  height: 80px;
+  flex: none;
+  order: 1;
+  align-self: stretch;
+  flex-grow: 0;
 }
 
 /* .usernameInputField ,.passwordInputField {
@@ -159,86 +152,27 @@
 	
 } */
 
-.form {
+.formContainer {
   display: flex;
   flex-direction: column;
+  justify-content: space-evenly;
+  height: 100%;
   width: 100%;
-  margin-bottom: 1rem;
 }
 
-.regForm {
-  font-size: 0.85rem;
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  align-items: center;
-  align-items: stretch;
-}
-
-.nameFlexBox {
-  box-sizing: border-box;
-  /* padding: 0.3rem; */
-  padding: 0.3rem 0 0.3rem 0;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
-  width: 100%;
-  border: none;
-}
-
-.nameFlexBox input {
-  border: none;
-  padding: 0.3rem;
-  border-radius: 0.4rem;
-  width: 45%;
-}
-
-.usernameField {
+.formContainer > input {
   box-sizing: border-box;
   border: none;
-  width: 100%;
-  padding: 0.3rem;
+  margin-top: 0.6rem;
+  margin-bottom: 0.6rem;
+  padding: 0.2rem;
   border-radius: 0.4rem;
-}
-
-.dobSexFlexBox {
-  box-sizing: border-box;
-  padding: 0.3rem 0 0.3rem 0;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
+  height: 100%;
+  text-align: center;
   width: 100%;
 }
 
-.dobSexFlexBox input,
-select {
-  border: none;
-  padding: 0.3rem;
-  border-radius: 0.4rem;
-  width: 45%;
-}
-
-select:required:invalid {
-  color: gray;
-}
-option[value=""][disabled] {
-  display: none;
-}
-option {
-  color: black;
-}
-
-.pwdField {
-  box-sizing: border-box;
-  border: none;
-  padding: 0.3rem;
-  border-radius: 0.4rem;
-  width: 100%;
-}
-
-.signUpFlexBox {
+.signinFlexBox {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -254,7 +188,7 @@ option {
   flex-grow: 0;
 }
 
-.signUpFlexBox > p {
+.signinFlexBox > p {
   font-style: normal;
   font-weight: 300;
   font-size: 1rem;
@@ -323,9 +257,14 @@ option {
   text-align: center;
 }
 
-@media all and (max-width: 480px) {
+@media all and (max-width: 768px) {
   .fullscreenFrame {
-    background-color: #e7ecef;
+    background-color: white;
+  }
+
+  .usernameInputField,
+  .passwordInputField {
+    border: 1px;
   }
 }
 
@@ -352,7 +291,7 @@ option {
     box-shadow: 0px -62px 39px -10px rgba(0, 0, 0, 0.2);
   }
 
-  .registerBox {
+  .loginBox {
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
@@ -398,32 +337,16 @@ option {
     box-shadow: 0px -62px 39px -10px rgba(0, 0, 0, 0.2);
   }
 
-  .registerBox {
+  .loginBox {
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
     align-items: center;
-    padding: 9rem;
     width: 100%;
     flex: none;
     order: 0;
     flex-grow: 0;
   }
-
-  .regPrompt {
-    display: flex;
-    flex-direction: column;
-    padding: 0;
-    /* gap: 1rem; */
-    width: 100%;
-    height: 50%;
-    /* flex: none; */
-    /* order: 0; */
-    align-self: stretch;
-    flex-grow: 0;
-    justify-content: space-evenly;
-  }
-
   .logoImg > img {
     width: 8rem;
   }
@@ -431,9 +354,10 @@ option {
 
 @media all and (max-width: 480px) {
   .logotext {
+    font-size: medium;
     display: flex;
     position: relative;
-    width: 30%;
+    width: 50%;
     z-index: 100;
     text-align: center;
   }
@@ -449,6 +373,14 @@ option {
     width: 66%;
   }
 
+  .text1 {
+    font-size: large;
+  }
+
+  .text2 {
+    font-size: 0.9rem;
+  }
+
   .fullRight {
     width: 100%;
     border-bottom-left-radius: 0px;
@@ -456,37 +388,40 @@ option {
     box-shadow: 0px -62px 39px -10px rgba(0, 0, 0, 0.2);
   }
 
-  .registerBox {
+  .loginBox {
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
     align-items: center;
-    padding: 0rem;
     width: 100%;
     flex: none;
     order: 0;
     flex-grow: 0;
   }
 
-  .regPrompt {
-    display: flex;
-    flex-direction: column;
-    padding: 0;
-    /* gap: 1rem; */
-    width: 100%;
-    height: 50%;
-    /* flex: none; */
-    /* order: 0; */
-    align-self: stretch;
-    flex-grow: 0;
-    justify-content: space-evenly;
+  .formContainer > input {
+    font-size: 0.8rem;
   }
 
-  .text1 {
-    font-size: 0;
+  .loginPrompt {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    padding: 0px;
+    gap: 1rem;
+    width: 100%;
+    height: 50%;
+    flex: none;
+    order: 0;
+    align-self: stretch;
+    flex-grow: 0;
+  }
+
+  .signinFlexBox > text {
+    font-size: 0.9rem;
   }
 
   .logoImg > img {
-    width: 8rem;
+    width: 5rem;
   }
 }
