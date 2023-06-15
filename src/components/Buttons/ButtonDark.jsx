@@ -6,7 +6,7 @@ function ButtonDark(props) {
     <button
       style={props.style}
       className={props.size === "small" ? ButtonDarkstyle.btnSmall : ButtonDarkstyle.btn}
-      onClick={props.handleClick}
+      onClick={props.ClickFunction}
       
     >
       {props.text}

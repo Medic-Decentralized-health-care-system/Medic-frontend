@@ -4,7 +4,7 @@ import styles from "./styles.module.css";
 import ButtonDark from "../../../components/Buttons/ButtonDark";
 import { Link } from "react-router-dom";
 
-function LoginPatient() {
+function Login() {
   return (
     <>
       <p className={styles.logotext}>MEDIC.</p>
@@ -26,7 +26,7 @@ function LoginPatient() {
                     type="text"
                     placeholder="Username"
                     name="uname"
-					id="uname"
+                    id="uname"
                     required
                   />
                   <label htmlFor="psw"></label>
@@ -35,7 +35,7 @@ function LoginPatient() {
                     type="password"
                     placeholder="Password"
                     name="psw"
-					id="psw"
+                    id="psw"
                     required
                   />
                   {/* <button className={styles.btn}>Login</button> */}
@@ -75,4 +75,4 @@ function LoginPatient() {
   );
 }
 
-export default LoginPatient;
+export default Login;

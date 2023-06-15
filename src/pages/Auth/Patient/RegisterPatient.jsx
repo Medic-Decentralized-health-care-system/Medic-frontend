@@ -23,6 +23,7 @@ function RegisterPatient() {
                 <img
                   className={registerPatientStyles.pfp}
                   src={require("../../../assets/images/pfptemplate.png")}
+                  alt=""
                 />
                 <ButtonDark
                   size="small"
@@ -116,7 +117,7 @@ function RegisterPatient() {
               <p>
                 Already have an account? <Link to="/login">Log In</Link>
               </p>
-              <p>
+              <p style={{backgroundColor: "transparent"}}>
                 Sign up as doctor <Link to="/registerdoc">Sign Up</Link>
               </p>
             </div>

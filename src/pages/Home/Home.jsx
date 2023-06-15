@@ -13,10 +13,11 @@ import Footer from "../../components/Footer/Footer";
 function Home () {
 	const [onClick, setOnClick] = useState(); 
 	const navigate = useNavigate();
-	const handleClick= ()=>{
+	const handleClick= () =>{
 		navigate("/login");
 		console.log("clicked");
 	}
+
 
 
 	return(
@@ -26,9 +27,9 @@ function Home () {
 					<div className={Homestyle.navbar}>
 						<p className={Homestyle.logotext}>MEDIC.</p>
 						
-						<ButtonDark text="LOGIN" onClick={() => {navigate("/login")}} style={{fontSize: "15px", borderRadius: "20px", marginRight: "15px"}}>
+						<ButtonDark text="LOGIN" ClickFunction={handleClick} style={{fontSize: "15px", borderRadius: "20px", marginRight: "15px"}}>
 						</ButtonDark>
-						<ButtonLight children="Are you a doctor?" style={{fontSize: "15px", borderRadius: "20px", marginRight: "15px", minWidth: "max-content"}}/>
+						<ButtonLight children="Are you a doctor?" ClickFunction={handleClick} style={{fontSize: "15px", borderRadius: "20px", marginRight: "15px", minWidth: "max-content"}}/>
 					</div>
 					<Menubar/>
 				</div>
