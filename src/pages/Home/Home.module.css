@@ -39,7 +39,8 @@
 
 
 .section {
-	background-image: url('../../assets/images/bgimage.png');
+	background-image: url('../../assets/images/bg1.jpg');
+	background-size: cover;
 	border-radius: 20px;
 	display: flex;
 	width: 100%;
