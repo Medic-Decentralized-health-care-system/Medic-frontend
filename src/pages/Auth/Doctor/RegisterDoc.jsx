@@ -1,16 +1,93 @@
-import React from "react";
+import React, { useState } from "react";
 import { ReactDOM } from "react-dom";
 import { Link } from "react-router-dom";
 import ButtonDark from "../../../components/Buttons/ButtonDark";
 import registerDocStyles from "./RegisterDoc.module.css";
 import data from "./data";
-
-const handleSpecialtyChange = (event) => {
-  const selectedSpecialty = event.target.value;
-  // Handle the selected specialty
-};
+import { useSelector, useDispatch } from "react-redux";
+import { setUser } from "../../../state/auth/auth-slice";
+import Loader from "react-js-loader";
+import Swal from 'sweetalert2'
 
 function RegisterDoc() {
+  const [firstname , setFirstName] = useState("");
+  const [profilePic , setProfilePic] = useState("");
+  const [lastName , setlastName] = useState("");
+  const [username , setUserName] = useState("");
+  const [email , setEmail] = useState("");
+  const [degree , setDegree] = useState("");
+  const [specialities ,setSpecialities] = useState([]);
+  const [experience , setExperience] = useState("");
+  const [address , setAddress] = useState("");
+  const [password, setPassword] = useState("");
+  const [loading , setLoading] = useState(false);
+  const dispatch = useDispatch();
+  const state = useSelector((state) => state);
+
+  const handleProfilePictureUpload = (event) => {
+    const file = event.target.files[0];
+    setProfilePic(file);
+  };
+
+  const handleDocRegister = async () =>{
+      try{
+        setLoading(true);
+        if(!firstname || !lastName || !username || !degree || !profilePic || !specialities || !experience || !address || !password || !email){
+          return Swal.fire({
+            title: "Error!",
+              text: "Please enter each detail",
+              icon: "error",
+              confirmButtonText: "Ok",
+          })
+        }
+        const form = new FormData();
+        form.append('name' , firstname+" "+lastName);
+        form.append('username' , username);
+        form.append('image' , profilePic);
+        form.append('degree' , degree);
+        form.append('email' , email);
+        form.append('specialities' , specialities);
+        form.append('experience' , experience);
+        form.append('clinicAddress' , address);
+        form.append('password' , password);
+        form.append('longitude' , 0);
+        form.append('latitude' , 0);
+        const res = await fetch(process.env.REACT_APP_BACKEND_URL + 'auth/doctorRegister' , {
+          method:'POST',     
+          body: form,
+        })
+        const data =await res.json();
+        console.log(data)
+        if (data.message == "User has been signed in!") {
+          Swal.fire({
+            title: "Success!",
+            text:  data.message,
+            icon: "success",
+            confirmButtonText: "Ok",
+          });
+          dispatch(setUser(data.user));
+        } else {
+          Swal.fire({
+            title: "Error!",
+            text: data.message,
+            icon: "error",
+            confirmButtonText: "Ok",
+          });
+        }
+      }
+      catch(err){
+        Swal.fire({
+          title: "Error!",
+          text: err.message,
+          icon: "error",
+          confirmButtonText: "Ok",
+        });
+      }
+      finally{
+        setLoading(false);
+      }
+  }
+
   return (
     <>
       <p className={registerDocStyles.logotext}>MEDIC.</p>
@@ -25,18 +102,16 @@ function RegisterDoc() {
               <div className={registerDocStyles.pfpBox}>
                 <img
                   className={registerDocStyles.pfp}
-                  src={require("../../../assets/images/pfptemplate.png")}
+                  src={profilePic ? URL.createObjectURL(profilePic) : require("../../../assets/images/pfptemplate.png")}
                 />
-                <ButtonDark
-                  size="small"
-                  text="Upload Profile Picture"
-                  style={{
-                    borderRadius: "1.5rem",
-                    width: "100%",
-                    fontSize: "0.8rem",
-                    padding: "0.28rem",
-                  }}
-                />
+                 <input
+                id="uploadProfilePicture"
+                className={registerDocStyles.uploadProfilePic}
+                type="file"
+                accept="image/*"
+                style={{  }}
+                onChange={handleProfilePictureUpload}
+            />
               </div>
               <hr style={{ width: "100%" }}></hr>
               <form className={registerDocStyles.form} action="" method="post">
@@ -48,6 +123,9 @@ function RegisterDoc() {
                       type="text"
                       placeholder="First Name"
                       name="fname"
+                      onChange={(e)=>{
+                        setFirstName(e.target.value);
+                      }}
                       required
                     />
                     {/* <label htmlFor="lname"></label> */}
@@ -56,15 +134,34 @@ function RegisterDoc() {
                       type="text"
                       placeholder="Last Name"
                       name="lname"
+                      onChange={(e)=>{
+                        setlastName(e.target.value);
+                      }}
                     />
                   </div>
                   <label htmlFor="uname"></label>
                   <input
                     className={registerDocStyles.usernameField}
                     type="text"
+                    placeholder="Email"
+                    name="uname"
+                    id="uname"
+                    onChange={(e)=>{
+                      setEmail(e.target.value)
+                    }}
+                    required
+                  />
+
+                <label htmlFor="uname"></label>
+                  <input
+                    className={registerDocStyles.usernameField}
+                    type="text"
                     placeholder="Username"
                     name="uname"
                     id="uname"
+                    onChange={(e)=>{
+                      setUserName(e.target.value)
+                    }}
                     required
                   />
                   <div className={registerDocStyles.degSpecialtyFlexBox}>
@@ -75,6 +172,9 @@ function RegisterDoc() {
                       placeholder="Degree"
                       name="degree"
                       id="degree"
+                      onChange={(e)=>{
+                        setDegree(e.target.value);
+                      }}
                       required
                     />
                     <label
@@ -84,8 +184,10 @@ function RegisterDoc() {
                     <select
                       className={registerDocStyles.specialtyField}
                       name="specialty"
+                      onChange={(e)=>{
+                        setSpecialities(e.target.value);
+                      }}
                       id="specialty"
-                      onChange={handleSpecialtyChange}
                     >
                       {data.specialties.map((specialty, index) => (
                         <option key={index} value={specialty}>
@@ -102,6 +204,9 @@ function RegisterDoc() {
                       placeholder="Experience"
                       name="exp"
                       id="exp"
+                      onChange={(e)=>{
+                        setExperience(e.target.value)
+                      }}
                       required
                     />
                     <label
@@ -114,6 +219,9 @@ function RegisterDoc() {
                       placeholder="Clinic Address"
                       name="address"
                       id="clinicAddress"
+                      onChange={(e)=>{
+                        setAddress(e.target.value)
+                      }}
                       required
                     />
                   </div>
@@ -124,6 +232,9 @@ function RegisterDoc() {
                     placeholder="Password"
                     name="psw"
                     id="psw"
+                    onChange={(e)=>{
+                      setPassword(e.target.value)
+                    }}
                     required
                   />
                 </div>
@@ -131,12 +242,24 @@ function RegisterDoc() {
             </div>
             <div className={registerDocStyles.signUpFlexBox}>
               <ButtonDark
-                text="Sign Up"
+                text={
+                  loading ? (
+                    <Loader
+                      type="bubble-loop"
+                      bgColor={"#FFFFFF"}
+                      color={"#FFFFFF"}
+                      size={30}
+                    />
+                  ) : (
+                    "Sign Up"
+                  )
+                }
                 style={{
                   width: "75%",
                   fontSize: "0.8rem",
                   borderRadius: "1.5rem",
                 }}
+                ClickFunction = {handleDocRegister}
               ></ButtonDark>
               <p>
                 Already have an account? <Link to="/login">Log In</Link>

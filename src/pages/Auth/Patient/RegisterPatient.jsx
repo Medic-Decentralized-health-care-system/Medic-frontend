@@ -130,7 +130,6 @@ function RegisterPatient() {
               className={registerPatientStyles.uploadProfilePic}
               type="file"
               accept="image/*"
-              style={{  }}
               onChange={handleProfilePictureUpload}
             />
             {/* </label> */}
