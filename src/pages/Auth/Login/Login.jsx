@@ -45,7 +45,7 @@ function Login() {
           icon: "success",
           confirmButtonText: "Ok",
         });
-        setUser(data.user);
+        dispatch(setUser(data.user));
       } else {
         Swal.fire({
           title: "Error!",
