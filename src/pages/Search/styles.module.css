@@ -1,0 +1,28 @@
+:root {
+    --width-fullTop: 35%;
+}
+
+.fullscreenFrame {
+    box-sizing: border-box;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.logoText {
+    box-sizing: border-box;
+    position: relative;
+    top: 0px;
+    left: 0px;
+    padding: 0.5rem;
+    width: 100%;
+}
+
+.fullTop {
+    height: var(--width-fullTop);
+}
+
+.fullBottom {
+    height: calc(100% - var(--width-fullTop));
+}
