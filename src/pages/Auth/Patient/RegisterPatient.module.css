@@ -40,6 +40,7 @@
   height: 100%;
   left: 0px;
   top: 0px;
+  overflow: hidden;
 }
 
 .fullLeft {
@@ -149,23 +150,22 @@
   border-radius: 50%;
   object-fit: cover;
 }
-.uploadProfilePic{
-	background-color: black;
-    color: white;
-
+.uploadProfilePic {
+  background-color: black;
+  color: white;
 }
 
-.uploadProfilePic::file-selector-button{
-	background-color: rgb(29, 23, 88);
-	color: rgb(255, 255, 255);
-	border-radius: 100px;
+.uploadProfilePic::file-selector-button {
+  background-color: rgb(29, 23, 88);
+  color: rgb(255, 255, 255);
+  border-radius: 100px;
   outline: none;
 }
 
-.uploadProfilePic::file-selector-button:hover{
-	background-color: rgb(72, 72, 186);
-	color: rgb(255, 255, 255);
-	border-radius: 100px;
+.uploadProfilePic::file-selector-button:hover {
+  background-color: rgb(72, 72, 186);
+  color: rgb(255, 255, 255);
+  border-radius: 100px;
   outline: none;
 }
 
@@ -212,6 +212,15 @@
 
 .usernameField {
   box-sizing: border-box;
+  border: none;
+  width: 100%;
+  padding: 0.3rem;
+  border-radius: 0.4rem;
+}
+
+.emailField {
+  box-sizing: border-box;
+  margin-top:0.3rem;
   border: none;
   width: 100%;
   padding: 0.3rem;
@@ -343,6 +352,13 @@ option {
   .fullscreenFrame {
     background-color: #e7ecef;
   }
+
+  .logotext{
+    position: fixed;
+    top: 2px;
+    width: 100%;
+    text-align: center;
+  }
 }
 
 @media all and (min-width: 768px) and (max-width: 1100px) {
@@ -359,6 +375,7 @@ option {
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
+    overflow: auto;
   }
 
   .fullRight {
@@ -401,6 +418,7 @@ option {
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
+    overflow: auto;
   }
 
   .fullLeft {
@@ -419,7 +437,7 @@ option {
     flex-direction: column;
     justify-content: space-evenly;
     align-items: center;
-    padding: 9rem;
+    padding: -20rem;
     width: 100%;
     flex: none;
     order: 0;
@@ -449,9 +467,13 @@ option {
   .logotext {
     display: flex;
     position: relative;
-    width: 30%;
+    left: 0px;
+    width: 100%;
     z-index: 100;
     text-align: center;
+    align-items: center;
+    justify-content: center;
+    
   }
 
   .fullscreenFrame {
@@ -459,6 +481,7 @@ option {
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
+    overflow: auto;
   }
 
   .fullLeft {

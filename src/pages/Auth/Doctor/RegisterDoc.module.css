@@ -40,6 +40,7 @@
   height: 100%;
   left: 0px;
   top: 0px;
+  overflow: hidden;
 }
 
 .fullLeft {
@@ -99,7 +100,7 @@
 .text1 {
   font-style: normal;
   font-weight: 500;
-  font-size: 1.8rem;
+  font-size: 1.4rem;
   line-height: 100%;
   text-align: center;
   /* identical to box height, or 48px */
@@ -154,10 +155,25 @@
   border-radius: 50%;
 	object-fit: cover;
 }
-.uploadProfilePic{
-	background-color: black;
-    color: white;
-    /* opacity: 0; */
+.uploadProfilePic {
+  font-size: x-small;
+  border-radius: 100px;
+  background-color: black;
+  color: white;
+}
+
+.uploadProfilePic::file-selector-button {
+  background-color: rgb(29, 23, 88);
+  color: rgb(255, 255, 255);
+  border-radius: 100px;
+  outline: none;
+}
+
+.uploadProfilePic::file-selector-button:hover {
+  background-color: rgb(72, 72, 186);
+  color: rgb(255, 255, 255);
+  border-radius: 100px;
+  outline: none;
 }
 /* .usernameInputField ,.passwordInputField {
 	border: none;
@@ -202,6 +218,15 @@
 
 .usernameField {
   box-sizing: border-box;
+  border: none;
+  width: 100%;
+  padding: 0.3rem;
+  border-radius: 0.4rem;
+}
+
+.emailField {
+  box-sizing: border-box;
+  margin-top:0.3rem;
   border: none;
   width: 100%;
   padding: 0.3rem;
@@ -280,8 +305,8 @@ input {
 .signUpFlexBox > p {
   font-style: normal;
   font-weight: 300;
-  font-size: 1rem;
-  line-height: 100%;
+  font-size: 0.85rem;
+  height: 0px;
 
   text-align: center;
 
@@ -349,6 +374,7 @@ input {
 @media all and (max-width: 480px) {
   .fullscreenFrame {
     background-color: #e7ecef;
+    overflow: auto;
   }
 }
 
@@ -366,6 +392,7 @@ input {
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
+    overflow: auto;
   }
 
   .fullRight {
@@ -408,6 +435,7 @@ input {
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
+    overflow: auto;
   }
 
   .fullLeft {
@@ -426,7 +454,7 @@ input {
     flex-direction: column;
     justify-content: space-evenly;
     align-items: center;
-    padding: 9rem;
+    padding: -30rem;
     width: 100%;
     flex: none;
     order: 0;
@@ -455,8 +483,12 @@ input {
 @media all and (max-width: 480px) {
   .logotext {
     display: flex;
+    justify-content: center;
+    align-items: center;
     position: relative;
-    width: 30%;
+    top: 0px;
+    left: 0px;
+    width: 100%;
     z-index: 100;
     text-align: center;
   }
@@ -466,6 +498,7 @@ input {
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
+    overflow: auto;
   }
 
   .fullLeft {

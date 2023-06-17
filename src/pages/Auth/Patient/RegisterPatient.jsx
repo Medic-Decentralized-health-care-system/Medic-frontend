@@ -197,7 +197,7 @@ function RegisterPatient() {
                   />
                   <label htmlFor="email"></label>
                   <input
-                    className={registerPatientStyles.usernameField}
+                    className={registerPatientStyles.emailField}
                     type="text"
                     placeholder="Email"
                     name="uname"

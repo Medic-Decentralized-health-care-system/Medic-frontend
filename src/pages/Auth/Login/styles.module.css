@@ -354,10 +354,12 @@
 
 @media all and (max-width: 480px) {
   .logotext {
-    font-size: medium;
     display: flex;
     position: relative;
-    width: 50%;
+    left: 0px;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
     z-index: 100;
     text-align: center;
   }

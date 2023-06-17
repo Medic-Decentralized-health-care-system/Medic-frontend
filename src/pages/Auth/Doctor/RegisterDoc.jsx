@@ -140,17 +140,6 @@ function RegisterDoc() {
                     />
                   </div>
                   <label htmlFor="uname"></label>
-                  <input
-                    className={registerDocStyles.usernameField}
-                    type="text"
-                    placeholder="Email"
-                    name="uname"
-                    id="uname"
-                    onChange={(e)=>{
-                      setEmail(e.target.value)
-                    }}
-                    required
-                  />
 
                 <label htmlFor="uname"></label>
                   <input
@@ -164,6 +153,17 @@ function RegisterDoc() {
                     }}
                     required
                   />
+                    <input
+                      className={registerDocStyles.emailField}
+                      type="text"
+                      placeholder="Email"
+                      name="uname"
+                      id="uname"
+                      onChange={(e)=>{
+                        setEmail(e.target.value)
+                      }}
+                      required
+                    />
                   <div className={registerDocStyles.degSpecialtyFlexBox}>
                     <label htmlFor="degree" style={{ display: "none" }}></label>
                     <input
