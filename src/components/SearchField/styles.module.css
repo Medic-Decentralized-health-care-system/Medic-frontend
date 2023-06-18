@@ -1,19 +1,18 @@
 .container {
   box-sizing: border-box;
-
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: stretch;
-  font-size: 200px;
+  justify-content: center;
+  width: 80%;
 }
 
 .sel1 {
   font-family: "Outfit", sans-serif;
   padding: 10px;
   box-sizing: border-box;
-  font-size: 25px;
-  border: 1px solid black;
+  font-size: 20px;
+  border: 1px solid white;
   border-bottom-left-radius: 50px;
   border-top-left-radius: 50px;
   margin-right: 1px;
@@ -24,14 +23,15 @@
   font-family: "Outfit", sans-serif;
   padding: 10px;
   box-sizing: border-box;
-  font-size: 25px;
-  border: 1px solid black;
+  font-size: 20px;
+  border: 1px solid white;
   border-top-right-radius: 50px;
   border-bottom-right-radius: 50px;
   margin-left: 1px;
   overflow: auto;
 }
 
-.sel1 option {
-  font-size: 23px;
+.sel1 option,
+.sel2 option {
+  font-size: 14px;
 }

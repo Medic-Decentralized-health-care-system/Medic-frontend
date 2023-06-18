@@ -1,14 +1,16 @@
 import React from "react";
 import ButtonDarkstyle from "./ButtonDark.module.css";
 
-function ButtonDark(props) {
+function ButtonDark({ style, size, ClickFunction, text }) {
   return (
     <button
-      style={props.style}
-      className={props.size === "small" ? ButtonDarkstyle.btnSmall : ButtonDarkstyle.btn}
-      onClick={props.ClickFunction}
+      style={style}
+      className={
+        size === "small" ? ButtonDarkstyle.btnSmall : ButtonDarkstyle.btn
+      }
+      onClick={ClickFunction}
     >
-      {props.text}
+      {text}
     </button>
   );
 }

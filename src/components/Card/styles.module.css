@@ -9,8 +9,8 @@
   flex-direction: column;
   justify-content: space-around;
   align-items: center;
-  padding: 1.5rem;
-  margin: 10px;
+  padding: 1rem;
+  margin: 8px;
   background: linear-gradient(
       135deg,
       rgba(5, 25, 35, 0.5) 0%,
@@ -24,16 +24,16 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center;
+  align-items: stretch;
 }
 
 .nameBox {
   border-radius: 0.625rem;
   display: flex;
   flex-direction: row;
-  justify-content: flex-start;
-  align-items: flex-start;
-  padding: 0.5rem;
+  justify-content: center;
+  align-items: center;
+  padding: 0.01rem;
   background: linear-gradient(
     135deg,
     rgba(5, 25, 35, 0.6) 0%,
@@ -48,16 +48,16 @@
   vertical-align: top;
   font-size: 16px;
   font-family: Poppins;
-  line-height: 100%;
-  color: rgba(255, 255, 255, 0.800000011920929);
+
+  color: rgba(255, 255, 255, 0.8);
 }
 .infoBox {
   min-width: max-content;
   display: flex;
   flex-direction: row;
   justify-content: center;
-  align-items: flex-start;
-  justify-content: space-around;
+  align-items: center;
+  justify-content: space-between;
 }
 
 .text3 {
@@ -65,9 +65,9 @@
   vertical-align: top;
   font-size: 12px;
   font-family: Poppins;
-  line-height: 100%;
+
   padding: 0px 10px 0px 10px;
-  color: rgba(255, 255, 255, 0.800000011920929);
+  color: rgba(255, 255, 255, 0.8);
 }
 .text4 {
   text-align: left;
@@ -76,7 +76,7 @@
   font-family: Poppins;
   line-height: 100%;
   padding: 0px 10px 0px 10px;
-  color: rgba(255, 255, 255, 0.800000011920929);
+  color: rgba(255, 255, 255, 0.8);
   border-left: 1px solid black;
   border-right: 1px solid black;
 }
@@ -87,7 +87,7 @@
   padding: 0px 10px 0px 10px;
   font-family: Poppins;
   line-height: 100%;
-  color: rgba(255, 255, 255, 0.800000011920929);
+  color: rgba(255, 255, 255, 0.8);
 }
 .buttonDark {
   border-radius: 0.625rem;

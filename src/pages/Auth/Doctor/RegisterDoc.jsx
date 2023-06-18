@@ -3,24 +3,24 @@ import { ReactDOM } from "react-dom";
 import { Link } from "react-router-dom";
 import ButtonDark from "../../../components/Buttons/ButtonDark";
 import registerDocStyles from "./RegisterDoc.module.css";
-import data from "./data";
+import specialtiesList from "../../../assets/Data/specialtiesList";
 import { useSelector, useDispatch } from "react-redux";
 import { setUser } from "../../../state/auth/auth-slice";
 import Loader from "react-js-loader";
-import Swal from 'sweetalert2'
+import Swal from "sweetalert2";
 
 function RegisterDoc() {
-  const [firstname , setFirstName] = useState("");
-  const [profilePic , setProfilePic] = useState("");
-  const [lastName , setlastName] = useState("");
-  const [username , setUserName] = useState("");
-  const [email , setEmail] = useState("");
-  const [degree , setDegree] = useState("");
-  const [specialities ,setSpecialities] = useState([]);
-  const [experience , setExperience] = useState("");
-  const [address , setAddress] = useState("");
+  const [firstname, setFirstName] = useState("");
+  const [profilePic, setProfilePic] = useState("");
+  const [lastName, setlastName] = useState("");
+  const [username, setUserName] = useState("");
+  const [email, setEmail] = useState("");
+  const [degree, setDegree] = useState("");
+  const [specialities, setSpecialities] = useState([]);
+  const [experience, setExperience] = useState("");
+  const [address, setAddress] = useState("");
   const [password, setPassword] = useState("");
-  const [loading , setLoading] = useState(false);
+  const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
   const state = useSelector((state) => state);
 
@@ -29,64 +29,76 @@ function RegisterDoc() {
     setProfilePic(file);
   };
 
-  const handleDocRegister = async () =>{
-      try{
-        setLoading(true);
-        if(!firstname || !lastName || !username || !degree || !profilePic || !specialities || !experience || !address || !password || !email){
-          return Swal.fire({
-            title: "Error!",
-              text: "Please enter each detail",
-              icon: "error",
-              confirmButtonText: "Ok",
-          })
-        }
-        const form = new FormData();
-        form.append('name' , firstname+" "+lastName);
-        form.append('username' , username);
-        form.append('image' , profilePic);
-        form.append('degree' , degree);
-        form.append('email' , email);
-        form.append('specialities' , specialities);
-        form.append('experience' , experience);
-        form.append('clinicAddress' , address);
-        form.append('password' , password);
-        form.append('longitude' , 0);
-        form.append('latitude' , 0);
-        const res = await fetch(process.env.REACT_APP_BACKEND_URL + 'auth/doctorRegister' , {
-          method:'POST',     
-          body: form,
-        })
-        const data =await res.json();
-        console.log(data)
-        if (data.message == "User has been signed in!") {
-          Swal.fire({
-            title: "Success!",
-            text:  data.message,
-            icon: "success",
-            confirmButtonText: "Ok",
-          });
-          dispatch(setUser(data.user));
-        } else {
-          Swal.fire({
-            title: "Error!",
-            text: data.message,
-            icon: "error",
-            confirmButtonText: "Ok",
-          });
-        }
-      }
-      catch(err){
-        Swal.fire({
+  const handleDocRegister = async () => {
+    try {
+      setLoading(true);
+      if (
+        !firstname ||
+        !lastName ||
+        !username ||
+        !degree ||
+        !profilePic ||
+        !specialities ||
+        !experience ||
+        !address ||
+        !password ||
+        !email
+      ) {
+        return Swal.fire({
           title: "Error!",
-          text: err.message,
+          text: "Please enter each detail",
           icon: "error",
           confirmButtonText: "Ok",
         });
       }
-      finally{
-        setLoading(false);
+      const form = new FormData();
+      form.append("name", firstname + " " + lastName);
+      form.append("username", username);
+      form.append("image", profilePic);
+      form.append("degree", degree);
+      form.append("email", email);
+      form.append("specialities", specialities);
+      form.append("experience", experience);
+      form.append("clinicAddress", address);
+      form.append("password", password);
+      form.append("longitude", 0);
+      form.append("latitude", 0);
+      const res = await fetch(
+        process.env.REACT_APP_BACKEND_URL + "auth/doctorRegister",
+        {
+          method: "POST",
+          body: form,
+        }
+      );
+      const data = await res.json();
+      console.log(data);
+      if (data.message == "User has been signed in!") {
+        Swal.fire({
+          title: "Success!",
+          text: data.message,
+          icon: "success",
+          confirmButtonText: "Ok",
+        });
+        dispatch(setUser(data.user));
+      } else {
+        Swal.fire({
+          title: "Error!",
+          text: data.message,
+          icon: "error",
+          confirmButtonText: "Ok",
+        });
       }
-  }
+    } catch (err) {
+      Swal.fire({
+        title: "Error!",
+        text: err.message,
+        icon: "error",
+        confirmButtonText: "Ok",
+      });
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <>
@@ -102,16 +114,20 @@ function RegisterDoc() {
               <div className={registerDocStyles.pfpBox}>
                 <img
                   className={registerDocStyles.pfp}
-                  src={profilePic ? URL.createObjectURL(profilePic) : require("../../../assets/images/pfptemplate.png")}
+                  src={
+                    profilePic
+                      ? URL.createObjectURL(profilePic)
+                      : require("../../../assets/images/pfptemplate.png")
+                  }
                 />
-                 <input
-                id="uploadProfilePicture"
-                className={registerDocStyles.uploadProfilePic}
-                type="file"
-                accept="image/*"
-                style={{  }}
-                onChange={handleProfilePictureUpload}
-            />
+                <input
+                  id="uploadProfilePicture"
+                  className={registerDocStyles.uploadProfilePic}
+                  type="file"
+                  accept="image/*"
+                  style={{}}
+                  onChange={handleProfilePictureUpload}
+                />
               </div>
               <hr style={{ width: "100%" }}></hr>
               <form className={registerDocStyles.form} action="" method="post">
@@ -123,7 +139,7 @@ function RegisterDoc() {
                       type="text"
                       placeholder="First Name"
                       name="fname"
-                      onChange={(e)=>{
+                      onChange={(e) => {
                         setFirstName(e.target.value);
                       }}
                       required
@@ -134,36 +150,36 @@ function RegisterDoc() {
                       type="text"
                       placeholder="Last Name"
                       name="lname"
-                      onChange={(e)=>{
+                      onChange={(e) => {
                         setlastName(e.target.value);
                       }}
                     />
                   </div>
                   <label htmlFor="uname"></label>
 
-                <label htmlFor="uname"></label>
+                  <label htmlFor="uname"></label>
                   <input
                     className={registerDocStyles.usernameField}
                     type="text"
                     placeholder="Username"
                     name="uname"
                     id="uname"
-                    onChange={(e)=>{
-                      setUserName(e.target.value)
+                    onChange={(e) => {
+                      setUserName(e.target.value);
                     }}
                     required
                   />
-                    <input
-                      className={registerDocStyles.emailField}
-                      type="text"
-                      placeholder="Email"
-                      name="uname"
-                      id="uname"
-                      onChange={(e)=>{
-                        setEmail(e.target.value)
-                      }}
-                      required
-                    />
+                  <input
+                    className={registerDocStyles.emailField}
+                    type="text"
+                    placeholder="Email"
+                    name="uname"
+                    id="uname"
+                    onChange={(e) => {
+                      setEmail(e.target.value);
+                    }}
+                    required
+                  />
                   <div className={registerDocStyles.degSpecialtyFlexBox}>
                     <label htmlFor="degree" style={{ display: "none" }}></label>
                     <input
@@ -172,7 +188,7 @@ function RegisterDoc() {
                       placeholder="Degree"
                       name="degree"
                       id="degree"
-                      onChange={(e)=>{
+                      onChange={(e) => {
                         setDegree(e.target.value);
                       }}
                       required
@@ -184,12 +200,12 @@ function RegisterDoc() {
                     <select
                       className={registerDocStyles.specialtyField}
                       name="specialty"
-                      onChange={(e)=>{
+                      onChange={(e) => {
                         setSpecialities(e.target.value);
                       }}
                       id="specialty"
                     >
-                      {data.specialties.map((specialty, index) => (
+                      {specialtiesList.specialties.map((specialty, index) => (
                         <option key={index} value={specialty}>
                           {specialty}
                         </option>
@@ -204,8 +220,8 @@ function RegisterDoc() {
                       placeholder="Experience"
                       name="exp"
                       id="exp"
-                      onChange={(e)=>{
-                        setExperience(e.target.value)
+                      onChange={(e) => {
+                        setExperience(e.target.value);
                       }}
                       required
                     />
@@ -219,8 +235,8 @@ function RegisterDoc() {
                       placeholder="Clinic Address"
                       name="address"
                       id="clinicAddress"
-                      onChange={(e)=>{
-                        setAddress(e.target.value)
+                      onChange={(e) => {
+                        setAddress(e.target.value);
                       }}
                       required
                     />
@@ -232,8 +248,8 @@ function RegisterDoc() {
                     placeholder="Password"
                     name="psw"
                     id="psw"
-                    onChange={(e)=>{
-                      setPassword(e.target.value)
+                    onChange={(e) => {
+                      setPassword(e.target.value);
                     }}
                     required
                   />
@@ -259,7 +275,7 @@ function RegisterDoc() {
                   fontSize: "0.8rem",
                   borderRadius: "1.5rem",
                 }}
-                ClickFunction = {handleDocRegister}
+                ClickFunction={handleDocRegister}
               ></ButtonDark>
               <p>
                 Already have an account? <Link to="/login">Log In</Link>
