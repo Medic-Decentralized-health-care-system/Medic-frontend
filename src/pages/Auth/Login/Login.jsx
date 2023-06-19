@@ -4,44 +4,47 @@ import styles from "./styles.module.css";
 import ButtonDark from "../../../components/Buttons/ButtonDark";
 import { Link } from "react-router-dom";
 import Loader from "react-js-loader";
-import Swal from 'sweetalert2';
+import Swal from "sweetalert2";
 import { useSelector, useDispatch } from "react-redux";
-import { setUser} from "../../../state/auth/auth-slice"
+import { setUser } from "../../../state/auth/auth-slice";
 
 function Login() {
-  const [username , setUsername ] = useState("");
-  const [password , setPassword] = useState("");
-  const [loading , setLoading] = useState(false);
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
   const state = useSelector((state) => state);
 
-  const handleLogin = async () =>{
-    console.log(username , password)
-    if(!username || !password){
-     return Swal.fire({
+  const handleLogin = async () => {
+    console.log(username, password);
+    if (!username || !password) {
+      return Swal.fire({
         title: "Error!",
-          text: "Please enter each detail",
-          icon: "error",
-          confirmButtonText: "Ok",
-      })
+        text: "Please enter each detail",
+        icon: "error",
+        confirmButtonText: "Ok",
+      });
     }
-    try{
+    try {
       setLoading(true);
-      const res = await fetch(process.env.REACT_APP_BACKEND_URL + 'auth/login',{
-        method:'POST',
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body:JSON.stringify({
-          username,
-          password
-        })
-      })
+      const res = await fetch(
+        process.env.REACT_APP_BACKEND_URL + "auth/login",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            username,
+            password,
+          }),
+        }
+      );
       const data = await res.json();
       if (data.status == "success") {
         Swal.fire({
           title: "Success!",
-          text:  data.message,
+          text: data.message,
           icon: "success",
           confirmButtonText: "Ok",
         });
@@ -54,19 +57,17 @@ function Login() {
           confirmButtonText: "Ok",
         });
       }
-    }
-    catch(err){
+    } catch (err) {
       Swal.fire({
         title: "Error!",
         text: err.message,
         icon: "error",
         confirmButtonText: "Ok",
       });
-    }
-    finally{
+    } finally {
       setLoading(false);
     }
-  }
+  };
   return (
     <>
       <p className={styles.logotext}>MEDIC.</p>
@@ -90,8 +91,8 @@ function Login() {
                     name="uname"
                     id="uname"
                     required
-                    onChange={(e)=>{
-                      setUsername(e.target.value)
+                    onChange={(e) => {
+                      setUsername(e.target.value);
                     }}
                   />
                   <label htmlFor="psw"></label>
@@ -102,27 +103,31 @@ function Login() {
                     name="psw"
                     id="psw"
                     required
-                    onChange={(e)=>{
+                    onChange={(e) => {
                       setPassword(e.target.value);
                     }}
                   />
-                  {/* <button className={styles.btn}>Login</button> */}
+                  
                 </div>
               </form>
             </div>
             <div className={styles.signinFlexBox}>
-              <ButtonDark text={
-                loading ? (
-                  <Loader
-                    type="bubble-loop"
-                    bgColor={"#FFFFFF"}
-                    color={"#FFFFFF"}
-                    size={30}
-                  />
-                ) : (
-                  "Log In"
-                )
-              } style={{ width: "100%" }} ClickFunction={handleLogin}></ButtonDark>
+              <ButtonDark
+                text={
+                  loading ? (
+                    <Loader
+                      type="bubble-loop"
+                      bgColor={"#FFFFFF"}
+                      color={"#FFFFFF"}
+                      size={30}
+                    />
+                  ) : (
+                    "Log In"
+                  )
+                }
+                style={{ width: "100%" }}
+                ClickFunction={handleLogin}
+              ></ButtonDark>
               <p>
                 New User? <Link to="/registerpatient">Sign Up</Link>
               </p>

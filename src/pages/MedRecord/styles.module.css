@@ -1,4 +1,14 @@
-.container {
+* {
+  box-sizing: border-box;
+}
+input {
+  padding: 15px;
+  margin: 5px;
+  border-radius: 50px;
+  font-size: 0.7rem;
+}
+
+.fullscreenFrame {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -6,6 +16,15 @@
   height: 100vh;
   background-image: url("../../assets/images/bg1.jpg");
   background-size: cover;
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: stretch;
+  flex-direction: column;
+  height: 100vh;
+  width: 75%;
 }
 
 .headingBox {
@@ -16,6 +35,7 @@
 }
 
 .header {
+  width: 70%;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -29,4 +49,86 @@
   border: 1px solid rgba(255, 255, 255, 0.6);
   box-shadow: 0px 10px 40px rgba(0, 0, 0, 0.15);
   border-radius: 10px;
+  margin-bottom: 10px;
+}
+
+.recordBox {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(
+    113.96deg,
+    rgba(255, 255, 255, 0.8) 0%,
+    rgba(255, 255, 255, 0.4) 100%
+  );
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  box-shadow: 0px 10px 40px rgba(0, 0, 0, 0.15);
+
+  border-radius: 10px;
+}
+
+.recordContainer {
+  width: 100%;
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.prescriptionBox,
+.commonDetailBox,
+.drugBox,
+.instructionBox {
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+  justify-content: space-around;
+  width: 100%;
+}
+
+.commonDetailBox {
+  justify-content: space-evenly;
+  padding: 10px;
+}
+
+#diagnosis {
+  flex: 2.5;
+}
+
+#bp {
+  flex: 1;
+}
+
+#pulse {
+  flex: 1;
+}
+
+.drugBox {
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+  border: 1px solid blue;
+  border-radius: 20px;
+}
+
+.drugHeader {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.drugH1,
+.drugH2,
+.drugH3 {
+  font-size: 0.7rem;
+  color: white;
+  padding: 0px 10px 0px 10px;
+
+  height: fit-content;
+  background-color: black;
+  border-radius: 50px;
 }

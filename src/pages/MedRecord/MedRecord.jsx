@@ -1,11 +1,12 @@
 import React from "react";
 import styles from "./styles.module.css";
 import WhiteButton from "../../components/Buttons/WhiteButton";
-import ButtonDark from '../../components/Buttons/ButtonDark';
+import ButtonDark from "../../components/Buttons/ButtonDark";
 
 function MedRecord() {
   return (
-    <>
+    <div className={styles.fullscreenFrame}>
+      <script defer src="./index.js"></script>
       <div className={styles.container}>
         <div className={styles.headingBox}>
           <WhiteButton
@@ -47,13 +48,36 @@ function MedRecord() {
         <div className={styles.recordBox}>
           <div className={styles.recordContainer}>
             <div className={styles.prescriptionBox}>
-              <input name="Prescription title" type="text" />
-              <input name="Prescription date" type="datetime-local" />
+              <input
+                placeholder="Prescription title"
+                name="Prescription title"
+                type="text"
+              />
+              <input
+                placeholder="Prescription date"
+                name="Prescription date"
+                type="datetime-local"
+              />
             </div>
             <div className={styles.commonDetailBox}>
-              <input name="Diagnosed with" type="text" />
-              <input name="Blood Pressure" type="text" />
-              <input name="Pulse Rate" type="number" />
+              <input
+                id={styles.diagnosis}
+                placeholder="Diagnosed with"
+                name="Diagnosed with"
+                type="text"
+              />
+              <input
+                id={styles.bp}
+                placeholder="Blood Pressure"
+                name="Blood Pressure"
+                type="text"
+              />
+              <input
+                id={styles.pulse}
+                placeholder="Pulse Rate"
+                name="Pulse Rate"
+                type="number"
+              />
             </div>
             <div className={styles.drugBox}>
               <div className={styles.drugHeader}>
@@ -67,24 +91,30 @@ function MedRecord() {
                   <h4>Dosage (per day)</h4>
                 </div>
               </div>
-              {/* <DrugItem /> */}
+              <div className={`${styles.drugItemList} drugItemList`}>
+                {/* DrugItems */}
+              </div>
               <div className={styles.addDrugItem}>
                 <img
                   src={require("../../assets/images/addIcon.png")}
                   alt="add"
-                  style={{height: "24px"}}
+                  style={{ height: "24px", filter: "invert(100%)" }}
                   isDraggable="false"
                 />
               </div>
             </div>
             <div className={styles.instructionBox}>
-                <input name="Things to follow" type="text"/>
+              <input
+                placeholder="Remarks / Things to follow (if any)"
+                name="Things to follow"
+                type="text"
+              />
             </div>
-            <ButtonDark text="Save"/>
+            <ButtonDark text="Save" />
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 }
 
