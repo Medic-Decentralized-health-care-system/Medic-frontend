@@ -1,10 +1,15 @@
-import React from "react";
+import React, { useState } from "react";
 import styles from "./styles.module.css";
 import WhiteButton from "../../components/Buttons/WhiteButton";
 import ButtonDark from "../../components/Buttons/ButtonDark";
 import DrugItem from "../../components/DrugItem/DrugItem";
 
 function MedRecord() {
+  const [drugItems, setDrugItems] = useState([]);
+
+  const handleAddItem = () => {
+    setDrugItems([...drugItems, {}]);
+  };
   return (
     <div className={styles.fullscreenFrame}>
       <script defer src="./index.js"></script>
@@ -94,14 +99,34 @@ function MedRecord() {
               </div>
               <div className={`${styles.drugItemList} drugItemList`}>
                 {/* DrugItems */}
+                {drugItems.map((item, index) => (
+              <div key={index} className={styles.drugItem}>
+                <input
+                  placeholder="Drug name"
+                  name={`drugName_${index}`}
+                  type="text"
+                />
+                <input
+                  placeholder="Units"
+                  name={`units_${index}`}
+                  type="text"
+                />
+                <input
+                  placeholder="Dosage (per day)"
+                  name={`dosage_${index}`}
+                  type="text"
+                />
+              </div>
+            ))}
               </div>
               <div className={styles.addDrugItem}>
-                <img
-                  src={require("../../assets/images/addIcon.png")}
-                  alt="add"
-                  style={{ height: "24px", filter: "invert(100%)" }}
-                  isDraggable="false"
-                />
+              <img
+              src={require("../../assets/images/addIcon.png")}
+              alt="add"
+              style={{ height: "24px", filter: "invert(100%)" }}
+              onClick={handleAddItem}
+              draggable={false}
+            />
               </div>
             </div>
             <div className={styles.instructionBox}>
