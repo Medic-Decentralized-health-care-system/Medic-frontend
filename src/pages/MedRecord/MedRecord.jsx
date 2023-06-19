@@ -2,6 +2,7 @@ import React from "react";
 import styles from "./styles.module.css";
 import WhiteButton from "../../components/Buttons/WhiteButton";
 import ButtonDark from "../../components/Buttons/ButtonDark";
+import DrugItem from "../../components/DrugItem/DrugItem";
 
 function MedRecord() {
   return (

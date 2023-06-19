@@ -111,7 +111,7 @@ input {
   justify-content: center;
   padding: 10px;
   border: 1px solid blue;
-  border-radius: 20px;
+  border-radius: 10px;
 }
 
 .drugHeader {
@@ -129,6 +129,6 @@ input {
   padding: 0px 10px 0px 10px;
 
   height: fit-content;
-  background-color: black;
+  background: rgba(5, 25, 35, 0.8);
   border-radius: 50px;
 }
