@@ -7,6 +7,7 @@ import SearchField from "../../components/SearchField/SearchField";
 import ButtonDark from "../../components/Buttons/ButtonDark";
 import data from "../../assets/Data/specialtiesList";
 import Swal from "sweetalert2";
+import Loader from "react-js-loader";
 const locationList = ["Gwalior", "Nasik", "Delhi", "Punjab"];
 
 const specialtyList = data.specialties;
@@ -16,9 +17,9 @@ const specialtyList = data.specialties;
 export default function Search() {
   const [value, setValue] = useState(50);
   const [show, setShow] = useState(false);
-  const [speciality , setSpeciality] = useState("");
   const [doctors , setDoctors] = useState("");
   const [selectedSpecialty, setSelectedSpecialty] = useState("");
+  const [loading , setLoading] = useState(false);
 
   const handleSpecialtyChange = (event) => {
     console.log(event.target.value);
@@ -32,6 +33,7 @@ export default function Search() {
 
   const handleClickSearch =async () => {
     try{
+      setLoading(true);
       const res = await fetch(process.env.REACT_APP_BACKEND_URL + "doctors/doctors-within/800/center/0,0/unit/km/"+selectedSpecialty, {
         method: "POST",
         headers: {
@@ -50,7 +52,9 @@ export default function Search() {
         title: 'Oops...',
         text: err.message,
       })
-
+    }
+    finally{
+      setLoading(false);
     }
   
   };
@@ -91,24 +95,34 @@ export default function Search() {
             </div>
           </div>
           <div className={styles.fullBottom}>
-            {!show && <div className={styles.banner}>
+            {
+              loading ? <Loader
+              type="bubble-loop"
+              bgColor={"#FFFFFF"}
+              color={"#FFFFFF"}
+              size={30}
+            /> :
+
+              (!show && <div className={styles.banner}>
               <div className={styles.logoImg}>
-                <img
-                  src={require("../../assets/images/Mediclogokinda.png")}
-                  alt="mediclogo"
+              <img
+              src={require("../../assets/images/Mediclogokinda.png")}
+              alt="mediclogo"
                 />
               </div>
               <hr
-                style={{
-                  textAlign: "center",
-                  width: "2%",
-                  border: "solid 1px black",
-                }}
+              style={{
+                textAlign: "center",
+                width: "2%",
+                border: "solid 1px black",
+              }}
               ></hr>
               <p style={{ textAlign: "center", color: "white" }}>
-                Medic keeps all your records secure in our decentralized vault.
+              Medic keeps all your records secure in our decentralized vault.
               </p>
-            </div>}
+              </div>
+              )
+          }
             {show && (
               <div className={styles.contCardList}>
                 <CardList doctors={doctors}/>
