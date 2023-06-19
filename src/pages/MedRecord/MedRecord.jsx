@@ -82,7 +82,7 @@ function MedRecord() {
                 id={styles.pulse}
                 placeholder="Pulse Rate"
                 name="Pulse Rate"
-                type="number"
+                type="text"
               />
             </div>
             <div className={styles.drugBox}>
@@ -91,7 +91,7 @@ function MedRecord() {
                   <h4>Prescribed Drugs</h4>
                 </div>
                 <div className={styles.drugH2}>
-                  <h4>Units(tablet or syrup)</h4>
+                  <h4>Units (tablet or syrup)</h4>
                 </div>
                 <div className={styles.drugH3}>
                   <h4>Dosage (per day)</h4>
@@ -100,33 +100,33 @@ function MedRecord() {
               <div className={`${styles.drugItemList} drugItemList`}>
                 {/* DrugItems */}
                 {drugItems.map((item, index) => (
-              <div key={index} className={styles.drugItem}>
-                <input
-                  placeholder="Drug name"
-                  name={`drugName_${index}`}
-                  type="text"
-                />
-                <input
-                  placeholder="Units"
-                  name={`units_${index}`}
-                  type="text"
-                />
-                <input
-                  placeholder="Dosage (per day)"
-                  name={`dosage_${index}`}
-                  type="text"
-                />
-              </div>
-            ))}
+                  <div key={index} className={styles.drugItem}>
+                    <input
+                      placeholder={`Drug ${index + 1}`}
+                      name={`drugName_${index}`}
+                      type="text"
+                    />
+                    <input
+                      placeholder={`Units`}
+                      name={`units_${index}`}
+                      type="text"
+                    />
+                    <input
+                      placeholder="Dosage (per day)"
+                      name={`dosage_${index}`}
+                      type="text"
+                    />
+                  </div>
+                ))}
               </div>
               <div className={styles.addDrugItem}>
-              <img
-              src={require("../../assets/images/addIcon.png")}
-              alt="add"
-              style={{ height: "24px", filter: "invert(100%)" }}
-              onClick={handleAddItem}
-              draggable={false}
-            />
+                <img
+                  src={require("../../assets/images/addIcon.png")}
+                  alt="add"
+                  style={{ height: "24px", filter: "invert(100%)" }}
+                  onClick={handleAddItem}
+                  draggable={false}
+                />
               </div>
             </div>
             <div className={styles.instructionBox}>
@@ -136,7 +136,10 @@ function MedRecord() {
                 type="text"
               />
             </div>
-            <ButtonDark text="Save" />
+            <ButtonDark
+              text="Save"
+              style={{ borderRadius: "20px", width: "50%" }}
+            />
           </div>
         </div>
       </div>
