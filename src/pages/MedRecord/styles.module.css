@@ -129,6 +129,8 @@ input {
   height: 15rem;
   -ms-overflow-style: none;
   scrollbar-width: none;
+  scroll-behavior: smooth;
+  scroll-snap-type: mandatory;
 }
 
 .drugBox::-webkit-scrollbar {

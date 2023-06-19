@@ -31,8 +31,7 @@ select:invalid { color: gray; }
   box-sizing: border-box;
   font-size: 20px;
   border: 1px solid white;
-  border-top-right-radius: 50px;
-  border-bottom-right-radius: 50px;
+  border-radius: 50px;
   margin-left: 1px;
   overflow: auto;
 }
@@ -41,4 +40,6 @@ select:invalid { color: gray; }
 .sel2 option {
   font-size: 14px;
 }
+
+
 
