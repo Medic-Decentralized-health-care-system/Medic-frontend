@@ -1,7 +1,7 @@
 import React from "react";
 import ButtonDarkstyle from "./ButtonDark.module.css";
 
-function ButtonDark({ style, size, ClickFunction, text }) {
+function ButtonDark({ style, size, ClickFunction, text}) {
   return (
     <button
       style={style}

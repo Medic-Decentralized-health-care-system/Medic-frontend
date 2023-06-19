@@ -1,7 +1,7 @@
 ## Current Status:
-- [x] Login Page completed without using a lot of components (almost pure JSX i.e. returning the pure html)
-- [ ]  Start working on registration page
 
+- [ ] TODO: Create an input field component
+- [ ] TODO: Style the MedRecord webpage completely
 
 # Getting Started with Create React App
 

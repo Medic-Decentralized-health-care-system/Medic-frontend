@@ -10,6 +10,7 @@ import LoginAdmin from "./pages/Auth/Admin/LoginAdmin";
 import RegisterAdmin from "./pages/Auth/Admin/RegisterAdmin";
 import Login from "./pages/Auth/Login/Login";
 import Search from "./pages/Search/Search";
+import MedRecord from "./pages/MedRecord/MedRecord";
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
         <Route path="/loginadmin" element={<LoginAdmin />} />
         <Route path="/registeradmin" element={<RegisterAdmin />} />
         <Route path="/search" element={<Search />} />
+        <Route path="/view/medicalrecord" element={<MedRecord/>}/>
       </Routes>
     </BrowserRouter>
   );
