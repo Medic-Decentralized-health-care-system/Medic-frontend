@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { ReactDOM } from "react-dom";
 import styles from "./styles.module.css";
 import ButtonDark from "../../../components/Buttons/ButtonDark";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Loader from "react-js-loader";
 import Swal from "sweetalert2";
 import { useSelector, useDispatch } from "react-redux";
@@ -14,6 +14,7 @@ function Login() {
   const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
   const state = useSelector((state) => state);
+  const Navigate = useNavigate();
 
   const handleLogin = async () => {
     console.log(username, password);
@@ -49,6 +50,7 @@ function Login() {
           confirmButtonText: "Ok",
         });
         dispatch(setUser(data.user));
+        Navigate('/search')
       } else {
         Swal.fire({
           title: "Error!",
