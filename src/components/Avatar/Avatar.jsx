@@ -1,10 +1,10 @@
 import React from "react";
 import styles from "./styles.module.css";
 
-export default function Avatar({ imgURL, style }) {
+export default function Avatar({ imgURL, style, imgStyle }) {
   return (
     <div className={styles.container}>
-      <img src={imgURL} alt="avatar" />
+      <img style={imgStyle} src={imgURL} alt="avatar" />
     </div>
   );
 }

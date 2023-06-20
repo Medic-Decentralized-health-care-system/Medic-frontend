@@ -11,6 +11,7 @@ import RegisterAdmin from "./pages/Auth/Admin/RegisterAdmin";
 import Login from "./pages/Auth/Login/Login";
 import Search from "./pages/Search/Search";
 import MedRecord from "./pages/MedRecord/MedRecord";
+import UserDash from "./pages/Dashboard/User/UserDash";
 
 function App() {
   return (
@@ -24,7 +25,9 @@ function App() {
         <Route path="/loginadmin" element={<LoginAdmin />} />
         <Route path="/registeradmin" element={<RegisterAdmin />} />
         <Route path="/search" element={<Search />} />
-        <Route path="/view/medicalrecord" element={<MedRecord/>}/>
+        <Route path="/dashboard/user" element={<UserDash />} />
+
+        <Route path="/view/medicalrecord" element={<MedRecord />} />
       </Routes>
     </BrowserRouter>
   );
