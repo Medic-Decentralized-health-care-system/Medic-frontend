@@ -6,7 +6,9 @@ import { Dropdown } from "rsuite";
 import { Link } from "react-router-dom";
 import ButtonDark from "../../../components/Buttons/ButtonDark";
 import ButtonHollow from "../../../components/Buttons/ButtonHollow";
-
+import { IconButton } from "rsuite";
+import InfoOutlineIcon from "@rsuite/icons/InfoOutline";
+import Info from "../../../components/Info/Info";
 const NavLink = React.forwardRef(({ href, children, ...rest }, ref) => (
   <Link ref={ref} to={href} {...rest}>
     {children}
@@ -24,25 +26,19 @@ function UserDash() {
               imgURL={require("../../../assets/images/pfptemplate.png")}
               imgStyle={{ width: "50px", height: "50px" }}
             />
-            <Dropdown
-              as="div"
-              className={styles.dropdown}
-              placement="bottomStart"
-            >
-              <Dropdown.Item as={NavLink} href="profile">
-                View Profile
-              </Dropdown.Item>
-              <Dropdown.Item as={NavLink} href="profile">
-                Create/Edit Tag
-              </Dropdown.Item>
-              <Dropdown.Item
-                sx={{ textDecoration: "none", color: "red" }}
-                as={NavLink}
-                href="/Logout"
-              >
-                Logout
-              </Dropdown.Item>
-            </Dropdown>
+            <div className={styles.dropdown}>
+              <img
+                src={require("../../../assets/images/down.png")}
+                alt=""
+                draggable={false}
+                height={"18px"}
+              />
+              <div className={styles.dropdownContent}>
+                <a href="/">Edit Profile</a>
+                <a href="/">Edit Tag</a>
+                <a href="/">Logout</a>
+              </div>
+            </div>
           </div>
         </div>
         <div className={styles.main}>
@@ -52,10 +48,76 @@ function UserDash() {
               <ButtonHollow text="New Medical Card" />
             </div>
             <div className={styles.mainNameBox}>
-              <p>Rahul</p>
+              <p style={{ fontSize: "1.4rem" }}>Rahul</p>
             </div>
           </div>
-          <div className={styles.mainBody}></div>
+          <div className={styles.mainBody}>
+            <div className={styles.dashTop}>
+              <div className={styles.upApp}>
+                <div className={styles.upAppContainer}>
+                  <div className={styles.dashDivHeader}>
+                    Upcoming Appointments
+                  </div>
+                  <div className={styles.dashDivContent}>
+                    {/* Use this div to map the upcoming appointments to */}
+                    <div className={styles.appContainer}>
+                      <p className={styles.appDoctorName}>Dr. Rajesh Joshi</p>
+                      <p>19/04/23</p>
+                      <IconButton
+                        as="div"
+                        style={styles.infoIconButton}
+                        icon={<InfoOutlineIcon />}
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div className={styles.recApp}>
+                <div className={styles.recAppContainer}>
+                  <div className={styles.dashDivHeader}>
+                    Recent Appointments
+                  </div>
+                  <div className={styles.dashDivContent}>
+                    {/* Use this div to map the upcoming appointments to */}
+                    <div className={styles.appContainer}>
+                      <p className={styles.appDoctorName}>Dr. Rajesh Joshi</p>
+                      <p>19/04/23</p>
+                      <IconButton
+                        as="div"
+                        style={styles.infoIconButton}
+                        icon={<InfoOutlineIcon />}
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className={styles.dashBottom}>
+              <div className={styles.MedicalRecords}>
+                <div className={styles.MedicalRecordContainer}>
+                  <div className={styles.dashDivHeader}>Medical Record</div>
+                  <div className={styles.appContainer}>
+                    <p className={styles.appDoctorName}>Dr. Rajesh Joshi</p>
+                    <p>19/04/23</p>
+                    <IconButton
+                      as="div"
+                      style={styles.infoIconButton}
+                      icon={<InfoOutlineIcon />}
+                    />
+                  </div>
+                </div>
+              </div>
+              <div className={styles.RecTransactions}>
+                <div className={styles.RecTransactionsContainer}>
+                  <div className={styles.dashDivHeader}>
+                    Recent Transactions
+                  </div>
+                  
+                  <Info date={"19/04/23"}>Dr. Rajesh Joshi</Info>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </>
