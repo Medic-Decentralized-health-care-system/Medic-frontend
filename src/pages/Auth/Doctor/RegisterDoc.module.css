@@ -153,7 +153,7 @@
   width: 80px;
   height: 80px;
   border-radius: 50%;
-	object-fit: cover;
+  object-fit: cover;
 }
 .uploadProfilePic {
   font-size: x-small;
@@ -226,7 +226,7 @@
 
 .emailField {
   box-sizing: border-box;
-  margin-top:0.3rem;
+  margin-top: 0.3rem;
   border: none;
   width: 100%;
   padding: 0.3rem;
@@ -248,6 +248,10 @@
   padding: 0.3rem;
   border-radius: 0.4rem;
   width: 100%;
+}
+.degSpecialtyFlexBox input {
+  border-radius: 0.3rem;
+  padding: 6px;
 }
 
 select:required:invalid {
