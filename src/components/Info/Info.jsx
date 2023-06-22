@@ -1,21 +1,36 @@
-import React from "react";
+import React, { useRef } from "react";
 import { ReactDOM } from "react-dom";
-import { IconButton } from "rsuite";
-import InfoOutline from "@rsuite/icons/InfoOutline";
-import styles from './styles.module.css';
+import styles from "./styles.module.css";
 
-function Info({ style, children, date, link }) {
+import { Link } from "react-router-dom";
+
+function Info({ children, textRight, link }) {
   return (
     <>
-      <div className={styles.appContainer}>
-        <p className={styles.appDoctorName}>Dr. Rajesh Joshi</p>
-        <div className={styles.right}>
-            <p>{`${date}`}</p>
-            <IconButton
-            as="div"
-            style={styles.infoIconButton}
-            icon={<InfoOutline />}
+      <div className={styles.infoContainer}>
+        <p className={styles.textLeft}>{children}</p>
+        <div className={styles.rightContainer}>
+          <p>{`${textRight}`}</p>
+          {link ? (
+            <Link to={link}>
+              <img
+                src={require("../../assets/images/info-icon.png")}
+                styles={styles.infoIconButton}
+                alt=""
+              />
+            </Link>
+          ) : (
+            <img
+              src={require("../../assets/images/info-icon.png")}
+              style={{
+                ...styles.infoIconButton,
+                cursor: "pointer",
+                height: "15px",
+                width: "15px",
+              }}
+              alt=""
             />
+          )}
         </div>
       </div>
     </>

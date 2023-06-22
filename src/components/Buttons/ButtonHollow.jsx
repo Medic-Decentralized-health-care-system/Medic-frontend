@@ -14,6 +14,7 @@ function ButtonHollow(props) {
     </button>
   ) : (
     <button
+      style={props.style}
       className={ButtonHollowstyle.basicButtonprimary}
       onClick={props.ClickFunction}
     >

@@ -13,8 +13,8 @@
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
-  border-top-left-radius: 100px;
-  border-top-right-radius: 100px;
+  background-image: url("../../../assets/images/bg-gradient.png");
+  background-size: cover;
 }
 
 .header {
@@ -25,10 +25,8 @@
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
-  gap: 75%;
+  gap: 80%;
   align-items: center;
-  background-image: url("../../../assets/images/bg-gradient.png");
-  background-size: cover;
 }
 
 .logotext {
@@ -53,7 +51,7 @@
 
 .dropdown {
   position: relative;
-  
+
   display: inline-block;
 }
 
@@ -66,7 +64,7 @@
   padding: 12px 16px;
   z-index: 1;
 }
-.dropdownContent> a {
+.dropdownContent > a {
   padding: 10px;
   text-decoration: none;
 }
@@ -87,21 +85,27 @@
 
 .main {
   width: 100%;
-  height: 90vh;
-  position: absolute;
-  bottom: 0px;
+  height: 100vh;
   display: flex;
   flex-direction: column;
-  border-top-left-radius: 100px;
-  border-top-right-radius: 100px;
+  border-top-left-radius: 4rem;
+  border-top-right-radius: 4rem;
+  background: linear-gradient(
+    113.96deg,
+    rgba(255, 255, 255, 0.8) 0%,
+    rgba(255, 255, 255, 0.4) 100%
+  );
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  box-shadow: 0px 10px 40px rgba(0, 0, 0, 0.15);
 }
 
 .mainHeader {
   display: flex;
   flex-direction: row;
   width: 100%;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
+  gap: 70%;
   padding: 10px;
   border-top-left-radius: 100px;
   border-top-right-radius: 100px;
@@ -114,6 +118,7 @@
 }
 
 .mainNameBox {
+  color: black;
   padding: 2px;
 }
 
@@ -122,8 +127,12 @@
   height: max-content;
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1.5rem;
   padding: 60px;
 }
+
 .dashTop,
 .dashBottom {
   display: flex;
@@ -136,9 +145,11 @@
 .upApp,
 .recApp {
   display: flex;
+  width: 45vw;
   flex-direction: column;
   justify-content: space-between;
   border: 1px solid black;
+  margin: 10px;
   border-radius: 10px;
 }
 
@@ -149,6 +160,7 @@
   justify-content: center;
   align-items: center;
   overflow-y: scroll;
+  border-radius: 10px;
 }
 
 .upAppContainer::-webkit-scrollbar,
@@ -159,24 +171,46 @@
 .dashDivHeader {
   text-align: center;
   width: 100%;
+  padding: 7px;
+  position: sticky;
+  top: 0;
+  background: linear-gradient(
+    113.96deg,
+    rgba(255, 255, 255, 0.8) 0%,
+    rgba(255, 255, 255, 0.4) 100%
+  );
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  box-shadow: 0px 10px 40px rgba(0, 0, 0, 0.15);
+  border-radius: 10px;
 }
 
 .dashDivContent {
   width: 100%;
+  height: 20vh;
   display: flex;
-  flex-direction: row;
-  justify-content: space-between;
+  flex-direction: column;
+  justify-content: flex-start;
   align-items: center;
+  padding: 6px;
 }
 
-
-.MedicalRecords,
-.RecTransactions {
+.MedicalRecords {
   display: flex;
+  width: 60vw;
   flex-direction: column;
   justify-content: space-between;
   border: 1px solid black;
   border-radius: 10px;
+  margin: 10px;
+}
+.RecTransactions {
+  display: flex;
+  width: 30vw;
+  flex-direction: column;
+  justify-content: space-between;
+  border: 1px solid black;
+  border-radius: 10px;
+  margin: 10px;
 }
 
 .MedicalRecordsContainer,
@@ -186,6 +220,7 @@
   justify-content: center;
   align-items: center;
   overflow-y: scroll;
+  border-radius: 10px;
 }
 
 .MedicalRecordsContainer::-webkit-scrollbar,

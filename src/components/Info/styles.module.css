@@ -1,6 +1,7 @@
-.appContainer {
+.infoContainer {
   border: 1px solid blue;
   padding: 8px;
+  margin: 5px;
   border-radius: 100px;
   display: flex;
   width: 100%;
@@ -9,17 +10,21 @@
   align-items: center;
 }
 
-.appDoctorName {
+.textRight {
     width: 100%;
 }
 
-.right {
+.rightContainer {
     display: flex;
     flex-direction: row;
+    justify-content: space-between;
+    gap: 1.5rem;
+    padding: 1px;
     align-items: center;
 }
 
-.right > p {
+.rightContainer > p {
   margin: 0;
-  line-height: 1;
 }
+
+

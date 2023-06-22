@@ -44,8 +44,14 @@ function UserDash() {
         <div className={styles.main}>
           <div className={styles.mainHeader}>
             <div className={styles.mainButtonContainer}>
-              <ButtonDark text="Search for Doctors" />
-              <ButtonHollow text="New Medical Card" />
+              <ButtonDark
+                text="Search for Doctors"
+                style={{ borderRadius: "100px" }}
+              />
+              <ButtonHollow
+                text="New Medical Card"
+                style={{ borderRadius: "100px" }}
+              />
             </div>
             <div className={styles.mainNameBox}>
               <p style={{ fontSize: "1.4rem" }}>Rahul</p>
@@ -60,15 +66,9 @@ function UserDash() {
                   </div>
                   <div className={styles.dashDivContent}>
                     {/* Use this div to map the upcoming appointments to */}
-                    <div className={styles.appContainer}>
-                      <p className={styles.appDoctorName}>Dr. Rajesh Joshi</p>
-                      <p>19/04/23</p>
-                      <IconButton
-                        as="div"
-                        style={styles.infoIconButton}
-                        icon={<InfoOutlineIcon />}
-                      />
-                    </div>
+                    <Info textRight={"19/04/23"}>Dr. Rajesh Joshi</Info>
+                    <Info textRight={"19/04/23"}>Dr. Rajesh Joshi</Info>
+                    <Info textRight={"19/04/23"}>Dr. Rajesh Joshi</Info>
                   </div>
                 </div>
               </div>
@@ -79,31 +79,32 @@ function UserDash() {
                   </div>
                   <div className={styles.dashDivContent}>
                     {/* Use this div to map the upcoming appointments to */}
-                    <div className={styles.appContainer}>
-                      <p className={styles.appDoctorName}>Dr. Rajesh Joshi</p>
-                      <p>19/04/23</p>
-                      <IconButton
-                        as="div"
-                        style={styles.infoIconButton}
-                        icon={<InfoOutlineIcon />}
-                      />
-                    </div>
+                    <Info textRight={"19/04/23"}>Dr. Rajesh Joshi</Info>
+                    <Info textRight={"19/04/23"}>Dr. Rajesh Joshi</Info>
+                    <Info textRight={"19/04/23"}>Dr. Rajesh Joshi</Info>
+                    <Info textRight={"19/04/23"}>Dr. Rajesh Joshi</Info>
+                    <Info textRight={"19/04/23"}>Dr. Rajesh Joshi</Info>
+                    <Info textRight={"19/04/23"}>Dr. Rajesh Joshi</Info>
+                    <Info textRight={"19/04/23"}>Dr. Rajesh Joshi</Info>
+                    <Info textRight={"19/04/23"}>Dr. Rajesh Joshi</Info>
+                    <Info textRight={"19/04/23"}>Dr. Rajesh Joshi</Info>
                   </div>
                 </div>
               </div>
             </div>
             <div className={styles.dashBottom}>
               <div className={styles.MedicalRecords}>
-                <div className={styles.MedicalRecordContainer}>
+                <div className={styles.MedicalRecordsContainer}>
                   <div className={styles.dashDivHeader}>Medical Record</div>
-                  <div className={styles.appContainer}>
-                    <p className={styles.appDoctorName}>Dr. Rajesh Joshi</p>
-                    <p>19/04/23</p>
-                    <IconButton
-                      as="div"
-                      style={styles.infoIconButton}
-                      icon={<InfoOutlineIcon />}
-                    />
+                  <div className={styles.dashDivContent}>
+                    <Info textRight={"19/04/23"}>Dr. Rajesh Joshi</Info>
+                    <Info textRight={"19/04/23"}>Dr. Rajesh Joshi</Info>
+                    <Info textRight={"19/04/23"}>Dr. Rajesh Joshi</Info>
+                    <Info textRight={"19/04/23"}>Dr. Rajesh Joshi</Info>
+                    <Info textRight={"19/04/23"}>Dr. Rajesh Joshi</Info>
+                    <Info textRight={"19/04/23"}>Dr. Rajesh Joshi</Info>
+                    <Info textRight={"19/04/23"}>Dr. Rajesh Joshi</Info>
+                    <Info textRight={"19/04/23"}>Dr. Rajesh Joshi</Info>
                   </div>
                 </div>
               </div>
@@ -112,8 +113,14 @@ function UserDash() {
                   <div className={styles.dashDivHeader}>
                     Recent Transactions
                   </div>
-                  
-                  <Info date={"19/04/23"}>Dr. Rajesh Joshi</Info>
+                  <div className={styles.dashDivContent}>
+                    <Info textRight={"19/04/23"}>0.04ETH</Info>
+                    <Info textRight={"19/04/23"}>0.04ETH</Info>
+                    <Info textRight={"19/04/23"}>0.04ETH</Info>
+                    <Info textRight={"19/04/23"}>0.04ETH</Info>
+                    <Info textRight={"19/04/23"}>0.04ETH</Info>
+                    <Info textRight={"19/04/23"}>0.04ETH</Info>
+                  </div>
                 </div>
               </div>
             </div>
