@@ -50,7 +50,7 @@ function Login() {
           confirmButtonText: "Ok",
         });
         dispatch(setUser(data.user));
-        Navigate('/search')
+        Navigate('search')
       } else {
         Swal.fire({
           title: "Error!",

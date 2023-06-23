@@ -1,14 +1,19 @@
 import React from "react";
 import styles from "./styles.module.css";
 import Avatar from "../../../components/Avatar/Avatar";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import ButtonDark from "../../../components/Buttons/ButtonDark";
 import ButtonHollow from "../../../components/Buttons/ButtonHollow";
 import Info from "../../../components/Info/Info";
+import { useDispatch, useSelector } from "react-redux";
 
 
 
 function UserDash() {
+  const Navigate = useNavigate();
+  const dispatch = useDispatch();
+  const userInfo = useSelector((state) => state.userInfo);
+  console.log(userInfo);
   return (
     <>
       <div className={styles.container}>
@@ -40,14 +45,20 @@ function UserDash() {
               <ButtonDark
                 text="Search for Doctors"
                 style={{ borderRadius: "100px" }}
+                ClickFunction={()=>{
+                  Navigate("/search");
+                }}
               />
               <ButtonHollow
                 text="New Medical Card"
                 style={{ borderRadius: "100px" }}
+                ClickFunction={()=>{
+                  Navigate("/view/medicalrecord");
+                }}
               />
             </div>
             <div className={styles.mainNameBox}>
-              <p style={{ fontSize: "1.4rem" }}>Rahul</p>
+              <p style={{ fontSize: "1.4rem" }}>{userInfo.name}</p>
             </div>
           </div>
           <div className={styles.mainBody}>

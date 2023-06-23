@@ -3,9 +3,11 @@ import styles from "./styles.module.css";
 import WhiteButton from "../../components/Buttons/WhiteButton";
 import ButtonDark from "../../components/Buttons/ButtonDark";
 import DrugItem from "../../components/DrugItem/DrugItem";
+import { useNavigate } from "react-router-dom";
 
 function MedRecord() {
   const [drugItems, setDrugItems] = useState([]);
+  const Navigate = useNavigate();
 
   const handleAddItem = () => {
     setDrugItems([...drugItems, {}]);
@@ -29,6 +31,9 @@ function MedRecord() {
               style={{ width: "25px" }}
               src={require("../../assets/images/homeIcon.png")}
               alt="home"
+              onClick={()=>{
+                Navigate('/dashboard/user')
+              }}
             />
           </WhiteButton>
           <div className={styles.header}>
@@ -48,6 +53,9 @@ function MedRecord() {
               style={{ width: "25px" }}
               src={require("../../assets/images/crossIcon.png")}
               alt="home"
+              onClick={()=>{
+                Navigate('/dashboard/user')
+              }}
             />
           </WhiteButton>
         </div>
