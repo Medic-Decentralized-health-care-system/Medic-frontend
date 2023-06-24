@@ -2,11 +2,12 @@ import React from "react";
 import styles from "./styles.module.css"; // You can create a separate CSS file for styling
 import { Button, Input } from "rsuite";
 import "rsuite/dist/rsuite.min.css";
-import CloseOutlineIcon from "@rsuite/icons/CloseOutline";
+import CloseIcon from "@rsuite/icons/Close";
 import { IconButton } from "rsuite";
 import { Icon } from "@rsuite/icons";
+import { hover } from "@testing-library/user-event/dist/hover";
 
-const Modal = ({ type, onClose }) => {
+const Modal = ({ type, onClose, handleEditClick }) => {
   const renderModalContent = () => {
     switch (type) {
       case "success":
@@ -38,6 +39,9 @@ const Modal = ({ type, onClose }) => {
                 defaultValue={`${currTag}`}
                 placeholder="Enter Tag"
                 size="lg"
+                style={{
+                  fontSize: "1.03rem",
+                }}
               ></Input>
               <Button
                 style={{
@@ -45,8 +49,14 @@ const Modal = ({ type, onClose }) => {
                   backgroundColor: "black",
                   borderRadius: "110px",
                   margin: "10px",
+                  fontSize: "1.12rem",
+                  padding: "0.85rem",
+                  position: "absolute",
+                  bottom: "55px",
+                  width: "30%",
                 }}
                 appearance="ghost"
+                onClick={handleEditClick}
               >
                 Save
               </Button>
@@ -64,9 +74,11 @@ const Modal = ({ type, onClose }) => {
       <IconButton
         onClick={onClose}
         className={styles.closeButton}
-        icon={<CloseOutlineIcon />}
-        appearance="ghost"
+        size="lg"
+        icon={<CloseIcon size="9em" color="white" />}
+        appearance="primary"
         style={{
+          backgroundColor: "transparent",
           position: "absolute",
           top: "10px",
           right: "10px",

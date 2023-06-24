@@ -8,29 +8,55 @@ import ButtonHollow from "../../../components/Buttons/ButtonHollow";
 import Modal from "../../../components/Modal/Modal";
 import Info from "../../../components/Info/Info";
 import { useDispatch, useSelector } from "react-redux";
+import { Button } from "rsuite";
+import { Icon } from "@rsuite/icons";
 
-
+const MetaMaskIcon = React.forwardRef((props, ref) => (
+  <svg
+    {...props}
+    width="2em"
+    height="2em"
+    fill="currentColor"
+    viewBox="0 0 320 512"
+    ref={ref}
+  >
+    <path d="M311.9 260.8L160 353.6 8 260.8 160 0l151.9 260.8zM160 383.4L8 290.6 160 512l152-221.4-152 92.8z" />
+  </svg>
+));
 function UserDash() {
-  const [modal, setModal] = useState(false);
-
-  const toggleModal = () => {
-    setModal(!modal);
-  };
-
-  const onModalClose = () => {
-    setModal(false);
-  }
-
   const Navigate = useNavigate();
   const dispatch = useDispatch();
   const userInfo = useSelector((state) => state.userInfo);
   console.log(userInfo);
+
+  const [modal, setModal] = useState(false);
+  const toggleModal = () => {
+    setModal(!modal);
+  };
+  const onModalClose = () => {
+    setModal(false);
+  };
+  const handleTagSave = () => {
+    // TODO: Handle the actual saving of the tag in the backend
+
+    setModal(false);
+  };
+
+  const [upAppEmpty, setUpAppEmpty] = useState(false);
+  const [recAppEmpty, setRecAppEmpty] = useState(false);
+  const [presEmpty, setPresEmpty] = useState(false);
+  const [recTransEmpty, setRecTransEmpty] = useState(false);
+
   return (
     <>
       <div className={styles.container}>
         {modal && (
           <div className={styles.modal}>
-            <Modal type="editTag" onClose={onModalClose}/>
+            <Modal
+              type="editTag"
+              onClose={onModalClose}
+              handleEditClick={handleTagSave}
+            />
           </div>
         )}
         <div className={styles.header}>
@@ -44,9 +70,13 @@ function UserDash() {
                 height={"18px"}
               />
               <div className={styles.dropdownContent}>
-                <a href="/">Edit Profile</a>
+                <Link href="/" style={{ textDecoration: "none" }}>
+                  Edit Profile
+                </Link>
                 <p onClick={toggleModal}>Edit Tag</p>
-                <a href="/">Logout</a>
+                <a href="/" style={{ textDecoration: "none" }}>
+                  Logout
+                </a>
               </div>
             </div>
             <Avatar
@@ -88,9 +118,29 @@ function UserDash() {
                   </div>
                   <div className={styles.dashDivContent}>
                     {/* Use this div to map the upcoming appointments to */}
-                    <Info textRight={"19/04/23"}>Dr. Rajesh Joshi</Info>
-                    <Info textRight={"19/04/23"}>Dr. Rajesh Joshi</Info>
-                    <Info textRight={"19/04/23"}>Dr. Rajesh Joshi</Info>
+                    {upAppEmpty ? (
+                      <>
+                        <Info textRight={"19/04/23"}>Dr. Rajesh Joshi</Info>
+                        <Info textRight={"19/04/23"}>Dr. Rajesh Joshi</Info>
+                        <Info textRight={"19/04/23"}>Dr. Rajesh Joshi</Info>
+                        <Info textRight={"19/04/23"}>Dr. Rajesh Joshi</Info>
+                        <Info textRight={"19/04/23"}>Dr. Rajesh Joshi</Info>
+                        <Info textRight={"19/04/23"}>Dr. Rajesh Joshi</Info>
+                        <Info textRight={"19/04/23"}>Dr. Rajesh Joshi</Info>
+                        <Info textRight={"19/04/23"}>Dr. Rajesh Joshi</Info>
+                        <Info textRight={"19/04/23"}>Dr. Rajesh Joshi</Info>
+                      </>
+                    ) : (
+                      <>
+                        <div className={styles.placeholderCont}>
+                          <p
+                            style={{ textAlign: "center", fontSize: "1.5rem" }}
+                          >
+                            No Upcoming Appointments
+                          </p>
+                        </div>
+                      </>
+                    )}
                   </div>
                 </div>
               </div>
@@ -101,15 +151,29 @@ function UserDash() {
                   </div>
                   <div className={styles.dashDivContent}>
                     {/* Use this div to map the upcoming appointments to */}
-                    <Info textRight={"19/04/23"}>Dr. Rajesh Joshi</Info>
-                    <Info textRight={"19/04/23"}>Dr. Rajesh Joshi</Info>
-                    <Info textRight={"19/04/23"}>Dr. Rajesh Joshi</Info>
-                    <Info textRight={"19/04/23"}>Dr. Rajesh Joshi</Info>
-                    <Info textRight={"19/04/23"}>Dr. Rajesh Joshi</Info>
-                    <Info textRight={"19/04/23"}>Dr. Rajesh Joshi</Info>
-                    <Info textRight={"19/04/23"}>Dr. Rajesh Joshi</Info>
-                    <Info textRight={"19/04/23"}>Dr. Rajesh Joshi</Info>
-                    <Info textRight={"19/04/23"}>Dr. Rajesh Joshi</Info>
+                    {recAppEmpty ? (
+                      <>
+                        <Info textRight={"19/04/23"}>Dr. Rajesh Joshi</Info>
+                        <Info textRight={"19/04/23"}>Dr. Rajesh Joshi</Info>
+                        <Info textRight={"19/04/23"}>Dr. Rajesh Joshi</Info>
+                        <Info textRight={"19/04/23"}>Dr. Rajesh Joshi</Info>
+                        <Info textRight={"19/04/23"}>Dr. Rajesh Joshi</Info>
+                        <Info textRight={"19/04/23"}>Dr. Rajesh Joshi</Info>
+                        <Info textRight={"19/04/23"}>Dr. Rajesh Joshi</Info>
+                        <Info textRight={"19/04/23"}>Dr. Rajesh Joshi</Info>
+                        <Info textRight={"19/04/23"}>Dr. Rajesh Joshi</Info>
+                      </>
+                    ) : (
+                      <>
+                        <div className={styles.placeholderCont}>
+                          <p
+                            style={{ textAlign: "center", fontSize: "1.5rem" }}
+                          >
+                            No Recent Appointments
+                          </p>
+                        </div>
+                      </>
+                    )}
                   </div>
                 </div>
               </div>
@@ -119,14 +183,29 @@ function UserDash() {
                 <div className={styles.MedicalRecordsContainer}>
                   <div className={styles.dashDivHeader}>Medical Record</div>
                   <div className={styles.dashDivContent}>
-                    <Info textRight={"19/04/23"}>Dr. Rajesh Joshi</Info>
-                    <Info textRight={"19/04/23"}>Dr. Rajesh Joshi</Info>
-                    <Info textRight={"19/04/23"}>Dr. Rajesh Joshi</Info>
-                    <Info textRight={"19/04/23"}>Dr. Rajesh Joshi</Info>
-                    <Info textRight={"19/04/23"}>Dr. Rajesh Joshi</Info>
-                    <Info textRight={"19/04/23"}>Dr. Rajesh Joshi</Info>
-                    <Info textRight={"19/04/23"}>Dr. Rajesh Joshi</Info>
-                    <Info textRight={"19/04/23"}>Dr. Rajesh Joshi</Info>
+                    {presEmpty ? (
+                      <>
+                        <Info textRight={"19/04/23"}>Dr. Rajesh Joshi</Info>
+                        <Info textRight={"19/04/23"}>Dr. Rajesh Joshi</Info>
+                        <Info textRight={"19/04/23"}>Dr. Rajesh Joshi</Info>
+                        <Info textRight={"19/04/23"}>Dr. Rajesh Joshi</Info>
+                        <Info textRight={"19/04/23"}>Dr. Rajesh Joshi</Info>
+                        <Info textRight={"19/04/23"}>Dr. Rajesh Joshi</Info>
+                        <Info textRight={"19/04/23"}>Dr. Rajesh Joshi</Info>
+                        <Info textRight={"19/04/23"}>Dr. Rajesh Joshi</Info>
+                        <Info textRight={"19/04/23"}>Dr. Rajesh Joshi</Info>
+                      </>
+                    ) : (
+                      <>
+                        <div className={styles.placeholderCont}>
+                          <p
+                            style={{ textAlign: "center", fontSize: "1.5rem" }}
+                          >
+                            No Prescriptions Yet
+                          </p>
+                        </div>
+                      </>
+                    )}
                   </div>
                 </div>
               </div>
@@ -136,12 +215,32 @@ function UserDash() {
                     Recent Transactions
                   </div>
                   <div className={styles.dashDivContent}>
-                    <Info textRight={"19/04/23"}>0.04ETH</Info>
-                    <Info textRight={"19/04/23"}>0.04ETH</Info>
-                    <Info textRight={"19/04/23"}>0.04ETH</Info>
-                    <Info textRight={"19/04/23"}>0.04ETH</Info>
-                    <Info textRight={"19/04/23"}>0.04ETH</Info>
-                    <Info textRight={"19/04/23"}>0.04ETH</Info>
+                    {recTransEmpty ? (
+                      <>
+                        <Info textRight={"19/04/23"}>0.04ETH</Info>
+                        <Info textRight={"19/04/23"}>0.04ETH</Info>
+                        <Info textRight={"19/04/23"}>0.04ETH</Info>
+                        <Info textRight={"19/04/23"}>0.04ETH</Info>
+                        <Info textRight={"19/04/23"}>0.04ETH</Info>
+                        <Info textRight={"19/04/23"}>0.04ETH</Info>
+                      </>
+                    ) : (
+                      <>
+                        <div className={styles.placeholderCont}>
+                          <p
+                            style={{ textAlign: "center", fontSize: "1.5rem" }}
+                          >
+                            No Transactions to show
+                          </p>
+                          <Button
+                            appearance="primary"
+                            endIcon={<Icon as={MetaMaskIcon} />}
+                          >
+                            Connect Wallet
+                          </Button>
+                        </div>
+                      </>
+                    )}
                   </div>
                 </div>
               </div>
