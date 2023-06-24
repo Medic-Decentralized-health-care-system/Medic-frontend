@@ -1,0 +1,51 @@
+@import "rsuite/dist/rsuite.css";
+
+.modalDialog {
+  border-radius: 10px;
+  border: 10px solid black;
+  width: 500px;
+  height: 500px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  /* backdrop-filter: blur(2px); */
+}
+
+.inContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  justify-content: center;
+  width: 100%;
+}
+
+.centerContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+.modalContent {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+.iconContainer {
+  margin-top: 20px;
+}
+
+.closeButton {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+}
+
+/* editTag styles */

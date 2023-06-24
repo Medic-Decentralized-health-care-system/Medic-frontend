@@ -1,15 +1,26 @@
 import React from "react";
 import styles from "./styles.module.css";
 import Avatar from "../../../components/Avatar/Avatar";
+import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import ButtonDark from "../../../components/Buttons/ButtonDark";
 import ButtonHollow from "../../../components/Buttons/ButtonHollow";
+import Modal from "../../../components/Modal/Modal";
 import Info from "../../../components/Info/Info";
 import { useDispatch, useSelector } from "react-redux";
 
 
-
 function UserDash() {
+  const [modal, setModal] = useState(false);
+
+  const toggleModal = () => {
+    setModal(!modal);
+  };
+
+  const onModalClose = () => {
+    setModal(false);
+  }
+
   const Navigate = useNavigate();
   const dispatch = useDispatch();
   const userInfo = useSelector((state) => state.userInfo);
@@ -17,13 +28,14 @@ function UserDash() {
   return (
     <>
       <div className={styles.container}>
+        {modal && (
+          <div className={styles.modal}>
+            <Modal type="editTag" onClose={onModalClose}/>
+          </div>
+        )}
         <div className={styles.header}>
           <p className={styles.logotext}>MEDIC.</p>
           <div className={styles.pfBox}>
-            <Avatar
-              imgURL={require("../../../assets/images/pfptemplate.png")}
-              imgStyle={{ width: "50px", height: "50px" }}
-            />
             <div className={styles.dropdown}>
               <img
                 src={require("../../../assets/images/down.png")}
@@ -33,10 +45,14 @@ function UserDash() {
               />
               <div className={styles.dropdownContent}>
                 <a href="/">Edit Profile</a>
-                <a href="/">Edit Tag</a>
+                <p onClick={toggleModal}>Edit Tag</p>
                 <a href="/">Logout</a>
               </div>
             </div>
+            <Avatar
+              imgURL={require("../../../assets/images/pfptemplate.png")}
+              imgStyle={{ width: "50px", height: "50px" }}
+            />
           </div>
         </div>
         <div className={styles.main}>
@@ -45,20 +61,22 @@ function UserDash() {
               <ButtonDark
                 text="Search for Doctors"
                 style={{ borderRadius: "100px" }}
-                ClickFunction={()=>{
+                ClickFunction={() => {
                   Navigate("/search");
                 }}
               />
               <ButtonHollow
                 text="New Medical Card"
                 style={{ borderRadius: "100px" }}
-                ClickFunction={()=>{
+                ClickFunction={() => {
                   Navigate("/view/medicalrecord");
                 }}
               />
             </div>
             <div className={styles.mainNameBox}>
-              <p style={{ fontSize: "1.4rem" }}>{userInfo.name}</p>
+              {userInfo && (
+                <p style={{ fontSize: "1.4rem" }}>{userInfo.name}</p>
+              )}
             </div>
           </div>
           <div className={styles.mainBody}>
