@@ -253,3 +253,65 @@
 .RecTransactionsContainer::-webkit-scrollbar {
   width: 0;
 }
+
+/* Styling for EditProfile starts */
+.main_EditProfile {
+  position: absolute;
+  bottom: 0px;
+  width: 100%;
+  height: 70vh;
+  display: flex;
+  flex-direction: column;
+  border-top-left-radius: 4rem;
+  border-top-right-radius: 4rem;
+  background: linear-gradient(
+    113.96deg,
+    rgba(255, 255, 255, 0.8) 0%,
+    rgba(255, 255, 255, 0.4) 100%
+  );
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  box-shadow: 0px 10px 40px rgba(0, 0, 0, 0.15);
+}
+
+.mainHeader_EditProfile {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  gap: 70%;
+  padding: 10px;
+  border-top-left-radius: 100px;
+  border-top-right-radius: 100px;
+}
+
+.mainButtonContainer {
+  display: flex;
+  flex-direction: row;
+  padding: 2px;
+}
+
+.mainNameBox {
+  color: black;
+  padding: 2px;
+}
+
+.mainBody {
+  width: 100%;
+  height: max-content;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1.5rem;
+  padding: 60px;
+}
+
+.dashTop,
+.dashBottom {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  height: 25vh;
+}
