@@ -8,7 +8,7 @@ import ButtonHollow from "../../components/Buttons/ButtonHollow";
 import Modal from "../../components/Modal/Modal";
 import Info from "../../components/Info/Info";
 import { useDispatch, useSelector } from "react-redux";
-import { Button, Uploader } from "rsuite";
+import { Button, DatePicker, Input, InputPicker, Uploader } from "rsuite";
 import { Icon } from "@rsuite/icons";
 
 import CameraRetroIcon from "@rsuite/icons/legacy/CameraRetro";
@@ -53,6 +53,11 @@ function UserDash() {
   const handleUpload = (file) => {
     setFileURL(URL.createObjectURL(file.blobFile));
   };
+
+  const sex = ["Male", "Female", "Non-binary"].map((item) => ({
+    label: item,
+    value: item,
+  }));
 
   return (
     <>
@@ -120,144 +125,66 @@ function UserDash() {
             </div>
           </div>
           <div className={styles.mainBody}>
-            <div className={styles.dashTop}>
-              <div className={styles.upApp}>
-                <div className={styles.upAppContainer}>
-                  <div className={styles.dashDivHeader}>
-                    Upcoming Appointments
-                  </div>
-                  <div className={styles.dashDivContent}>
-                    {/* Use this div to map the upcoming appointments to */}
-                    {upAppEmpty ? (
-                      <>
-                        <Info textRight={"19/04/23"}>Dr. Rajesh Joshi</Info>
-                        <Info textRight={"19/04/23"}>Dr. Rajesh Joshi</Info>
-                        <Info textRight={"19/04/23"}>Dr. Rajesh Joshi</Info>
-                        <Info textRight={"19/04/23"}>Dr. Rajesh Joshi</Info>
-                        <Info textRight={"19/04/23"}>Dr. Rajesh Joshi</Info>
-                        <Info textRight={"19/04/23"}>Dr. Rajesh Joshi</Info>
-                        <Info textRight={"19/04/23"}>Dr. Rajesh Joshi</Info>
-                        <Info textRight={"19/04/23"}>Dr. Rajesh Joshi</Info>
-                        <Info textRight={"19/04/23"}>Dr. Rajesh Joshi</Info>
-                      </>
-                    ) : (
-                      <>
-                        <div className={styles.placeholderCont}>
-                          <p
-                            style={{
-                              textAlign: "center",
-                              fontSize: "1.5rem",
-                            }}
-                          >
-                            No Upcoming Appointments
-                          </p>
-                        </div>
-                      </>
-                    )}
-                  </div>
-                </div>
-              </div>
-              <div className={styles.recApp}>
-                <div className={styles.recAppContainer}>
-                  <div className={styles.dashDivHeader}>
-                    Recent Appointments
-                  </div>
-                  <div className={styles.dashDivContent}>
-                    {/* Use this div to map the upcoming appointments to */}
-                    {recAppEmpty ? (
-                      <>
-                        <Info textRight={"19/04/23"}>Dr. Rajesh Joshi</Info>
-                        <Info textRight={"19/04/23"}>Dr. Rajesh Joshi</Info>
-                        <Info textRight={"19/04/23"}>Dr. Rajesh Joshi</Info>
-                        <Info textRight={"19/04/23"}>Dr. Rajesh Joshi</Info>
-                        <Info textRight={"19/04/23"}>Dr. Rajesh Joshi</Info>
-                        <Info textRight={"19/04/23"}>Dr. Rajesh Joshi</Info>
-                        <Info textRight={"19/04/23"}>Dr. Rajesh Joshi</Info>
-                        <Info textRight={"19/04/23"}>Dr. Rajesh Joshi</Info>
-                        <Info textRight={"19/04/23"}>Dr. Rajesh Joshi</Info>
-                      </>
-                    ) : (
-                      <>
-                        <div className={styles.placeholderCont}>
-                          <p
-                            style={{
-                              textAlign: "center",
-                              fontSize: "1.5rem",
-                            }}
-                          >
-                            No Recent Appointments
-                          </p>
-                        </div>
-                      </>
-                    )}
-                  </div>
-                </div>
-              </div>
+            <div className={styles.bodyHeader}>
+              <h2>Edit Profile</h2>
             </div>
-            <div className={styles.dashBottom}>
-              <div className={styles.MedicalRecords}>
-                <div className={styles.MedicalRecordsContainer}>
-                  <div className={styles.dashDivHeader}>Medical Record</div>
-                  <div className={styles.dashDivContent}>
-                    {presEmpty ? (
-                      <>
-                        <Info textRight={"19/04/23"}>Dr. Rajesh Joshi</Info>
-                        <Info textRight={"19/04/23"}>Dr. Rajesh Joshi</Info>
-                        <Info textRight={"19/04/23"}>Dr. Rajesh Joshi</Info>
-                        <Info textRight={"19/04/23"}>Dr. Rajesh Joshi</Info>
-                        <Info textRight={"19/04/23"}>Dr. Rajesh Joshi</Info>
-                        <Info textRight={"19/04/23"}>Dr. Rajesh Joshi</Info>
-                        <Info textRight={"19/04/23"}>Dr. Rajesh Joshi</Info>
-                        <Info textRight={"19/04/23"}>Dr. Rajesh Joshi</Info>
-                        <Info textRight={"19/04/23"}>Dr. Rajesh Joshi</Info>
-                      </>
-                    ) : (
-                      <>
-                        <div className={styles.placeholderCont}>
-                          <p
-                            style={{
-                              textAlign: "center",
-                              fontSize: "1.5rem",
-                            }}
-                          >
-                            No Prescriptions Yet
-                          </p>
-                        </div>
-                      </>
-                    )}
-                  </div>
+            <div className={styles.FormBox}>
+              <div className={styles.topFormBox}>
+                <div className={styles.firstName}>
+                  <p>First Name</p>
+                  <Input
+                    type="text"
+                    id="fName"
+                    appearance="ghost"
+                    placeholder="First Name"
+                  />
+                </div>
+                <div className={styles.lastName}>
+                  <p>Last Name</p>
+                  <Input
+                    type="text"
+                    id="lName"
+                    appearance="ghost"
+                    placeholder="Last Name"
+                  />
+                </div>
+                <div className={styles.dob}>
+                  <p>Date of Birth</p>
+                  <DatePicker
+                    type="text"
+                    id="dob"
+                    appearance="ghost"
+                    placeholder="Date Of Birth"
+                  />
                 </div>
               </div>
-              <div className={styles.RecTransactions}>
-                <div className={styles.RecTransactionsContainer}>
-                  <div className={styles.dashDivHeader}>
-                    Recent Transactions
-                  </div>
-                  <div className={styles.dashDivContent}>
-                    {recTransEmpty ? (
-                      <>
-                        <Info textRight={"19/04/23"}>0.04ETH</Info>
-                        <Info textRight={"19/04/23"}>0.04ETH</Info>
-                        <Info textRight={"19/04/23"}>0.04ETH</Info>
-                        <Info textRight={"19/04/23"}>0.04ETH</Info>
-                        <Info textRight={"19/04/23"}>0.04ETH</Info>
-                        <Info textRight={"19/04/23"}>0.04ETH</Info>
-                      </>
-                    ) : (
-                      <>
-                        <div className={styles.placeholderCont}>
-                          <p
-                            style={{
-                              textAlign: "center",
-                              fontSize: "1.5rem",
-                            }}
-                          >
-                            No Transactions to show
-                          </p>
-                        </div>
-                      </>
-                    )}
-                  </div>
+              <div className={styles.bottomFormBox}>
+                <div className={styles.sex}>
+                  <p>Gender</p>
+                  <InputPicker
+                    data={sex}
+                    id="sex"
+                    appearance="default"
+                    placeholder="Gender"
+                  />
+                </div>
+                <div className={styles.email}>
+                  <p>Email</p>
+                  <Input
+                    type="email"
+                    id="email"
+                    appearance="default"
+                    placeholder="Email"
+                  />
+                </div>
+                <div className={styles.pwd}>
+                  <p>Password</p>
+                  <Input
+                    type="password"
+                    id="pwd"
+                    appearance="default"
+                    placeholder="Password"
+                  />
                 </div>
               </div>
             </div>

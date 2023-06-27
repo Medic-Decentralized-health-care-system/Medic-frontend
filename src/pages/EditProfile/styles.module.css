@@ -1,6 +1,6 @@
 @import "rsuite/dist/rsuite.css";
 :root {
-  --width-header: 10%;
+  --width-header: 25%;
 }
 * {
   box-sizing: border-box;
@@ -109,8 +109,10 @@
 }
 
 .main {
+  position: absolute;
   width: 100%;
-  height: 100vh;
+  height: 75vh;
+  bottom: 0;
   display: flex;
   flex-direction: column;
   border-top-left-radius: 4rem;
@@ -130,15 +132,15 @@
   width: 100%;
   justify-content: center;
   align-items: center;
-  gap: 70%;
-  padding: 10px;
+  /* gap: 70%; */
+  padding: 3% 0px 0px 0px;
   border-top-left-radius: 100px;
   border-top-right-radius: 100px;
 }
 
 .mainAvatarContainer {
-  position: relative;
-  bottom: 100px;
+  position: absolute;
+  bottom: 90%;
   /* width: 180px;
     height: 180px; */
 }
@@ -148,12 +150,6 @@
   right: 0px;
 }
 
-.mainButtonContainer {
-  display: flex;
-  flex-direction: row;
-  padding: 2px;
-}
-
 .mainNameBox {
   color: black;
   padding: 2px;
@@ -170,159 +166,24 @@
   padding: 60px;
 }
 
-.dashTop,
-.dashBottom {
+.FormBox {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: stretch;
+  font-size: medium;
+}
+
+.topFormBox,
+.bottomFormBox {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  height: 25vh;
-}
-
-.upApp,
-.recApp {
-  display: flex;
-  width: 45vw;
-  flex-direction: column;
-  justify-content: space-between;
-  border: 1px solid black;
-  margin: 10px;
-  border-radius: 10px;
-}
-
-.upAppContainer,
-.recAppContainer {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  overflow-y: scroll;
-  border-radius: 10px;
-}
-
-.upAppContainer::-webkit-scrollbar,
-.recAppContainer::-webkit-scrollbar {
-  width: 0;
-}
-
-.dashDivHeader {
-  text-align: center;
-  width: 100%;
-  padding: 7px;
-  position: sticky;
-  top: 0;
-  background: linear-gradient(
-    113.96deg,
-    rgba(255, 255, 255, 0.8) 0%,
-    rgba(255, 255, 255, 0.4) 100%
-  );
-  border: 1px solid rgba(255, 255, 255, 0.6);
-  box-shadow: 0px 10px 40px rgba(0, 0, 0, 0.15);
-  border-radius: 10px;
-}
-
-.dashDivContent {
-  width: 100%;
-  height: 20vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: center;
-  padding: 6px;
-}
-
-.MedicalRecords {
-  display: flex;
-  width: 60vw;
-  flex-direction: column;
-  justify-content: space-between;
-  border: 1px solid black;
-  border-radius: 10px;
-  margin: 10px;
-}
-.RecTransactions {
-  display: flex;
-  width: 30vw;
-  flex-direction: column;
-  justify-content: space-between;
-  border: 1px solid black;
-  border-radius: 10px;
-  margin: 10px;
-}
-
-.MedicalRecordsContainer,
-.RecTransactionsContainer {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  overflow-y: scroll;
-  border-radius: 10px;
-}
-
-.MedicalRecordsContainer::-webkit-scrollbar,
-.RecTransactionsContainer::-webkit-scrollbar {
-  width: 0;
-}
-
-/* Styling for EditProfile starts */
-.main_EditProfile {
-  position: absolute;
-  bottom: 0px;
-  width: 100%;
-  height: 70vh;
-  display: flex;
-  flex-direction: column;
-  border-top-left-radius: 4rem;
-  border-top-right-radius: 4rem;
-  background: linear-gradient(
-    113.96deg,
-    rgba(255, 255, 255, 0.8) 0%,
-    rgba(255, 255, 255, 0.4) 100%
-  );
-  border: 1px solid rgba(255, 255, 255, 0.6);
-  box-shadow: 0px 10px 40px rgba(0, 0, 0, 0.15);
-}
-
-.mainHeader_EditProfile {
-  display: flex;
-  flex-direction: row;
-  width: 100%;
-  justify-content: center;
-  align-items: center;
-  gap: 70%;
   padding: 10px;
-  border-top-left-radius: 100px;
-  border-top-right-radius: 100px;
 }
 
-.mainButtonContainer {
-  display: flex;
-  flex-direction: row;
-  padding: 2px;
-}
-
-.mainNameBox {
-  color: black;
-  padding: 2px;
-}
-
-.mainBody {
-  width: 100%;
-  height: max-content;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  gap: 1.5rem;
-  padding: 60px;
-}
-
-.dashTop,
-.dashBottom {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-  height: 25vh;
+.topFormBox > *,
+.bottomFormBox > * {
+  margin: 5px;
 }
