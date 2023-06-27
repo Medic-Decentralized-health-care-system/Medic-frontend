@@ -4,13 +4,46 @@ import WhiteButton from "../../components/Buttons/WhiteButton";
 import ButtonDark from "../../components/Buttons/ButtonDark";
 import DrugItem from "../../components/DrugItem/DrugItem";
 import { useNavigate } from "react-router-dom";
+import { create as ipfsHttpClient } from "ipfs-http-client";
+
+const projectId = process.env.REACT_APP_PROJECT_ID;
+const projectSecretKey = process.env.REACT_APP_PROJECT_KEY;
+const authorization = "Basic " + btoa(projectId + ":" + projectSecretKey);
+const ipfs = ipfsHttpClient({
+  url: "https://ipfs.infura.io:5001/api/v0",
+  headers: {
+    authorization,
+  },
+});
+
 
 function MedRecord() {
   const [drugItems, setDrugItems] = useState([]);
   const Navigate = useNavigate();
+  const [title , setTitle] = useState("");
+  const [date , setDate] = useState("");
+  const [diagnosis , setDiagnosis] = useState("");
+  const [bp , setBp] = useState("");
+  const [pulse , setPulse] = useState("");
+  const [medicines , setMedicines] = useState([]);
+  const [remarks , setRemarks] = useState();
 
   const handleAddItem = () => {
     setDrugItems([...drugItems, {}]);
+  };
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const body = JSON.stringify({
+      name:"Hi"
+    });
+    console.log(body)
+    try{
+      const result = await ipfs.add(body);
+      console.log(result)
+    }
+    catch(err){
+      console.log(err);
+    }
   };
   return (
     <div className={styles.fullscreenFrame}>
@@ -66,6 +99,9 @@ function MedRecord() {
                 placeholder="Prescription title"
                 name="Prescription title"
                 type="text"
+                // onChange={()=>{
+                //   set
+                // }}
               />
               <input
                 placeholder="Prescription date"
@@ -147,6 +183,7 @@ function MedRecord() {
             <ButtonDark
               text="Save"
               style={{ borderRadius: "20px", width: "50%" }}
+              ClickFunction = {handleSubmit}
             />
           </div>
         </div>
