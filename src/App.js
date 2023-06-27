@@ -13,6 +13,7 @@ import Login from "./pages/Auth/Login/Login";
 import Search from "./pages/Search/Search";
 import MedRecord from "./pages/MedRecord/MedRecord";
 import UserDash from "./pages/Dashboard/User/UserDash";
+import EditProfile from "./pages/EditProfile/EditProfile";
 
 function App() {
   return (
@@ -27,7 +28,7 @@ function App() {
         <Route path="/registeradmin" element={<RegisterAdmin />} />
         <Route path="/search" element={<Search />} />
         <Route path="/dashboard/user" element={<UserDash />} />
-
+        <Route path="/dashboard/user/editprofile" element={<EditProfile />} />
         <Route path="/view/medicalrecord" element={<MedRecord />} />
       </Routes>
     </BrowserRouter>

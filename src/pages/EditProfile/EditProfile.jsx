@@ -1,15 +1,17 @@
 import React from "react";
 import styles from "./styles.module.css";
-import Avatar from "../../../components/Avatar/Avatar";
+import Avatar from "../../components/Avatar/Avatar";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import ButtonDark from "../../../components/Buttons/ButtonDark";
-import ButtonHollow from "../../../components/Buttons/ButtonHollow";
-import Modal from "../../../components/Modal/Modal";
-import Info from "../../../components/Info/Info";
+import ButtonDark from "../../components/Buttons/ButtonDark";
+import ButtonHollow from "../../components/Buttons/ButtonHollow";
+import Modal from "../../components/Modal/Modal";
+import Info from "../../components/Info/Info";
 import { useDispatch, useSelector } from "react-redux";
-import { Button } from "rsuite";
+import { Button, Uploader } from "rsuite";
 import { Icon } from "@rsuite/icons";
+
+import CameraRetroIcon from "@rsuite/icons/legacy/CameraRetro";
 
 const MetaMaskIcon = React.forwardRef((props, ref) => (
   <svg
@@ -47,6 +49,11 @@ function UserDash() {
   const [presEmpty, setPresEmpty] = useState(false);
   const [recTransEmpty, setRecTransEmpty] = useState(false);
 
+  const [fileURL, setFileURL] = useState("");
+  const handleUpload = (file) => {
+    setFileURL(URL.createObjectURL(file.blobFile));
+  };
+
   return (
     <>
       <div className={styles.container}>
@@ -62,61 +69,54 @@ function UserDash() {
         <div className={styles.header}>
           <p className={styles.logotext}>MEDIC.</p>
           <div className={styles.pfBox}>
-            <div className={styles.dropdown}>
-              <img
-                src={require("../../../assets/images/down.png")}
-                alt=""
-                draggable={false}
-                height={"18px"}
-              />
-              <div className={styles.dropdownContent}>
-                <Link
-                  to="/dashboard/user/editprofile"
-                  style={{ textDecoration: "none" }}
-                >
-                  Edit Profile
-                </Link>
-                <p onClick={toggleModal}>Edit Tag</p>
-                <a href="/" style={{ textDecoration: "none" }}>
-                  Logout
-                </a>
-              </div>
-            </div>
             <Avatar
-              imgURL={require("../../../assets/images/pfptemplate.png")}
+              imgURL={
+                fileURL === ""
+                  ? require("../../assets/images/pfptemplate.png")
+                  : fileURL
+              }
               imgStyle={{ width: "50px", height: "50px" }}
             />
-            <Button
-              appearance="primary"
-              endIcon={<Icon as={MetaMaskIcon} />}
-              style={{ width: "fit-content" }}
-            >
-              Connect Wallet
-            </Button>
           </div>
         </div>
         <div className={styles.main}>
           <div className={styles.mainHeader}>
-            <div className={styles.mainButtonContainer}>
-              <ButtonDark
-                text="Search for Doctors"
-                style={{ borderRadius: "100px" }}
-                ClickFunction={() => {
-                  Navigate("/search");
-                }}
-              />
-              <ButtonHollow
-                text="New Medical Card"
-                style={{ borderRadius: "100px" }}
-                ClickFunction={() => {
-                  Navigate("/view/medicalrecord");
-                }}
-              />
+            <div className={styles.mainAvatarContainer}>
+              <div className={styles.profilePicBox}>
+                <div className={styles.AvatarContainer}>
+                  <Avatar
+                    imgURL={
+                      fileURL === ""
+                        ? require("../../assets/images/pfptemplate.png")
+                        : fileURL
+                    }
+                    imgStyle={{ width: "200px", height: "200px" }}
+                  />
+                </div>
+                <div className={styles.mainUploadContainer}>
+                  <Uploader
+                    accept="image/*"
+                    appearance="ghost"
+                    fileListVisible={false}
+                    onUpload={handleUpload}
+                    renderFileInfo={(file, fileElement) => {
+                      setFileURL(URL.createObjectURL(file.blobFile));
+                    }}
+                  >
+                    <button style={{ backgroundColor: "transparent" }}>
+                      <CameraRetroIcon
+                        style={{ backgroundColor: "transparent" }}
+                      />
+                    </button>
+                  </Uploader>
+                </div>
+              </div>
             </div>
             <div className={styles.mainNameBox}>
-              {userInfo && (
+              {/* {userInfo && (
                 <p style={{ fontSize: "1.4rem" }}>{userInfo.name}</p>
-              )}
+              )} */}
+              <h1>John Dahl</h1>
             </div>
           </div>
           <div className={styles.mainBody}>

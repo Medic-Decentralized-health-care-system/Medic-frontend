@@ -13,7 +13,7 @@
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
-  background-image: url("../../../assets/images/bg-gradient.png");
+  background-image: url("../../assets/images/bg-gradient.png");
   background-size: cover;
 }
 
@@ -126,7 +126,7 @@
 
 .mainHeader {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   width: 100%;
   justify-content: center;
   align-items: center;
@@ -134,6 +134,18 @@
   padding: 10px;
   border-top-left-radius: 100px;
   border-top-right-radius: 100px;
+}
+
+.mainAvatarContainer {
+  position: relative;
+  bottom: 100px;
+  /* width: 180px;
+    height: 180px; */
+}
+.mainUploadContainer {
+  position: absolute;
+  bottom: 25px;
+  right: 0px;
 }
 
 .mainButtonContainer {
