@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styles from "./styles.module.css";
 import Avatar from "../../../components/Avatar/Avatar";
 import { useState } from "react";
@@ -7,9 +7,12 @@ import ButtonDark from "../../../components/Buttons/ButtonDark";
 import ButtonHollow from "../../../components/Buttons/ButtonHollow";
 import Modal from "../../../components/Modal/Modal";
 import Info from "../../../components/Info/Info";
-import { useDispatch, useSelector } from "react-redux";
+import { connect, useDispatch, useSelector } from "react-redux";
 import { Button } from "rsuite";
 import { Icon } from "@rsuite/icons";
+import { ethers } from "ethers";
+import { setBalance, setWalletAddress } from "../../../state/auth/auth-slice";
+import Swal from "sweetalert2";
 
 const MetaMaskIcon = React.forwardRef((props, ref) => (
   <svg
@@ -27,7 +30,6 @@ function UserDash() {
   const Navigate = useNavigate();
   const dispatch = useDispatch();
   const userInfo = useSelector((state) => state.userInfo);
-  console.log(userInfo);
 
   const [modal, setModal] = useState(false);
   const toggleModal = () => {
@@ -42,11 +44,58 @@ function UserDash() {
     setModal(false);
   };
 
+  const [editProfile, setEditProfile] = useState(false);
+
   const [upAppEmpty, setUpAppEmpty] = useState(false);
   const [recAppEmpty, setRecAppEmpty] = useState(false);
   const [presEmpty, setPresEmpty] = useState(false);
   const [recTransEmpty, setRecTransEmpty] = useState(false);
+  const [haveMetamask, sethaveMetamask] = useState(false);
+  const [accountAddress, setAccountAddress] = useState('');
+  const [accountBalance, setAccountBalance] = useState('');
+  const [isConnected, setIsConnected] = useState(false);
 
+  const { ethereum } = window;
+
+  useEffect(() => {
+    const { ethereum } = window;
+    const checkMetamaskAvailability = async () => {
+      if (!ethereum) {
+        sethaveMetamask(false);
+      }
+      sethaveMetamask(true);
+    };
+    checkMetamaskAvailability();
+  }, []);
+
+  const connectWallet = async () => {
+    try {
+      if(!haveMetamask){
+        Swal.fire({
+          icon: 'warning',
+          title: 'Oops...',
+          text: 'Please install metamask',
+        })
+        return;
+      }
+      const provider = new ethers.providers.Web3Provider(window.ethereum);
+      if (!ethereum) {
+        sethaveMetamask(false);
+      }
+      const accounts = await ethereum.request({
+        method: 'eth_requestAccounts',
+      });
+      let balance = await provider.getBalance(accounts[0]);
+      let bal = ethers.utils.formatEther(balance);
+      setAccountAddress(accounts[0]);
+      setAccountBalance(bal);
+      setIsConnected(true);
+      dispatch(setWalletAddress(accountAddress));
+      dispatch(setBalance(accountBalance));
+    } catch (error) {
+      setIsConnected(false);
+    }
+  };
   return (
     <>
       <div className={styles.container}>
@@ -254,6 +303,19 @@ function UserDash() {
                           >
                             No Transactions to show
                           </p>
+                          <Button
+                              appearance="primary"
+                              endIcon={<Icon as={MetaMaskIcon}/>} 
+                              onClick = {connectWallet}
+                            />
+                              {
+                                isConnected ?
+                                `${
+                                  accountAddress.slice(0, 5) + '...' + accountAddress.slice(38,42)
+                                }`
+                                :
+                                `Connect wallet`
+                              }
                         </div>
                       </>
                     )}
