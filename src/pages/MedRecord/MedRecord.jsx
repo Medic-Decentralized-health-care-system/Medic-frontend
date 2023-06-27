@@ -25,16 +25,29 @@ function MedRecord() {
   const [diagnosis , setDiagnosis] = useState("");
   const [bp , setBp] = useState("");
   const [pulse , setPulse] = useState("");
-  const [medicines , setMedicines] = useState([]);
   const [remarks , setRemarks] = useState();
 
   const handleAddItem = () => {
-    setDrugItems([...drugItems, {}]);
+    setDrugItems([...drugItems, { drugName: "", units: "", dosage: "" }]);
+  };
+  const handleInputChange = (index, field, value) => {
+    const updatedDrugItems = [...drugItems];
+    updatedDrugItems[index] = {
+      ...updatedDrugItems[index],
+      [field]: value,
+    };
+    setDrugItems(updatedDrugItems);
   };
   const handleSubmit = async (e) => {
     e.preventDefault();
     const body = JSON.stringify({
-      name:"Hi"
+      title,
+      date,
+      diagnosis,
+      bp,
+      pulse,
+      drugItems,
+      remarks,
     });
     console.log(body)
     try{
@@ -99,14 +112,18 @@ function MedRecord() {
                 placeholder="Prescription title"
                 name="Prescription title"
                 type="text"
-                // onChange={()=>{
-                //   set
-                // }}
+                onChange={(e)=>{
+                  setTitle(e.target.value)
+                }}
               />
               <input
                 placeholder="Prescription date"
                 name="Prescription date"
                 type="datetime-local"
+                onChange={(e)=>{
+                  setDate(e.target.value)
+                }
+              }
               />
             </div>
             <div className={styles.commonDetailBox}>
@@ -115,18 +132,27 @@ function MedRecord() {
                 placeholder="Diagnosed with"
                 name="Diagnosed with"
                 type="text"
+                onChange={(e)=>{
+                  setDiagnosis(e.target.value)
+                }}
               />
               <input
                 id={styles.bp}
                 placeholder="Blood Pressure"
                 name="Blood Pressure"
                 type="text"
+                onChange={(e)=>{
+                  setBp(e.target.value)
+                }}
               />
               <input
                 id={styles.pulse}
                 placeholder="Pulse Rate"
                 name="Pulse Rate"
                 type="text"
+                onChange={(e)=>{
+                  setPulse(e.target.value)
+                }}
               />
             </div>
             <div className={styles.drugBox}>
@@ -149,16 +175,19 @@ function MedRecord() {
                       placeholder={`Drug ${index + 1}`}
                       name={`drugName_${index}`}
                       type="text"
+                      onChange={(e) => handleInputChange(index, "drugName", e.target.value)}
                     />
                     <input
                       placeholder={`Units`}
                       name={`units_${index}`}
                       type="text"
+                      onChange={(e) => handleInputChange(index, "units", e.target.value)}
                     />
                     <input
                       placeholder="Dosage (per day)"
                       name={`dosage_${index}`}
                       type="text"
+                      onChange={(e) => handleInputChange(index, "dosage", e.target.value)}
                     />
                   </div>
                 ))}
@@ -178,6 +207,9 @@ function MedRecord() {
                 placeholder="Remarks / Things to follow (if any)"
                 name="Things to follow"
                 type="text"
+                onChange={(e)=>{
+                  setRemarks(e.target.value)
+                }}
               />
             </div>
             <ButtonDark
