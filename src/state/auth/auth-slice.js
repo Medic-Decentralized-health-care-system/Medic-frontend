@@ -5,6 +5,8 @@ const initialState = {
   loading: false,
   userInfo: null,
   userToken: null,
+  walletAddress: "",
+  balance: "",
   error: null,
   success: false,
 };
@@ -19,9 +21,16 @@ const authSlice = createSlice({
     setLoading: (state, action) => {
       state.loading = action.payload;
     },
+    setWalletAddress: (state, action) => {
+      state.balance = action.payload;
+    },
+    setBalance: (state, action) => {
+      state.balance = action.payload;
+    },
   },
   extraReducers: {},
 });
 
-export const { setUser, setLoading } = authSlice.actions;
+export const { setUser, setLoading, setWalletAddress, setBalance } =
+  authSlice.actions;
 export default authSlice.reducer;
