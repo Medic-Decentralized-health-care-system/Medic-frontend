@@ -7,8 +7,7 @@ import reportWebVitals from "./reportWebVitals";
 import { PersistGate } from "redux-persist/integration/react";
 import { Provider } from "react-redux";
 import { store, persistor } from "./state/index.js";
-import { ThirdwebProvider } from "@thirdweb-dev/react";
-
+import 'rsuite/dist/rsuite.min.css';
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
