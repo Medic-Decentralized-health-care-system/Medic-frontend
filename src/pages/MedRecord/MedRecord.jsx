@@ -8,11 +8,8 @@ import { create as ipfsHttpClient } from "ipfs-http-client";
 import { useMoralis, useWeb3Contract } from "react-moralis"
 import { ethers } from "ethers"
 import {contractAddresses} from '../../constants/index.js';
-import {prescriptionIPFSABI} from "../../constants/index.js" 
-// import MoneyTransfer from "../../constants/frontEndAbiLocation/MoneyTransfer.json";
-
-// console.log("money transfer", MoneyTransfer);
-
+import prescriptionIPFSABI from "../../constants/frontEndAbiLocation/PrescriptionIPFS.json" 
+//Handle Infura Connection
 const projectId = process.env.REACT_APP_PROJECT_ID;
 const projectSecretKey = process.env.REACT_APP_PROJECT_KEY;
 const authorization = "Basic " + btoa(projectId + ":" + projectSecretKey);
@@ -33,25 +30,18 @@ function MedRecord() {
   const [bp , setBp] = useState("");
   const [pulse , setPulse] = useState("");
   const [remarks , setRemarks] = useState();
-  // ! try ethers/web3
+
+  //Handle contract connection
   const { Moralis, isWeb3Enabled, chainId: chainIdHex , web3 } = useMoralis()
   const contractIPFSAddress = "0x99AAc8eb48091F074cb060b862eD7978Ad690287"
-    const { runContractFunction: addPrescription } = useWeb3Contract({
-      abi:prescriptionIPFSABI,
-      address:contractIPFSAddress,
-      functionName: "addPrescription",
-      
-    })
-    const {runContractFunction : getPrescription} = useWeb3Contract({
-      abi:prescriptionIPFSABI,
-      address:contractIPFSAddress,
-      functionName: "getPrescription",
-    })
-    const {runContractFunction : getPrescriptionCount} = useWeb3Contract({
-      abi:prescriptionIPFSABI,
-      address:contractIPFSAddress,
-      functionName: "getPrescriptionCount",
-    })
+  const provider = new ethers.providers.Web3Provider(window.ethereum);
+  const signer = provider.getSigner();
+  console.log(signer , contractIPFSAddress , prescriptionIPFSABI )
+  const contract = new ethers.Contract(
+    contractIPFSAddress,
+    prescriptionIPFSABI,
+    signer
+  );
   const handleAddItem = () => {
     setDrugItems([...drugItems, { drugName: "", units: "", dosage: "" }]);
   };
@@ -65,7 +55,6 @@ function MedRecord() {
   };
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(authorization)
     const body = JSON.stringify({
       title,
       date,
@@ -77,22 +66,19 @@ function MedRecord() {
       doctorAddress:"0x490aeeA34202D19b42731f00371e949c01F2eC53",
       patientAddress: "0xfE6dF0B6b9be0aFe1218aBaa98d064A1147C759a"
     });
-    console.log(body)
     try{
-      const count = await getPrescriptionCount("0xfE6dF0B6b9be0aFe1218aBaa98d064A1147C759a" , {
-        from :"0x490aeeA34202D19b42731f00371e949c01F2eC53"
-      });
-      console.log(count);
-      // const result = await ipfs.add(body);
-      // const data = await addPrescription(result.path , "0xfE6dF0B6b9be0aFe1218aBaa98d064A1147C759a", count , {
-      //   from :"0x490aeeA34202D19b42731f00371e949c01F2eC53"
-      // });
-      // const pres = await getPrescription("0xfE6dF0B6b9be0aFe1218aBaa98d064A1147C759a" , count , {
-      //   from :"0x490aeeA34202D19b42731f00371e949c01F2eC53"
-      // })
-      // console.log(pres)
-      // console.log(result)
-      // console.log(data);
+      const result = await ipfs.add(body);
+      const count = await contract.getPrescriptionCount("0xfE6dF0B6b9be0aFe1218aBaa98d064A1147C759a");
+      console.log(count.toNumber())
+      const data = await contract.addPrescription(result.path , "0xfE6dF0B6b9be0aFe1218aBaa98d064A1147C759a", count.toNumber() , {
+          from :"0x490aeeA34202D19b42731f00371e949c01F2eC53"
+        });
+        const pres = await contract.getPrescription("0xfE6dF0B6b9be0aFe1218aBaa98d064A1147C759a" , count.toNumber() , {
+            from :"0x490aeeA34202D19b42731f00371e949c01F2eC53"
+          })
+      console.log(pres)
+      console.log(result)
+      console.log(data);
     }
     catch(err){
       console.log(err);
