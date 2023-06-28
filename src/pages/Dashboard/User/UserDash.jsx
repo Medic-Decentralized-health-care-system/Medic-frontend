@@ -69,6 +69,7 @@ function UserDash() {
   }, []);
 
   const connectWallet = async () => {
+    console.log('hi')
     try {
       if(!haveMetamask){
         Swal.fire({
@@ -92,6 +93,7 @@ function UserDash() {
       setIsConnected(true);
       dispatch(setWalletAddress(accountAddress));
       dispatch(setBalance(accountBalance));
+      console.log(accountAddress , accountBalance);
     } catch (error) {
       setIsConnected(false);
     }

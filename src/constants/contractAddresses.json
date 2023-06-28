@@ -1,0 +1,18 @@
+{
+    "31337":{
+        "PrescriptionIPFS":[
+            "0x5FbDB2315678afecb367f032d93F642f64180aa3"
+        ],
+        "MoneyTransfer":[
+            "0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512"
+        ]
+    },
+    "11155111":{
+        "PrescriptionIPFS":[
+            "0x99AAc8eb48091F074cb060b862eD7978Ad690287"
+        ],
+        "MoneyTransfer":[
+            "0x38189952cE93ab2a1578640876921080cEaA8550"
+        ]
+    }
+}
