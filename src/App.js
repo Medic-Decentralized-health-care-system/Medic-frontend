@@ -14,6 +14,7 @@ import Search from "./pages/Search/Search";
 import MedRecord from "./pages/MedRecord/MedRecord";
 import UserDash from "./pages/Dashboard/User/UserDash";
 import EditProfile from "./pages/EditProfile/EditProfile";
+import AppointmentBooker from "./pages/AppointmentBooker/AppointmentBooker";
 
 function App() {
   return (
@@ -29,6 +30,10 @@ function App() {
         <Route path="/search" element={<Search />} />
         <Route path="/dashboard/user" element={<UserDash />} />
         <Route path="/dashboard/user/editprofile" element={<EditProfile />} />
+        <Route
+          path="/dashboard/user/bookappointment"
+          element={<AppointmentBooker />}
+        />
         <Route path="/view/medicalrecord" element={<MedRecord />} />
       </Routes>
     </BrowserRouter>

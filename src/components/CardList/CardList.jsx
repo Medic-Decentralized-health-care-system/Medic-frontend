@@ -1,6 +1,7 @@
 import React from "react";
 import Card from "../Card/Card";
 import styles from "./styles.module.css";
+import { Link } from "react-router-dom";
 
 // const doctors = [
 // 	{
@@ -80,19 +81,22 @@ import styles from "./styles.module.css";
 // 	}
 // ];
 
-function CardList({doctors}) {
+function CardList({ doctors }) {
   return (
     <>
       <div className={styles.container}>
-		{
-			doctors.length===0 ? <h2>No Doctors Found</h2> :
-			(
-
-				doctors.map((content) => {
-					return <Card doctor={content} />;
-				})
-			)
-		}
+        {doctors.length === 0 ? (
+          <h2>No Doctors Found</h2>
+        ) : (
+          doctors.map((content) => {
+            return (
+              <Card
+                doctor={content}
+                // onClick={<Link to="dashboard/user/bookappointment" />}
+              />
+            );
+          })
+        )}
       </div>
     </>
   );

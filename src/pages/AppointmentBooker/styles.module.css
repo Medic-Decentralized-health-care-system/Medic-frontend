@@ -1,0 +1,134 @@
+:root {
+  --width-fullTop: 55%;
+  outline: none;
+}
+
+.searchApp {
+  background-color: #e7ecef;
+  box-sizing: border-box;
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.fullscreenFrame {
+  box-sizing: border-box;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.logoText {
+  box-sizing: border-box;
+  position: absolute;
+  font-family: Impact, Haettenschweiler, Franklin Gothic Bold, Charcoal,
+    Helvetica Inserat, Bitstream Vera Sans Bold, Arial Black, sans serif;
+  top: 0px;
+  left: 0px;
+  padding: 0.5rem;
+  width: 100%;
+  font-size: 1.4rem;
+}
+
+.fullTop {
+  height: var(--width-fullTop);
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  padding: 2rem 0 0 0;
+}
+
+.appBookBox {
+  width: 70%;
+  display: flex;
+  flex-direction: column;
+  justify-content: stretch;
+  align-items: stretch;
+}
+
+.appBoxHeader {
+  font-size: large;
+  border: 1px solid gray;
+  -webkit-box-shadow: 9px 7px 20px -6px rgba(0, 0, 0, 0.3);
+  -moz-box-shadow: 9px 7px 20px -6px rgba(0, 0, 0, 0.3);
+  box-shadow: 9px 7px 20px -6px rgba(0, 0, 0, 0.3);
+  border-radius: 10px;
+  text-align: center;
+}
+
+.appBoxBodyTop {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.chooseDateBox {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.timeSlotContainer {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  max-height: min-content;
+  padding-bottom: 5px;
+  overflow: scroll;
+  scrollbar-width: 0;
+  
+}
+
+.timeSlotContainer::-webkit-scrollbar {
+    display: none;
+}
+
+.selectedTimeSlot {
+    
+  color: rgb(0, 0, 0);
+  background: linear-gradient(
+    180deg,
+    rgba(0, 162, 255, 0.692) 0%,
+    rgba(10, 63, 122, 0.479) 100%
+  );
+}
+
+.fullBottom {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: calc(100% - var(--width-fullTop));
+  background-image: url("../../assets/images/bg-gradient.png");
+  background-size: cover;
+  border-top-left-radius: 50px;
+  border-top-right-radius: 50px;
+}
+
+.banner > logoImg {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.logoImg > img {
+  width: 7.5rem;
+}
+.logoImg {
+  text-align: center;
+}
+
+.contCardList {
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: stretch;
+  align-items: stretch;
+  padding-top: 1%;
+}
