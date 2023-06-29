@@ -49,10 +49,10 @@ function DocDash() {
 
   const [editProfile, setEditProfile] = useState(false);
 
-  const [upAppEmpty, setUpAppEmpty] = useState(true);
-  const [recAppEmpty, setRecAppEmpty] = useState(true);
-  const [presEmpty, setPresEmpty] = useState(true);
-  const [recTransEmpty, setRecTransEmpty] = useState(true);
+  const [upAppEmpty, setUpAppEmpty] = useState(false);
+  const [recAppEmpty, setRecAppEmpty] = useState(false);
+  const [presEmpty, setPresEmpty] = useState(false);
+  const [recTransEmpty, setRecTransEmpty] = useState(false);
   const [haveMetamask, sethaveMetamask] = useState(false);
   const [accountAddress, setAccountAddress] = useState("");
   const [accountBalance, setAccountBalance] = useState("");
@@ -182,6 +182,7 @@ function DocDash() {
               appearance="primary"
               endIcon={<Icon as={MetaMaskIcon} />}
               style={{ width: "fit-content" }}
+              onClick={connectWallet}
             >
               Connect Wallet
             </Button>

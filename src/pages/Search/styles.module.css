@@ -32,6 +32,16 @@
   font-size: 1.4rem;
 }
 
+.connectWalletBtn {
+  box-sizing: border-box;
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  margin: 1rem;
+  width: 100%;
+  font-size: 1.4rem;
+}
+
 .fullTop {
   height: var(--width-fullTop);
   display: flex;
