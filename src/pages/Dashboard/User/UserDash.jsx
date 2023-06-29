@@ -13,6 +13,7 @@ import { Icon } from "@rsuite/icons";
 import { ethers } from "ethers";
 import { setBalance, setWalletAddress } from "../../../state/auth/auth-slice";
 import Swal from "sweetalert2";
+import Loader from "react-js-loader";
 
 const MetaMaskIcon = React.forwardRef((props, ref) => (
   <svg
@@ -51,9 +52,10 @@ function UserDash() {
   const [presEmpty, setPresEmpty] = useState(false);
   const [recTransEmpty, setRecTransEmpty] = useState(false);
   const [haveMetamask, sethaveMetamask] = useState(false);
-  const [accountAddress, setAccountAddress] = useState('');
-  const [accountBalance, setAccountBalance] = useState('');
+  const [accountAddress, setAccountAddress] = useState("");
+  const [accountBalance, setAccountBalance] = useState("");
   const [isConnected, setIsConnected] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const { ethereum } = window;
 
@@ -68,15 +70,48 @@ function UserDash() {
     checkMetamaskAvailability();
   }, []);
 
+  const walletAddress = async (id, walletAddress) => {
+    console.log('Hiiiii')
+    const res = await fetch(
+      process.env.REACT_APP_BACKEND_URL + "common/setwalletaddress",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          id,
+          walletAddress,
+        }),
+      }
+    );
+    const data = await res.json();
+    console.log(data);
+    if(data.user){
+      Swal.fire({
+        icon:"success",
+        title:"Success",
+        text:"Wallet connected successfully"
+      })
+    }
+    else{
+      Swal.fire({
+        icon: "warning",
+        title: "Please try again",
+        text: data.message,
+      });
+    }
+  };
+
   const connectWallet = async () => {
-    console.log('hi')
+    setLoading(true);
     try {
-      if(!haveMetamask){
+      if (!haveMetamask) {
         Swal.fire({
-          icon: 'warning',
-          title: 'Oops...',
-          text: 'Please install metamask',
-        })
+          icon: "warning",
+          title: "Oops...",
+          text: "Please install metamask",
+        });
         return;
       }
       const provider = new ethers.providers.Web3Provider(window.ethereum);
@@ -84,7 +119,7 @@ function UserDash() {
         sethaveMetamask(false);
       }
       const accounts = await ethereum.request({
-        method: 'eth_requestAccounts',
+        method: "eth_requestAccounts",
       });
       let balance = await provider.getBalance(accounts[0]);
       let bal = ethers.utils.formatEther(balance);
@@ -93,9 +128,14 @@ function UserDash() {
       setIsConnected(true);
       dispatch(setWalletAddress(accountAddress));
       dispatch(setBalance(accountBalance));
-      console.log(accountAddress , accountBalance);
+      console.log('hi')
+      console.log(userInfo._id);
+      await walletAddress(userInfo._id, accountAddress);
+      console.log(accountAddress, accountBalance);
     } catch (error) {
       setIsConnected(false);
+    } finally {
+      setLoading(false);
     }
   };
   return (
@@ -306,18 +346,27 @@ function UserDash() {
                             No Transactions to show
                           </p>
                           <Button
-                              appearance="primary"
-                              endIcon={<Icon as={MetaMaskIcon}/>} 
-                              onClick = {connectWallet}
-                            />
-                              {
-                                isConnected ?
-                                `${
-                                  accountAddress.slice(0, 5) + '...' + accountAddress.slice(38,42)
-                                }`
-                                :
-                                `Connect wallet`
-                              }
+                            appearance="primary"
+                            endIcon={<Icon as={MetaMaskIcon} />}
+                            onClick={connectWallet}
+                          />
+                          {isConnected ? (
+                            loading ? (
+                              <Loader
+                                type="bubble-loop"
+                                bgColor="#FFFFFF"
+                                color="#FFFFFF"
+                                size={30}
+                              />
+                            ) : (
+                              `${accountAddress.slice(
+                                0,
+                                5
+                              )}...${accountAddress.slice(38, 42)}`
+                            )
+                          ) : (
+                            "Connect wallet"
+                          )}
                         </div>
                       </>
                     )}
