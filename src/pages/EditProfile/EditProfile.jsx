@@ -44,6 +44,11 @@ function UserDash() {
     setModal(false);
   };
 
+  const handleUpdateDetails = () => {
+    // TODO: Handle the updating of details in the backend
+    console.log("Details updated!")
+  }
+
   const [upAppEmpty, setUpAppEmpty] = useState(false);
   const [recAppEmpty, setRecAppEmpty] = useState(false);
   const [presEmpty, setPresEmpty] = useState(false);
@@ -186,6 +191,16 @@ function UserDash() {
                     placeholder="Password"
                   />
                 </div>
+              </div>
+              <div className={styles.updateBtnBox}>
+                <Button
+                  appearance="primary"
+                  style={{ margin: "10px", backgroundColor: "#023020" }}
+                  
+                  onClick={handleUpdateDetails}
+                >
+                  Update Details
+                </Button>
               </div>
             </div>
           </div>

@@ -172,6 +172,11 @@
   justify-content: center;
   align-items: stretch;
   font-size: medium;
+  width: 50%;
+}
+
+.updateBtnBox {
+  text-align: center;
 }
 
 .topFormBox,
