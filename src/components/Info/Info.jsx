@@ -8,9 +8,9 @@ function Info({ children, textRight, link }) {
   return (
     <>
       <div className={styles.infoContainer}>
-        <p className={styles.textLeft}>{children}</p>
+        <p style={{ width: "fit-content" }} className={styles.textLeft}>{children}</p>
         <div className={styles.rightContainer}>
-          <p>{`${textRight}`}</p>
+          <p style={{ width: "fit-content" }}>{`${textRight}`}</p>
           {link ? (
             <Link to={link}>
               <img

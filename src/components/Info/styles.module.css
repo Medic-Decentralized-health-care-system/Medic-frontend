@@ -1,5 +1,9 @@
+p {
+  width: max-content;
+}
+
 .infoContainer {
-  border: 1px solid blue;
+  background-color: white;
   padding: 8px;
   margin: 5px;
   border-radius: 100px;

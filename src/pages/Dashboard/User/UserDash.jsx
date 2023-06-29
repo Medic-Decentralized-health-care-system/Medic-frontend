@@ -8,7 +8,7 @@ import ButtonHollow from "../../../components/Buttons/ButtonHollow";
 import Modal from "../../../components/Modal/Modal";
 import Info from "../../../components/Info/Info";
 import { connect, useDispatch, useSelector } from "react-redux";
-import { Button } from "rsuite";
+import { Button, IconButton } from "rsuite";
 import { Icon } from "@rsuite/icons";
 import { ethers } from "ethers";
 import { setBalance, setWalletAddress } from "../../../state/auth/auth-slice";
@@ -71,7 +71,7 @@ function UserDash() {
   }, []);
 
   const walletAddress = async (id, walletAddress) => {
-    console.log('Hiiiii')
+    console.log("Hiiiii");
     const res = await fetch(
       process.env.REACT_APP_BACKEND_URL + "common/setwalletaddress",
       {
@@ -87,14 +87,13 @@ function UserDash() {
     );
     const data = await res.json();
     console.log(data);
-    if(data.user){
+    if (data.user) {
       Swal.fire({
-        icon:"success",
-        title:"Success",
-        text:"Wallet connected successfully"
-      })
-    }
-    else{
+        icon: "success",
+        title: "Success",
+        text: "Wallet connected successfully",
+      });
+    } else {
       Swal.fire({
         icon: "warning",
         title: "Please try again",
@@ -128,7 +127,7 @@ function UserDash() {
       setIsConnected(true);
       dispatch(setWalletAddress(accountAddress));
       dispatch(setBalance(accountBalance));
-      console.log('hi')
+      console.log("hi");
       console.log(userInfo._id);
       await walletAddress(userInfo._id, accountAddress);
       console.log(accountAddress, accountBalance);
@@ -181,6 +180,7 @@ function UserDash() {
               appearance="primary"
               endIcon={<Icon as={MetaMaskIcon} />}
               style={{ width: "fit-content" }}
+              onClick={connectWallet}
             >
               Connect Wallet
             </Button>
@@ -345,9 +345,12 @@ function UserDash() {
                           >
                             No Transactions to show
                           </p>
-                          <Button
+                          <IconButton
                             appearance="primary"
-                            endIcon={<Icon as={MetaMaskIcon} />}
+                            classPrefix="btn-icon"
+                            icon={
+                              <Icon as={MetaMaskIcon} appearance="primary" />
+                            }
                             onClick={connectWallet}
                           />
                           {isConnected ? (
