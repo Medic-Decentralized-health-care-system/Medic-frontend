@@ -1,10 +1,22 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styles from "./styles.module.css";
 import Avatar from "../Avatar/Avatar";
+import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { setDoctor } from "../../state/auth/auth-slice";
 
 export default function Card({ doctor, style }) {
+	const navigate = useNavigate();
+	const dispatch = useDispatch();
+
+	useEffect(()=>{
+		dispatch(setDoctor(doctor));
+	},[doctor])
 	return (
 		<div className={styles.card}>
+			{
+				console.log(doctor)
+			}
 			<div className={styles.container}>
 				<Avatar imgURL={doctor.image} />
 				<div className={styles.nameBox}>
@@ -18,7 +30,9 @@ export default function Card({ doctor, style }) {
 					<p className={styles.text5}>{doctor.experience}</p>
 				</div>
 				<button className={styles.buttonDark}>
-					<p className={styles.text6}>View Appointment Slots</p>
+					<p className={styles.text6} onClick={()=>{
+						navigate('/dashboard/user/bookappointment')
+					}}>View Appointment Slots</p>
 					<img src="" alt="" />
 				</button>
 			</div>

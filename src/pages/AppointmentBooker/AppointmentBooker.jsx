@@ -5,6 +5,7 @@ import CardList from "../../components/CardList/CardList";
 import styles from "./styles.module.css";
 import CardSelected from "../../components/CardSelected/CardSelected";
 import { Button, DatePicker, Panel, PanelGroup } from "rsuite";
+import { useSelector } from "react-redux";
 
 const dummyDoctorObj = {
   fullName: "Dr. Aditi Singh",
@@ -31,13 +32,15 @@ const dummyDoctorObj = {
   },
 };
 
-function AppointmentBooker() {
+function AppointmentBooker({doctor}) {
   const [show, setShow] = useState(false);
   const [doctors, setDoctors] = useState("");
   const [loading, setLoading] = useState(false);
   const [selectedDate, setSelectedDate] = useState();
   const [selectedTimeSlot, setSelectedTimeSlot] = useState("");
   const [isBookable, setIsBookable] = useState(false);
+  const userInfo = useSelector(state => state );
+  console.log(userInfo)
 
   const handleDateSelect = (date) => {
     setSelectedDate(date);
@@ -66,8 +69,9 @@ function AppointmentBooker() {
         <div className={styles.fullscreenFrame}>
           <p className={styles.logoText}>MEDIC.</p>
           <div className={styles.fullTop}>
+            {console.log(doctor)}
             <CardSelected
-              doctor={dummyDoctorObj}
+              doctor={userInfo.doctor}
               avatarStyle={{ height: "200px", width: "200px" }}
             />
             <div className={styles.appBookBox}>

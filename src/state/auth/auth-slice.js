@@ -7,6 +7,7 @@ const initialState = {
   userToken: null,
   walletAddress: "",
   balance: "",
+  doctor: {},
   error: null,
   success: false,
 };
@@ -27,10 +28,13 @@ const authSlice = createSlice({
     setBalance: (state, action) => {
       state.balance = action.payload;
     },
+    setDoctor: (state, action) => {
+      state.doctor = action.payload;
+    },
   },
   extraReducers: {},
 });
 
-export const { setUser, setLoading, setWalletAddress, setBalance } =
+export const { setUser, setLoading, setWalletAddress, setBalance, setDoctor } =
   authSlice.actions;
 export default authSlice.reducer;

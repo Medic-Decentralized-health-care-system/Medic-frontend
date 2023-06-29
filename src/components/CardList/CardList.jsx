@@ -92,7 +92,6 @@ function CardList({ doctors }) {
             return (
               <Card
                 doctor={content}
-                // onClick={<Link to="dashboard/user/bookappointment" />}
               />
             );
           })
