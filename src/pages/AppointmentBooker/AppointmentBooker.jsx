@@ -33,18 +33,19 @@ const dummyDoctorObj = {
   },
 };
 
-function AppointmentBooker({doctor}) {
+function AppointmentBooker({ doctor }) {
   const [show, setShow] = useState(false);
   const [doctors, setDoctors] = useState("");
   const [loading, setLoading] = useState(false);
   const [selectedDate, setSelectedDate] = useState();
   const [selectedTimeSlot, setSelectedTimeSlot] = useState("");
-  const [startTime , setStartTime] = useState("");
-  const [endTime , setEndTime] = useState("");
+  const [startTime, setStartTime] = useState("");
+  const [endTime, setEndTime] = useState("");
   const [isBookable, setIsBookable] = useState(false);
-  const [availabilityObj , setAvailabilityObj] = useState({})
-  const userInfo = useSelector(state => state );
-  console.log(userInfo)
+  const [availabilityObj, setAvailabilityObj] = useState({});
+  const [timingLoading, setTimingLoading] = useState(false);
+  const userInfo = useSelector((state) => state);
+  console.log(userInfo);
 
   const handleDateSelect = (date) => {
     setSelectedDate(date);
@@ -53,43 +54,46 @@ function AppointmentBooker({doctor}) {
 
   const handleTimeSlotSelect = (timeSlot) => {
     setSelectedTimeSlot(timeSlot);
-    setStartTime(availabilityObj.slots[timeSlot].startTime)
-    setEndTime(availabilityObj.slots[timeSlot].endTime)
+    setStartTime(availabilityObj.slots[timeSlot].startTime);
+    setEndTime(availabilityObj.slots[timeSlot].endTime);
     selectedDate ? setIsBookable(true) : setIsBookable(false);
   };
 
   const handleAppointmentBooking = async () => {
     if (selectedDate && selectedTimeSlot) {
-      console.log({patientId: userInfo.userInfo._id,
+      console.log({
+        patientId: userInfo.userInfo._id,
         doctorId: userInfo.doctor._id,
         date: selectedDate.toString(),
         startTime: startTime,
-        endTime: endTime,})
-      try{
-        console.log(selectedDate)
-        const res = await fetch(process.env.REACT_APP_BACKEND_URL +'patient/setappointment',{
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            patientId: userInfo.userInfo._id,
-            doctorId: userInfo.doctor._id,
-            startTime: startTime,
-            endTime: endTime,
-            date: selectedDate.toString(),
-          }),
-        })
+        endTime: endTime,
+      });
+      try {
+        console.log(selectedDate);
+        const res = await fetch(
+          process.env.REACT_APP_BACKEND_URL + "patient/setappointment",
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              patientId: userInfo.userInfo._id,
+              doctorId: userInfo.doctor._id,
+              startTime: startTime,
+              endTime: endTime,
+              date: selectedDate.toString(),
+            }),
+          }
+        );
         const data = await res.json();
-        console.log(data)
-      }
-      catch(err){
+        console.log(data);
+      } catch (err) {
         Swal.fire({
           icon: "error",
           title: "Oops...",
           text: "Something went wrong!",
         });
-
       }
     } else {
       console.log("Please select a date and time slot");
@@ -97,24 +101,32 @@ function AppointmentBooker({doctor}) {
     }
   };
 
-  useEffect(()=>{
-    const getDoctorAvailability = async (req , res) =>{
-      try{
-        const response = await fetch(process.env.REACT_APP_BACKEND_URL + "doctors/getdoctoravailability/" + userInfo.doctor._id,{
-          method: "GET",
-        })
-        const jsonData = await response.json()
+  useEffect(() => {
+    const getDoctorAvailability = async (req, res) => {
+      try {
+        setTimingLoading(true);
+        const response = await fetch(
+          process.env.REACT_APP_BACKEND_URL +
+            "doctors/getdoctoravailability/" +
+            userInfo.doctor._id,
+          {
+            method: "GET",
+          }
+        );
+        const jsonData = await response.json();
         setAvailabilityObj(jsonData.data.data);
-        console.log(availabilityObj)
-        console.log(availabilityObj.slots)
-        setLoading(false)
-        setShow(true)
-      }catch(err){
-        console.error(err.message)
+        console.log(availabilityObj);
+        console.log(availabilityObj.slots);
+        setLoading(false);
+        setShow(true);
+      } catch (err) {
+        console.error(err.message);
+      } finally {
+        setTimingLoading(false);
       }
-    }
-    getDoctorAvailability()
-  },[userInfo.doctor])
+    };
+    getDoctorAvailability();
+  }, [userInfo.doctor]);
 
   return (
     <>
@@ -150,36 +162,44 @@ function AppointmentBooker({doctor}) {
                       boxShadow: "9px 7px 20px -6px rgba(0, 0, 0, 0.3)",
                     }}
                   >
-                    <Panel
-                      style={{
-                        padding: "0px",
-                      }}
-                    >
-                      <div className={styles.timeSlotContainer}>
-                        {availabilityObj.slots.map((slot , index) => (
-                          <Panel
-                            style={{
-                              padding: "0px",
-                              margin: "0px",
-                              cursor: "pointer",
-                            }}
-                            className={
-                              startTime === slot.startTime
-                                ? styles.selectedTimeSlot
-                                : ""
-                            }
-                            key={index}
-                            shaded={selectedTimeSlot === index}
-                            border={selectedTimeSlot === index}
-                            onClick={() => handleTimeSlotSelect(index)}
-                          >
-                            {slot.startTime}-{slot.endTime}
-                          </Panel>
-                        ))}
-
-                        {/* Add more time slots here */}
-                      </div>
-                    </Panel>
+                    {timingLoading ? (
+                      <Loader
+                        type="bubble-loop"
+                        bgColor={"#FFFFFF"}
+                        color={"#FFFFFF"}
+                        size={30}
+                      />
+                    ) : (
+                      <Panel style={{ padding: "0px" }}>
+                        <div className={styles.timeSlotContainer}>
+                          {availabilityObj.slots &&
+                          availabilityObj.slots.length > 0 ? (
+                            availabilityObj.slots.map((slot, index) => (
+                              <Panel
+                                style={{
+                                  padding: "0px",
+                                  margin: "0px",
+                                  cursor: "pointer",
+                                }}
+                                className={
+                                  startTime === slot.startTime
+                                    ? styles.selectedTimeSlot
+                                    : ""
+                                }
+                                key={index}
+                                shaded={selectedTimeSlot === index}
+                                border={selectedTimeSlot === index}
+                                onClick={() => handleTimeSlotSelect(index)}
+                              >
+                                {slot.startTime}-{slot.endTime}
+                              </Panel>
+                            ))
+                          ) : (
+                            <p>No available time slots.</p>
+                          )}
+                        </div>
+                      </Panel>
+                    )}
                   </PanelGroup>
                 </div>
                 <Button
