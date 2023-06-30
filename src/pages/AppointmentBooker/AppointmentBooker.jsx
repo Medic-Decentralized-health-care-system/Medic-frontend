@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { ReactDOM } from "react-dom";
 import Loader from "react-js-loader";
 import CardList from "../../components/CardList/CardList";
@@ -6,6 +6,7 @@ import styles from "./styles.module.css";
 import CardSelected from "../../components/CardSelected/CardSelected";
 import { Button, DatePicker, Panel, PanelGroup } from "rsuite";
 import { useSelector } from "react-redux";
+import Swal from "sweetalert2";
 
 const dummyDoctorObj = {
   fullName: "Dr. Aditi Singh",
@@ -38,7 +39,10 @@ function AppointmentBooker({doctor}) {
   const [loading, setLoading] = useState(false);
   const [selectedDate, setSelectedDate] = useState();
   const [selectedTimeSlot, setSelectedTimeSlot] = useState("");
+  const [startTime , setStartTime] = useState("");
+  const [endTime , setEndTime] = useState("");
   const [isBookable, setIsBookable] = useState(false);
+  const [availabilityObj , setAvailabilityObj] = useState({})
   const userInfo = useSelector(state => state );
   console.log(userInfo)
 
@@ -49,19 +53,68 @@ function AppointmentBooker({doctor}) {
 
   const handleTimeSlotSelect = (timeSlot) => {
     setSelectedTimeSlot(timeSlot);
+    setStartTime(availabilityObj.slots[timeSlot].startTime)
+    setEndTime(availabilityObj.slots[timeSlot].endTime)
     selectedDate ? setIsBookable(true) : setIsBookable(false);
   };
 
-  const handleAppointmentBooking = () => {
+  const handleAppointmentBooking = async () => {
     if (selectedDate && selectedTimeSlot) {
-      // Logic for booking the appointment goes here
-      // You can send a request to your backend server to save the appointment details
-      console.log("Appointment booked:", selectedDate, selectedTimeSlot);
+      console.log({patientId: userInfo.userInfo._id,
+        doctorId: userInfo.doctor._id,
+        date: selectedDate.toString(),
+        startTime: startTime,
+        endTime: endTime,})
+      try{
+        console.log(selectedDate)
+        const res = await fetch(process.env.REACT_APP_BACKEND_URL +'patient/setappointment',{
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            patientId: userInfo.userInfo._id,
+            doctorId: userInfo.doctor._id,
+            startTime: startTime,
+            endTime: endTime,
+            date: selectedDate.toString(),
+          }),
+        })
+        const data = await res.json();
+        console.log(data)
+      }
+      catch(err){
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: "Something went wrong!",
+        });
+
+      }
     } else {
       console.log("Please select a date and time slot");
       setIsBookable(false);
     }
   };
+
+  useEffect(()=>{
+    const getDoctorAvailability = async (req , res) =>{
+      try{
+        const response = await fetch(process.env.REACT_APP_BACKEND_URL + "doctors/getdoctoravailability/" + userInfo.doctor._id,{
+          method: "GET",
+        })
+        const jsonData = await response.json()
+        setAvailabilityObj(jsonData.data.data);
+        console.log(availabilityObj)
+        console.log(availabilityObj.slots)
+        setLoading(false)
+        setShow(true)
+      }catch(err){
+        console.error(err.message)
+      }
+    }
+    getDoctorAvailability()
+  },[userInfo.doctor])
 
   return (
     <>
@@ -69,7 +122,6 @@ function AppointmentBooker({doctor}) {
         <div className={styles.fullscreenFrame}>
           <p className={styles.logoText}>MEDIC.</p>
           <div className={styles.fullTop}>
-            {console.log(doctor)}
             <CardSelected
               doctor={userInfo.doctor}
               avatarStyle={{ height: "200px", width: "200px" }}
@@ -86,7 +138,8 @@ function AppointmentBooker({doctor}) {
                       boxShadow: "9px 7px 20px -6px rgba(0, 0, 0, 0.3)",
                     }}
                     value={selectedDate}
-                    onSelect={handleDateSelect}
+                    onSelect={(date) => handleDateSelect(date)}
+                    format="yyyy-MM-dd"
                   />
                 </div>
                 <div className={styles.chooseTimeBox}>
@@ -103,7 +156,7 @@ function AppointmentBooker({doctor}) {
                       }}
                     >
                       <div className={styles.timeSlotContainer}>
-                        {dummyDoctorObj.availability.time.map((slot) => (
+                        {availabilityObj.slots.map((slot , index) => (
                           <Panel
                             style={{
                               padding: "0px",
@@ -111,16 +164,16 @@ function AppointmentBooker({doctor}) {
                               cursor: "pointer",
                             }}
                             className={
-                              selectedTimeSlot === slot
+                              startTime === slot.startTime
                                 ? styles.selectedTimeSlot
                                 : ""
                             }
-                            key={slot}
-                            shaded={selectedTimeSlot === slot}
-                            border={selectedTimeSlot === slot}
-                            onClick={() => handleTimeSlotSelect(slot)}
+                            key={index}
+                            shaded={selectedTimeSlot === index}
+                            border={selectedTimeSlot === index}
+                            onClick={() => handleTimeSlotSelect(index)}
                           >
-                            {slot}
+                            {slot.startTime}-{slot.endTime}
                           </Panel>
                         ))}
 
@@ -171,11 +224,11 @@ function AppointmentBooker({doctor}) {
                 </div>
               )
             )}
-            {show && (
+            {/* {show && (
               <div className={styles.contCardList}>
                 <CardList doctors={doctors} />
               </div>
-            )}
+            )} */}
           </div>
         </div>
       </div>

@@ -129,7 +129,7 @@ function UserDash() {
       dispatch(setBalance(accountBalance));
       console.log("hi");
       console.log(userInfo._id);
-      await walletAddress(userInfo._id, accountAddress);
+      // await walletAddress(userInfo._id, accountAddress);
       console.log(accountAddress, accountBalance);
     } catch (error) {
       setIsConnected(false);

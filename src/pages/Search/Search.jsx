@@ -91,6 +91,7 @@ export default function Search() {
       }) 
       const data = await res.json();
       if(data.status==='success'){
+        console.log(data.data.doctors)
         setDoctors(data.data.doctors)
         setShow(true);
       }

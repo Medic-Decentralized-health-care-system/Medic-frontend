@@ -8,15 +8,8 @@ import { setDoctor } from "../../state/auth/auth-slice";
 export default function Card({ doctor, style }) {
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
-
-	useEffect(()=>{
-		dispatch(setDoctor(doctor));
-	},[doctor])
 	return (
 		<div className={styles.card}>
-			{
-				console.log(doctor)
-			}
 			<div className={styles.container}>
 				<Avatar imgURL={doctor.image} />
 				<div className={styles.nameBox}>
@@ -31,6 +24,8 @@ export default function Card({ doctor, style }) {
 				</div>
 				<button className={styles.buttonDark}>
 					<p className={styles.text6} onClick={()=>{
+						console.log('doctor')
+						dispatch(setDoctor(doctor));
 						navigate('/dashboard/user/bookappointment')
 					}}>View Appointment Slots</p>
 					<img src="" alt="" />

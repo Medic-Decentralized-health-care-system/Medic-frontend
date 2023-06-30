@@ -2,100 +2,26 @@ import React from "react";
 import Card from "../Card/Card";
 import styles from "./styles.module.css";
 import { Link } from "react-router-dom";
-
-// const doctors = [
-// 	{
-// 		fullName: "Dr. Aditi Singh",
-// 		degree: "MBBS",
-// 		specialty: "General Physician",
-// 		experience: "4 years",
-// 		imgURL:
-// 			"https://i.pinimg.com/originals/35/57/55/355755832670880825ad87838e18d6b6.jpg"
-// 	},
-// 	{
-// 		fullName: "Dr. Pataal Singh",
-// 		degree: "MBBS",
-// 		specialty: "Dermatologist",
-// 		experience: "12 years",
-// 		imgURL:
-// 			"https://i.pinimg.com/originals/35/57/55/355755832670880825ad87838e18d6b6.jpg"
-// 	},
-// 	{
-// 		fullName: "Dr. Parineeti Singh",
-// 		degree: "MBBS",
-// 		specialty: "Gynaecologist",
-// 		experience: "4 years",
-// 		imgURL:
-// 			"https://i.pinimg.com/originals/35/57/55/355755832670880825ad87838e18d6b6.jpg"
-// 	}
-// 	,
-// 	{
-// 		fullName: "Dr. Parineeti Singh",
-// 		degree: "MBBS",
-// 		specialty: "Gynaecologist",
-// 		experience: "4 years",
-// 		imgURL:
-// 			"https://i.pinimg.com/originals/35/57/55/355755832670880825ad87838e18d6b6.jpg"
-// 	}
-// 	,
-// 	{
-// 		fullName: "Dr. Parineeti Singh",
-// 		degree: "MBBS",
-// 		specialty: "Gynaecologist",
-// 		experience: "4 years",
-// 		imgURL:
-// 			"https://i.pinimg.com/originals/35/57/55/355755832670880825ad87838e18d6b6.jpg"
-// 	}
-// 	,
-// 	{
-// 		fullName: "Dr. Parineeti Singh",
-// 		degree: "MBBS",
-// 		specialty: "Gynaecologist",
-// 		experience: "4 years",
-// 		imgURL:
-// 			"https://i.pinimg.com/originals/35/57/55/355755832670880825ad87838e18d6b6.jpg"
-// 	},
-// 	{
-// 		fullName: "Dr. Aditi Singh",
-// 		degree: "MBBS",
-// 		specialty: "General Physician",
-// 		experience: "4 years",
-// 		imgURL:
-// 			"https://i.pinimg.com/originals/35/57/55/355755832670880825ad87838e18d6b6.jpg"
-// 	},
-// 	{
-// 		fullName: "Dr. Aditi Singh",
-// 		degree: "MBBS",
-// 		specialty: "General Physician",
-// 		experience: "4 years",
-// 		imgURL:
-// 			"https://i.pinimg.com/originals/35/57/55/355755832670880825ad87838e18d6b6.jpg"
-// 	},
-// 	{
-// 		fullName: "Dr. Aditi Singh",
-// 		degree: "MBBS",
-// 		specialty: "General Physician",
-// 		experience: "4 years",
-// 		imgURL:
-// 			"https://i.pinimg.com/originals/35/57/55/355755832670880825ad87838e18d6b6.jpg"
-// 	}
-// ];
+import { useSelector } from "react-redux";
 
 function CardList({ doctors }) {
+  const userInfo = useSelector((state) => state.userInfo);
+  console.log(userInfo)
   return (
     <>
       <div className={styles.container}>
         {doctors.length === 0 ? (
           <h2>No Doctors Found</h2>
         ) : (
-          doctors.map((content) => {
+          doctors.map((doctor) => {
             return (
               <Card
-                doctor={content}
+                doctor={doctor}
               />
             );
           })
-        )}
+        )
+        }
       </div>
     </>
   );
