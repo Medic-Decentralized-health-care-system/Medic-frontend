@@ -16,6 +16,7 @@ import UserDash from "./pages/Dashboard/User/UserDash";
 import EditProfile from "./pages/EditProfile/EditProfile";
 import AppointmentBooker from "./pages/AppointmentBooker/AppointmentBooker";
 import DocDash from "./pages/Dashboard/Doc/DocDash.jsx";
+import UpApp from "./pages/UpcomingApp/UpApp";
 
 function App() {
   return (
@@ -35,6 +36,7 @@ function App() {
           path="/dashboard/user/bookappointment"
           element={<AppointmentBooker />}
         />
+        <Route path="/dashboard/user/upcoming-appointments" element={<UpApp />} />
         <Route path="/view/medicalrecord" element={<MedRecord />} />
         <Route path="/dashboard/doctor" element={<DocDash />} />
       </Routes>
