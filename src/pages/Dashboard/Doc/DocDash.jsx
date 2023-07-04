@@ -49,96 +49,93 @@ function DocDash() {
 
   const [editProfile, setEditProfile] = useState(false);
 
-  const [upAppEmpty, setUpAppEmpty] = useState(false);
+  const [upAppEmpty, setUpAppEmpty] = useState(true);
   const [recAppEmpty, setRecAppEmpty] = useState(false);
-  const [presEmpty, setPresEmpty] = useState(false);
   const [recTransEmpty, setRecTransEmpty] = useState(false);
-  const [haveMetamask, sethaveMetamask] = useState(false);
-  const [accountAddress, setAccountAddress] = useState("");
-  const [accountBalance, setAccountBalance] = useState("");
-  const [isConnected, setIsConnected] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [upcoming , setUpcoming] = useState([]);
+  const [recent , setRecent] = useState([]);
 
-  const { ethereum } = window;
-
-  useEffect(() => {
-    const { ethereum } = window;
-    const checkMetamaskAvailability = async () => {
-      if (!ethereum) {
-        sethaveMetamask(false);
-      }
-      sethaveMetamask(true);
-    };
-    checkMetamaskAvailability();
-  }, []);
-
-  const walletAddress = async (id, walletAddress) => {
-    console.log("Hiiiii");
-    const res = await fetch(
-      process.env.REACT_APP_BACKEND_URL + "common/setwalletaddress",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          id,
-          walletAddress,
-        }),
-      }
-    );
-    const data = await res.json();
-    console.log(data);
-    if (data.user) {
-      Swal.fire({
-        icon: "success",
-        title: "Success",
-        text: "Wallet connected successfully",
-      });
-    } else {
-      Swal.fire({
-        icon: "warning",
-        title: "Please try again",
-        text: data.message,
-      });
-    }
-  };
-
-  const connectWallet = async () => {
-    setLoading(true);
+  const getUpcomingAppointments = async () => {
     try {
-      if (!haveMetamask) {
+      const res = await fetch(
+        process.env.REACT_APP_BACKEND_URL + "doctors/getupcomingappointments/649e79d6d3828be03c885fcb",
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      const data = await res.json();
+      if (data.status == "success") {
+        if (data.data.data.length == 0) {
+          setUpAppEmpty(false);
+        } else {
+          setUpAppEmpty(true);
+        }
+        setUpcoming(data.data.data);
+        console.log(upcoming);
+      } else {
         Swal.fire({
-          icon: "warning",
-          title: "Oops...",
-          text: "Please install metamask",
+          title: "Error!",
+          text: data.message,
+          icon: "error",
+          confirmButtonText: "Ok",
         });
-        return;
       }
-      const provider = new ethers.providers.Web3Provider(window.ethereum);
-      if (!ethereum) {
-        sethaveMetamask(false);
-      }
-      const accounts = await ethereum.request({
-        method: "eth_requestAccounts",
+    } catch (err) {
+      Swal.fire({
+        title: "Error!",
+        text: err.message,
+        icon: "error",
+        confirmButtonText: "Ok",
       });
-      let balance = await provider.getBalance(accounts[0]);
-      let bal = ethers.utils.formatEther(balance);
-      setAccountAddress(accounts[0]);
-      setAccountBalance(bal);
-      setIsConnected(true);
-      dispatch(setWalletAddress(accountAddress));
-      dispatch(setBalance(accountBalance));
-      console.log("hi");
-      console.log(userInfo._id);
-      await walletAddress(userInfo._id, accountAddress);
-      console.log(accountAddress, accountBalance);
-    } catch (error) {
-      setIsConnected(false);
-    } finally {
-      setLoading(false);
     }
-  };
+  }
+
+  const getRecentAppointments = async () => {
+    try {
+      const res = await fetch(
+        process.env.REACT_APP_BACKEND_URL + "doctors/getrecentappointments/649e79d6d3828be03c885fcb",
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      const data = await res.json();
+      if (data.status == "success") {
+        if (data.data.data.length == 0) {
+          setRecAppEmpty(false);
+        } else {
+          setRecAppEmpty(true);
+        }
+        setRecent(data.data.data);
+        console.log(recent);
+      } else {
+        Swal.fire({
+          title: "Error!",
+          text: data.message,
+          icon: "error",
+          confirmButtonText: "Ok",
+        });
+      }
+    } catch (err) {
+      Swal.fire({
+        title: "Error!",
+        text: err.message,
+        icon: "error",
+        confirmButtonText: "Ok",
+      });
+    }
+  }
+
+  useEffect(()=>{
+    getUpcomingAppointments();
+    getRecentAppointments();
+  },[])
   return (
     <>
       <div className={styles.container}>
@@ -178,14 +175,14 @@ function DocDash() {
               imgURL={require("../../../assets/images/pfptemplate.png")}
               imgStyle={{ width: "50px", height: "50px" }}
             />
-            <Button
+            {/* <Button
               appearance="primary"
               endIcon={<Icon as={MetaMaskIcon} />}
               style={{ width: "fit-content" }}
               onClick={connectWallet}
             >
               Connect Wallet
-            </Button>
+            </Button> */}
           </div>
         </div>
         <div className={styles.main}>
@@ -211,41 +208,12 @@ function DocDash() {
                           22/02/23
                         </Tag>
                         <div style={{ display: "flex", flexDirection: "column", width: "98%"}}>
-                          <Info textRight={"10-11AM"}>Rahul Yadav</Info>
-                          <Info textRight={"10-11AM"}>Rahul Yadav</Info>
-                          <Info textRight={"10-11AM"}>Rahul Yadav</Info>
-                          <Info textRight={"10-11AM"}>Rahul Yadav</Info>
-                          <Info textRight={"10-11AM"}>Rahul Yadav</Info>
-                        </div>
-                        <Tag size="lg" appearance="primary" color="blue">
-                          22/02/23
-                        </Tag>
-                        <div style={{ display: "flex", flexDirection: "column", width: "98%"}}>
-                          <Info textRight={"10-11AM"}>Rahul Yadav</Info>
-                          <Info textRight={"10-11AM"}>Rahul Yadav</Info>
-                          <Info textRight={"10-11AM"}>Rahul Yadav</Info>
-                          <Info textRight={"10-11AM"}>Rahul Yadav</Info>
-                          <Info textRight={"10-11AM"}>Rahul Yadav</Info>
-                        </div>
-                        <Tag size="lg" appearance="primary" color="blue">
-                          23/02/23
-                        </Tag>
-                        <div style={{ display: "flex", flexDirection: "column", width: "98%"}}>
-                          <Info textRight={"10-11AM"}>Rahul Yadav</Info>
-                          <Info textRight={"10-11AM"}>Rahul Yadav</Info>
-                          <Info textRight={"10-11AM"}>Rahul Yadav</Info>
-                        </div>
-                        <Tag size="lg" appearance="primary" color="blue">
-                          26/02/23
-                        </Tag>
-                        <div style={{ display: "flex", flexDirection: "column", width: "98%"}}>
-                          <Info textRight={"10-11AM"}>Rahul Yadav</Info>
-                          <Info textRight={"10-11AM"}>Rahul Yadav</Info>
-                          <Info textRight={"10-11AM"}>Rahul Yadav</Info>
-                          <Info textRight={"10-11AM"}>Rahul Yadav</Info>
-                          <Info textRight={"10-11AM"}>Rahul Yadav</Info>
-                          <Info textRight={"10-11AM"}>Rahul Yadav</Info>
-                          <Info textRight={"10-11AM"}>Rahul Yadav</Info>
+                          {upcoming.map((item)=>{
+                            return(
+                              <Info textRight={item.startTime}>{item.patientName}</Info>
+                            )
+                          })
+                        }
                         </div>
                       </div>
                     ) : (
@@ -277,15 +245,13 @@ function DocDash() {
                       {/* Use this div to map the recent appointments to */}
                       {recAppEmpty ? (
                         <>
-                          <Info textRight={"19/04/23"}>Dr. Rajesh Joshi</Info>
-                          <Info textRight={"19/04/23"}>Dr. Rajesh Joshi</Info>
-                          <Info textRight={"19/04/23"}>Dr. Rajesh Joshi</Info>
-                          <Info textRight={"19/04/23"}>Dr. Rajesh Joshi</Info>
-                          <Info textRight={"19/04/23"}>Dr. Rajesh Joshi</Info>
-                          <Info textRight={"19/04/23"}>Dr. Rajesh Joshi</Info>
-                          <Info textRight={"19/04/23"}>Dr. Rajesh Joshi</Info>
-                          <Info textRight={"19/04/23"}>Dr. Rajesh Joshi</Info>
-                          <Info textRight={"19/04/23"}>Dr. Rajesh Joshi</Info>
+                          {
+                            recent.map((item)=>{
+                              return(
+                                <Info textRight={`${item.startTime}-${item.endTime}`}>{item.patientName}</Info>
+                              )
+                            })
+                          }
                         </>
                       ) : (
                         <>
@@ -330,7 +296,7 @@ function DocDash() {
                             >
                               No Transactions to show
                             </p>
-                            <IconButton
+                            {/* <IconButton
                               appearance="primary"
                               icon={<Icon as={MetaMaskIcon} />}
                               onClick={connectWallet}
@@ -351,7 +317,7 @@ function DocDash() {
                               )
                             ) : (
                               "Connect wallet"
-                            )}
+                            )} */}
                           </div>
                         </>
                       )}
