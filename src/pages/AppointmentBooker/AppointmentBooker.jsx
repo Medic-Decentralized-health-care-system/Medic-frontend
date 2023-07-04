@@ -7,31 +7,33 @@ import CardSelected from "../../components/CardSelected/CardSelected";
 import { Button, DatePicker, Panel, PanelGroup } from "rsuite";
 import { useSelector } from "react-redux";
 import Swal from "sweetalert2";
+import MoneyTransferABI from "../../constants/frontEndAbiLocation/MoneyTransfer.json";
+import { ethers } from "ethers";
 
-const dummyDoctorObj = {
-  fullName: "Dr. Aditi Singh",
-  degree: "MBBS",
-  specialty: "General Physician",
-  experience: "4 years",
-  imgURL:
-    "https://i.pinimg.com/originals/35/57/55/355755832670880825ad87838e18d6b6.jpg",
-  availability: {
-    days: ["Monday", "Tuesday", "Thursday"],
-    time: [
-      "10:00AM-11:00AM",
-      "02:00PM-3:00PM",
-      "03:30PM-4:30PM",
-      "05:00PM-6:00PM",
-      "06:30PM-7:30PM",
-      "08:00PM-9:00PM",
-      "09:30PM-10:30PM",
-      "11:00PM-12:00AM",
-      "12:30AM-01:30AM",
-      "02:00AM-03:00AM",
-      "03:30AM-04:30AM",
-    ],
-  },
-};
+// const dummyDoctorObj = {
+//   fullName: "Dr. Aditi Singh",
+//   degree: "MBBS",
+//   specialty: "General Physician",
+//   experience: "4 years",
+//   imgURL:
+//     "https://i.pinimg.com/originals/35/57/55/355755832670880825ad87838e18d6b6.jpg",
+//   availability: {
+//     days: ["Monday", "Tuesday", "Thursday"],
+//     time: [
+//       "10:00AM-11:00AM",
+//       "02:00PM-3:00PM",
+//       "03:30PM-4:30PM",
+//       "05:00PM-6:00PM",
+//       "06:30PM-7:30PM",
+//       "08:00PM-9:00PM",
+//       "09:30PM-10:30PM",
+//       "11:00PM-12:00AM",
+//       "12:30AM-01:30AM",
+//       "02:00AM-03:00AM",
+//       "03:30AM-04:30AM",
+//     ],
+//   },
+// };
 
 function AppointmentBooker({ doctor }) {
   const [show, setShow] = useState(false);
@@ -45,7 +47,6 @@ function AppointmentBooker({ doctor }) {
   const [availabilityObj, setAvailabilityObj] = useState({});
   const [timingLoading, setTimingLoading] = useState(false);
   const userInfo = useSelector((state) => state);
-  console.log(userInfo);
 
   const handleDateSelect = (date) => {
     setSelectedDate(date);
@@ -60,14 +61,15 @@ function AppointmentBooker({ doctor }) {
   };
 
   const handleAppointmentBooking = async () => {
-    if (selectedDate && selectedTimeSlot) {
-      console.log({
-        patientId: userInfo.userInfo._id,
-        doctorId: userInfo.doctor._id,
-        date: selectedDate.toString(),
-        startTime: startTime,
-        endTime: endTime,
-      });
+    console.log(selectedDate , selectedTimeSlot)
+    // if (selectedDate && selectedTimeSlot) {
+    //   console.log({
+    //     patientId: userInfo.userInfo._id,
+    //     doctorId: userInfo.doctor._id,
+    //     date: selectedDate.toString(),
+    //     startTime: startTime,
+    //     endTime: endTime,
+    //   });
       try {
         console.log(selectedDate);
         const res = await fetch(
@@ -80,6 +82,7 @@ function AppointmentBooker({ doctor }) {
             body: JSON.stringify({
               patientId: userInfo.userInfo._id,
               doctorId: userInfo.doctor._id,
+              patientName : userInfo.userInfo.name ,
               startTime: startTime,
               endTime: endTime,
               date: selectedDate.toString(),
@@ -87,7 +90,7 @@ function AppointmentBooker({ doctor }) {
           }
         );
         const data = await res.json();
-        console.log(data);
+        console.log(data)
       } catch (err) {
         Swal.fire({
           icon: "error",
@@ -95,10 +98,15 @@ function AppointmentBooker({ doctor }) {
           text: "Something went wrong!",
         });
       }
-    } else {
-      console.log("Please select a date and time slot");
-      setIsBookable(false);
-    }
+    // } 
+    // else {
+    //   setIsBookable(false);
+    //   Swal.fire({
+    //     icon: "warning",
+    //     title: "Oops...",
+    //     text: "Please select a date and time slot!",
+    //   });
+    // }
   };
 
   useEffect(() => {
@@ -117,6 +125,7 @@ function AppointmentBooker({ doctor }) {
         setAvailabilityObj(jsonData.data.data);
         console.log(availabilityObj);
         console.log(availabilityObj.slots);
+        await sendEther();
         setLoading(false);
         setShow(true);
       } catch (err) {
@@ -127,6 +136,30 @@ function AppointmentBooker({ doctor }) {
     };
     getDoctorAvailability();
   }, [userInfo.doctor]);
+
+  /*Contract To send the ether*/
+  const MoneyTransferAddress = "0x38189952cE93ab2a1578640876921080cEaA8550";
+  const provider = new ethers.providers.Web3Provider(window.ethereum);
+  const signer = provider.getSigner();
+  const contract = new ethers.Contract(
+    MoneyTransferAddress,
+    MoneyTransferABI,
+    signer
+  );
+
+  const sendEther = async () => {
+    try {
+      const sendEther = await contract.transfer("0x490aeeA34202D19b42731f00371e949c01F2eC53", "10000000000000000",{
+        from :""
+      });
+      const balance = await contract.getBalance("0x490aeeA34202D19b42731f00371e949c01F2eC53");
+      console.log(balance.toString());
+    }
+    catch(err){
+      console.log(err)
+    }
+  };
+
 
   return (
     <>
