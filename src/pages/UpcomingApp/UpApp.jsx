@@ -122,10 +122,10 @@ function UpApp() {
         <div className={styles.main}>
           <div className={styles.mainHeader}>
             <div className={styles.PlusIconContainer}>
-              <img src={PlusIcon} width="50px" />
+              <img src={PlusIcon} width="50px" alt=""/>
             </div>
             <div className={styles.mainHeadingText}>
-              <h1 style={{ fontSize: "1.8rem" }}>Upcoming Appointments</h1>
+              <h1 style={{ fontSize: "2rem" }}>Upcoming Appointments</h1>
             </div>
           </div>
           <div className={styles.mainBody}>
@@ -138,7 +138,7 @@ function UpApp() {
             </div>
             <div className={styles.appBox}>
               <div className={styles.appBoxTop}>
-                <p style={{ fontSize: "1.3rem" }}>Appointment Scheduled on:</p>
+                <p style={{ fontSize: "1.8rem" }}>Appointment Scheduled on:</p>
                 <div className={styles.appTimeDateBoxContainer}>
                   <div className={styles.appTimeDateBox}>
                     <div className={styles.appDate}>

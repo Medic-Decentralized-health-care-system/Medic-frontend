@@ -249,11 +249,12 @@
 .appBoxBottomLeftHeader {
   width: 100%;
   padding: 0.45rem;
-  font-size: medium;
+  font-size: x-large;
   /* width: fit-content; */
 }
 
 .appBoxBottomLeftBody {
+  font-size: medium;
   padding: 0.45rem;
   width: fit-content;
   height: 30vh;
@@ -273,13 +274,14 @@
 .appBoxBottomRightHeader {
   width: 100%;
   padding: 0.45rem;
-  font-size: medium;
+  font-size: x-large;
 }
 
 .appBoxBottomRightBody {
   width: 100%;
   padding: 10px;
   height: 30vh;
+  font-size: small;
 }
 .appBoxBottomRightBody ::-webkit-scrollbar {
   width: 0;
