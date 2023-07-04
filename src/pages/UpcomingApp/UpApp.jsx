@@ -8,24 +8,55 @@ import ButtonHollow from "../../components/Buttons/ButtonHollow";
 import Modal from "../../components/Modal/Modal";
 import Info from "../../components/Info/Info";
 import { useDispatch, useSelector } from "react-redux";
-import { Button, DatePicker, Input, InputPicker, Uploader } from "rsuite";
-import { Icon } from "@rsuite/icons";
+import {
+  Button,
+  DatePicker,
+  Divider,
+  Input,
+  InputPicker,
+  Uploader,
+} from "rsuite";
+import { Icon, Plus } from "@rsuite/icons";
 import CameraRetroIcon from "@rsuite/icons/legacy/CameraRetro";
-
+import CardSelected from "../../components/CardSelected/CardSelected";
+const dummyDoctorObj = {
+  name: "Dr. Aditi Singh",
+  degree: "MBBS",
+  specialty: "General Physician",
+  experience: "4 years",
+  image:
+    "https://i.pinimg.com/originals/35/57/55/355755832670880825ad87838e18d6b6.jpg",
+  availability: {
+    days: ["Monday", "Tuesday", "Thursday"],
+    time: [
+      "10:00AM-11:00AM",
+      "02:00PM-3:00PM",
+      "03:30PM-4:30PM",
+      "05:00PM-6:00PM",
+      "06:30PM-7:30PM",
+      "08:00PM-9:00PM",
+      "09:30PM-10:30PM",
+      "11:00PM-12:00AM",
+      "12:30AM-01:30AM",
+      "02:00AM-03:00AM",
+      "03:30AM-04:30AM",
+    ],
+  },
+};
 const PlusIcon = require("../../assets/images/hospital-svgrepo.png");
 
-const MetaMaskIcon = React.forwardRef((props, ref) => (
-  <svg
-    {...props}
-    width="2em"
-    height="2em"
-    fill="currentColor"
-    viewBox="0 0 320 512"
-    ref={ref}
-  >
-    <path d="M311.9 260.8L160 353.6 8 260.8 160 0l151.9 260.8zM160 383.4L8 290.6 160 512l152-221.4-152 92.8z" />
-  </svg>
-));
+// const MetaMaskIcon = React.forwardRef((props, ref) => (
+//   <svg
+//     {...props}
+//     width="2em"
+//     height="2em"
+//     fill="currentColor"
+//     viewBox="0 0 320 512"
+//     ref={ref}
+//   >
+//     <path d="M311.9 260.8L160 353.6 8 260.8 160 0l151.9 260.8zM160 383.4L8 290.6 160 512l152-221.4-152 92.8z" />
+//   </svg>
+// ));
 
 function UpApp() {
   const Navigate = useNavigate();
@@ -46,26 +77,7 @@ function UpApp() {
     setModal(false);
   };
 
-  const handleUpdateDetails = () => {
-    // TODO: Handle the updating of details in the backend
-    console.log("Details updated!");
-  };
-
-  const [upAppEmpty, setUpAppEmpty] = useState(false);
-  const [recAppEmpty, setRecAppEmpty] = useState(false);
-  const [presEmpty, setPresEmpty] = useState(false);
-  const [recTransEmpty, setRecTransEmpty] = useState(false);
-
-  const [fileURL, setFileURL] = useState("");
-  const handleUpload = (file) => {
-    setFileURL(URL.createObjectURL(file.blobFile));
-  };
-
-  const sex = ["Male", "Female", "Non-binary"].map((item) => ({
-    label: item,
-    value: item,
-  }));
-
+  const [pending, setIsPending] = useState(true);
   return (
     <>
       <div className={styles.container}>
@@ -105,121 +117,72 @@ function UpApp() {
               imgURL={require("../../assets/images/pfptemplate.png")}
               imgStyle={{ width: "50px", height: "50px" }}
             />
-            
           </div>
-          
         </div>
         <div className={styles.main}>
           <div className={styles.mainHeader}>
-            <div className={styles.mainAvatarContainer}>
-              <div className={styles.profilePicBox}>
-                <div className={styles.AvatarContainer}>
-                  <Avatar
-                    imgURL={
-                      fileURL === ""
-                        ? require("../../assets/images/pfptemplate.png")
-                        : fileURL
-                    }
-                    imgStyle={{ width: "200px", height: "200px" }}
-                  />
-                </div>
-                <div className={styles.mainUploadContainer}>
-                  <Uploader
-                    accept="image/*"
-                    appearance="ghost"
-                    fileListVisible={false}
-                    onUpload={handleUpload}
-                    renderFileInfo={(file, fileElement) => {
-                      setFileURL(URL.createObjectURL(file.blobFile));
-                    }}
-                  >
-                    <button style={{ backgroundColor: "transparent" }}>
-                      <CameraRetroIcon
-                        style={{ backgroundColor: "transparent" }}
-                      />
-                    </button>
-                  </Uploader>
-                </div>
-              </div>
+            <div className={styles.PlusIconContainer}>
+              <img src={PlusIcon} width="50px" />
             </div>
-            <div className={styles.mainNameBox}>
-              {/* {userInfo && (
-                <p style={{ fontSize: "1.4rem" }}>{userInfo.name}</p>
-              )} */}
-              <h1>John Dahl</h1>
+            <div className={styles.mainHeadingText}>
+              <h1 style={{ fontSize: "1.8rem" }}>Upcoming Appointments</h1>
             </div>
           </div>
           <div className={styles.mainBody}>
-            <div className={styles.bodyHeader}>
-              <h2>Edit Profile</h2>
+            <div className={styles.docInfoContainer}>
+              <CardSelected
+                doctor={dummyDoctorObj}
+                avatarStyle={{ width: "100px", height: "100px" }}
+                style={{ width: "250px", height: "500px" }}
+              />
             </div>
-            <div className={styles.FormBox}>
-              <div className={styles.topFormBox}>
-                <div className={styles.firstName}>
-                  <p>First Name</p>
-                  <Input
-                    type="text"
-                    id="fName"
-                    appearance="primary"
-                    placeholder="First Name"
-                  />
-                </div>
-                <div className={styles.lastName}>
-                  <p>Last Name</p>
-                  <Input
-                    type="text"
-                    id="lName"
-                    appearance="ghost"
-                    placeholder="Last Name"
-                  />
-                </div>
-                <div className={styles.dob}>
-                  <p>Date of Birth</p>
-                  <DatePicker
-                    type="text"
-                    id="dob"
-                    appearance="ghost"
-                    placeholder="Date Of Birth"
-                  />
+            <div className={styles.appBox}>
+              <div className={styles.appBoxTop}>
+                <p style={{ fontSize: "1.3rem" }}>Appointment Scheduled on:</p>
+                <div className={styles.appTimeDateBoxContainer}>
+                  <div className={styles.appTimeDateBox}>
+                    <div className={styles.appDate}>
+                      <p>23rd May</p>
+                    </div>
+                    <Divider vertical style={{ backgroundColor: "black" }} />
+                    <div className={styles.appTime}>
+                      <p>10-11AM</p>
+                    </div>
+                    <Divider vertical style={{ backgroundColor: "black" }} />
+                    <div className={styles.pendingStatusBox}>
+                      {pending ? <p>pending<img alt="" src={require("../../assets/images/stopwatch.png")} style={{display: "inline", height: "0.7rem"}}/></p> : <p>complete</p>}
+                    </div>
+                  </div>
                 </div>
               </div>
-              <div className={styles.bottomFormBox}>
-                <div className={styles.sex}>
-                  <p>Gender</p>
-                  <InputPicker
-                    data={sex}
-                    id="sex"
-                    appearance="default"
-                    placeholder="Gender"
-                  />
+              <div className={styles.appBoxBottom}>
+                <div className={styles.appBoxBottomLeft}>
+                  <div className={styles.appBoxBottomLeftHeader}>
+                    <p>Description:</p>
+                  </div>
+                  <div className={styles.appBoxBottomLeftBody}>
+                    Lorem ipsum, dolor sit amet consectetur adipisicing elit.
+                    Porro non vel assumenda nisi iure dolorem, adipisci
+                    veritatis blanditiis consequatur architecto cupiditate
+                    maxime consequuntur possimus quam nesciunt rem? Voluptas,
+                    quo. Cumque.
+                  </div>
                 </div>
-                <div className={styles.email}>
-                  <p>Email</p>
-                  <Input
-                    type="email"
-                    id="email"
-                    appearance="default"
-                    placeholder="Email"
-                  />
+                <div className={styles.appBoxBottomRight}>
+                  <div className={styles.appBoxBottomRightHeader}>
+                    <p>Records:</p>
+                  </div>
+                  <div className={styles.appBoxBottomRightBody}>
+                    <div className={styles.presContainer}>
+                      <Info textRight="22/04/23" link="">
+                        Diabetes Prescription
+                      </Info>
+                      <Info textRight="22/04/23" link="">
+                        Diabetes Prescription
+                      </Info>
+                    </div>
+                  </div>
                 </div>
-                <div className={styles.pwd}>
-                  <p>Password</p>
-                  <Input
-                    type="password"
-                    id="pwd"
-                    appearance="default"
-                    placeholder="Password"
-                  />
-                </div>
-              </div>
-              <div className={styles.updateBtnBox}>
-                <Button
-                  appearance="primary"
-                  style={{ margin: "10px", backgroundColor: "#023020" }}
-                  onClick={handleUpdateDetails}
-                >
-                  Update Details
-                </Button>
               </div>
             </div>
           </div>
