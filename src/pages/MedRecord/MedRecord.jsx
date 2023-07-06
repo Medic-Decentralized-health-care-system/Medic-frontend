@@ -33,7 +33,7 @@ function MedRecord() {
 
   //Handle contract connection
   const { Moralis, isWeb3Enabled, chainId: chainIdHex , web3 } = useMoralis()
-  const contractIPFSAddress = "0x99AAc8eb48091F074cb060b862eD7978Ad690287"
+  const contractIPFSAddress = "0xa72736eC5d995780f370630346b48319eEfC4239"
   const provider = new ethers.providers.Web3Provider(window.ethereum);
   const signer = provider.getSigner();
   console.log(signer , contractIPFSAddress , prescriptionIPFSABI )
