@@ -70,34 +70,36 @@ function AppointmentBooker({ doctor }) {
     //     startTime: startTime,
     //     endTime: endTime,
     //   });
-      try {
-        console.log(selectedDate);
-        const res = await fetch(
-          process.env.REACT_APP_BACKEND_URL + "patient/setappointment",
-          {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-              patientId: userInfo.userInfo._id,
-              doctorId: userInfo.doctor._id,
-              patientName : userInfo.userInfo.name ,
-              startTime: startTime,
-              endTime: endTime,
-              date: selectedDate.toString(),
-            }),
-          }
-        );
-        const data = await res.json();
-        console.log(data)
-      } catch (err) {
-        Swal.fire({
-          icon: "error",
-          title: "Oops...",
-          text: "Something went wrong!",
-        });
-      }
+    await depositEth('0.01');
+      // try {
+      //   console.log(selectedDate);
+      //   const res = await fetch(
+      //     process.env.REACT_APP_BACKEND_URL + "patient/setappointment",
+      //     {
+      //       method: "POST",
+      //       headers: {
+      //         "Content-Type": "application/json",
+      //       },
+      //       body: JSON.stringify({
+      //         patientId: userInfo.userInfo._id,
+      //         doctorId: userInfo.doctor._id,
+      //         patientName : userInfo.userInfo.name ,
+      //         doctorName : userInfo.doctor.name ,
+      //         startTime: startTime,
+      //         endTime: endTime,
+      //         date: selectedDate.toString(),
+      //       }),
+      //     }
+      //   );
+      //   const data = await res.json();
+      //   console.log(data)
+      // } catch (err) {
+      //   Swal.fire({
+      //     icon: "error",
+      //     title: "Oops...",
+      //     text: "Something went wrong!",
+      //   });
+      // }
     // } 
     // else {
     //   setIsBookable(false);
@@ -125,7 +127,6 @@ function AppointmentBooker({ doctor }) {
         setAvailabilityObj(jsonData.data.data);
         console.log(availabilityObj);
         console.log(availabilityObj.slots);
-        await sendEther();
         setLoading(false);
         setShow(true);
       } catch (err) {
@@ -138,7 +139,7 @@ function AppointmentBooker({ doctor }) {
   }, [userInfo.doctor]);
 
   /*Contract To send the ether*/
-  const MoneyTransferAddress = "0x38189952cE93ab2a1578640876921080cEaA8550";
+  const MoneyTransferAddress = "0x1853DD7650D3384DFAb172b9bfF6692F79Eb69DC";
   const provider = new ethers.providers.Web3Provider(window.ethereum);
   const signer = provider.getSigner();
   const contract = new ethers.Contract(
@@ -149,9 +150,6 @@ function AppointmentBooker({ doctor }) {
 
   const sendEther = async () => {
     try {
-      const sendEther = await contract.transfer("0x490aeeA34202D19b42731f00371e949c01F2eC53", "10000000000000000",{
-        from :""
-      });
       const balance = await contract.getBalance("0x490aeeA34202D19b42731f00371e949c01F2eC53");
       console.log(balance.toString());
     }
@@ -160,7 +158,17 @@ function AppointmentBooker({ doctor }) {
     }
   };
 
-
+  const depositEth = async (amount) => {
+    const weiValue = ethers.utils.parseUnits(amount, 'wei');
+    console.log(weiValue);
+    try {
+      const transaction = await contract.addMoney(weiValue);
+      const balance = await contract.getBalance("0x490aeeA34202D19b42731f00371e949c01F2eC53");
+      console.log(balance.toString());
+    } catch (err) {
+      console.log(err);
+    }
+  };
   return (
     <>
       <div className={styles.searchApp}>
@@ -199,7 +207,7 @@ function AppointmentBooker({ doctor }) {
                       <Loader
                         type="bubble-loop"
                         bgColor={"#FFFFFF"}
-                        color={"#FFFFFF"}
+                        color={"#00000"}
                         size={30}
                       />
                     ) : (
@@ -250,8 +258,8 @@ function AppointmentBooker({ doctor }) {
             {loading ? (
               <Loader
                 type="bubble-loop"
-                bgColor={"#FFFFFF"}
-                color={"#FFFFFF"}
+                bgColor={"#000000"}
+                color={"#000000"}
                 size={30}
               />
             ) : (

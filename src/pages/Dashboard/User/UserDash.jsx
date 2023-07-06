@@ -14,6 +14,7 @@ import { ethers } from "ethers";
 import { setBalance, setWalletAddress } from "../../../state/auth/auth-slice";
 import Swal from "sweetalert2";
 import Loader from "react-js-loader";
+import prescriptionIPFSABI from "../../../constants/frontEndAbiLocation/PrescriptionIPFS.json"
 
 const MetaMaskIcon = React.forwardRef((props, ref) => (
   <svg
@@ -55,6 +56,9 @@ function UserDash() {
   const [accountAddress, setAccountAddress] = useState("");
   const [accountBalance, setAccountBalance] = useState("");
   const [isConnected, setIsConnected] = useState(false);
+  const [upcomingAppointments, setUpcomingAppointments] = useState([]);
+  const [recentAppointments, setRecentAppointments] = useState([]);
+  const [medRecords , setMedRecords] = useState([]);
   const [loading, setLoading] = useState(false);
 
   const { ethereum } = window;
@@ -68,7 +72,10 @@ function UserDash() {
       sethaveMetamask(true);
     };
     checkMetamaskAvailability();
-  }, []);
+    getUpcomingAppointments();
+    getrecentAppointments();
+    getMedicalRecords();
+  },[]);
 
   const walletAddress = async (id, walletAddress) => {
     console.log("Hiiiii");
@@ -137,6 +144,63 @@ function UserDash() {
       setLoading(false);
     }
   };
+
+  /******Get appointment details*** */
+  const getUpcomingAppointments = async () => {
+    const res = await fetch(
+      process.env.REACT_APP_BACKEND_URL + "patient/getpatientupcomingappointments/" + userInfo._id,
+      {
+        method: "GET",
+      }
+    );
+    const data = await res.json();
+    if (data.data.data.length > 0) {
+      setUpcomingAppointments(data.data.data);
+      setUpAppEmpty(true);
+    }
+    else{
+      setUpAppEmpty(false);
+    }
+  }
+  const getrecentAppointments = async () =>{
+    const res = await fetch(
+      process.env.REACT_APP_BACKEND_URL + "patient/getrecentappointments/" + userInfo._id,
+      {
+        method: "GET",
+      }
+    );
+    const data = await res.json();
+    if (data.data.data.length > 0) {
+      setRecentAppointments(data.data.data);
+      setRecAppEmpty(true);
+    }
+    else{
+      setRecAppEmpty(false);
+    }
+  }
+
+  /*********Medical records********/
+  const contractIPFSAddress = "0xa72736eC5d995780f370630346b48319eEfC4239"
+  const provider = new ethers.providers.Web3Provider(window.ethereum);
+  const signer = provider.getSigner();
+  const contract = new ethers.Contract(
+    contractIPFSAddress,
+    prescriptionIPFSABI,
+    signer
+  );
+  const getMedicalRecords = async () => {
+    try{
+      const getAllmedRecords = await contract.getAllPrescriptions(userInfo.walletAddress);
+      setMedRecords(getAllmedRecords);
+      if(medRecords.length > 0){
+        setPresEmpty(true);
+      }
+      console.log(medRecords)
+    }
+    catch(err){
+      console.log(err);
+    }
+  }
   return (
     <>
       <div className={styles.container}>
@@ -221,6 +285,7 @@ function UserDash() {
                     {/* Use this div to map the upcoming appointments to */}
                     {upAppEmpty ? (
                       <>
+                        {/* <Info textRight={"19/04/23"}>Dr. Rajesh Joshi</Info>
                         <Info textRight={"19/04/23"}>Dr. Rajesh Joshi</Info>
                         <Info textRight={"19/04/23"}>Dr. Rajesh Joshi</Info>
                         <Info textRight={"19/04/23"}>Dr. Rajesh Joshi</Info>
@@ -228,8 +293,14 @@ function UserDash() {
                         <Info textRight={"19/04/23"}>Dr. Rajesh Joshi</Info>
                         <Info textRight={"19/04/23"}>Dr. Rajesh Joshi</Info>
                         <Info textRight={"19/04/23"}>Dr. Rajesh Joshi</Info>
-                        <Info textRight={"19/04/23"}>Dr. Rajesh Joshi</Info>
-                        <Info textRight={"19/04/23"}>Dr. Rajesh Joshi</Info>
+                        <Info textRight={"19/04/23"}>Dr. Rajesh Joshi</Info> */}
+                        {
+                          upcomingAppointments.map((item, index) => {
+                            return (
+                              <Info textRight={"19/04/23"}>{item.doctorName}</Info>
+                            )
+                          })
+                        }
                       </>
                     ) : (
                       <>
@@ -257,6 +328,7 @@ function UserDash() {
                     {/* Use this div to map the upcoming appointments to */}
                     {recAppEmpty ? (
                       <>
+                        {/* <Info textRight={"19/04/23"}>Dr. Rajesh Joshi</Info>
                         <Info textRight={"19/04/23"}>Dr. Rajesh Joshi</Info>
                         <Info textRight={"19/04/23"}>Dr. Rajesh Joshi</Info>
                         <Info textRight={"19/04/23"}>Dr. Rajesh Joshi</Info>
@@ -264,8 +336,14 @@ function UserDash() {
                         <Info textRight={"19/04/23"}>Dr. Rajesh Joshi</Info>
                         <Info textRight={"19/04/23"}>Dr. Rajesh Joshi</Info>
                         <Info textRight={"19/04/23"}>Dr. Rajesh Joshi</Info>
-                        <Info textRight={"19/04/23"}>Dr. Rajesh Joshi</Info>
-                        <Info textRight={"19/04/23"}>Dr. Rajesh Joshi</Info>
+                        <Info textRight={"19/04/23"}>Dr. Rajesh Joshi</Info> */}
+                        {
+                          recentAppointments.map((item, index) => {
+                            return (
+                              <Info textRight={"19/04/23"}>{item.doctorName}</Info>
+                            )
+                          })
+                        }
                       </>
                     ) : (
                       <>
@@ -292,6 +370,7 @@ function UserDash() {
                   <div className={styles.dashDivContent}>
                     {presEmpty ? (
                       <>
+                        {/* <Info textRight={"19/04/23"}>Dr. Rajesh Joshi</Info>
                         <Info textRight={"19/04/23"}>Dr. Rajesh Joshi</Info>
                         <Info textRight={"19/04/23"}>Dr. Rajesh Joshi</Info>
                         <Info textRight={"19/04/23"}>Dr. Rajesh Joshi</Info>
@@ -299,8 +378,14 @@ function UserDash() {
                         <Info textRight={"19/04/23"}>Dr. Rajesh Joshi</Info>
                         <Info textRight={"19/04/23"}>Dr. Rajesh Joshi</Info>
                         <Info textRight={"19/04/23"}>Dr. Rajesh Joshi</Info>
-                        <Info textRight={"19/04/23"}>Dr. Rajesh Joshi</Info>
-                        <Info textRight={"19/04/23"}>Dr. Rajesh Joshi</Info>
+                        <Info textRight={"19/04/23"}>Dr. Rajesh Joshi</Info> */}
+                        {
+                          medRecords.map((item, index) => {
+                            return (
+                              <Info textRight={"19/04/23"}>Medical record&nbsp;&nbsp;{index+1}</Info>
+                            )
+                          })
+                        }
                       </>
                     ) : (
                       <>
