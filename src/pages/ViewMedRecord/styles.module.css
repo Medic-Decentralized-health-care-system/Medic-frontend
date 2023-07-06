@@ -135,7 +135,7 @@
   justify-content: space-between;
   align-items: center;
   /* gap: 70%; */
-  padding: 3% 0px 0px 0px;
+  padding: 0.1% 0px 0px 0px;
   border-top-left-radius: 100px;
   border-top-right-radius: 100px;
 }
@@ -146,6 +146,7 @@
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
+  padding-left: 4rem;
 }
 .leftHeaderSub {
   display: flex;
