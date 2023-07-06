@@ -58,7 +58,7 @@ const PlusIcon = require("../../assets/images/hospital-svgrepo.png");
 //   </svg>
 // ));
 
-function UpApp() {
+function UserUpApp() {
   const Navigate = useNavigate();
   const dispatch = useDispatch();
   const userInfo = useSelector((state) => state.userInfo);
@@ -192,4 +192,4 @@ function UpApp() {
   );
 }
 
-export default UpApp;
+export default UserUpApp;

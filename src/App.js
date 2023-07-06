@@ -3,9 +3,7 @@ import "./App.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 import Home from "./pages/Home/Home";
-import LoginDoc from "./pages/Auth/Doctor/LoginDoc";
 import RegisterDoc from "./pages/Auth/Doctor/RegisterDoc";
-import LoginPatient from "./pages/Auth/Patient/LoginPatient";
 import RegisterPatient from "./pages/Auth/Patient/RegisterPatient";
 import LoginAdmin from "./pages/Auth/Admin/LoginAdmin";
 import RegisterAdmin from "./pages/Auth/Admin/RegisterAdmin";
@@ -16,8 +14,9 @@ import UserDash from "./pages/Dashboard/User/UserDash";
 import EditProfile from "./pages/EditProfile/EditProfile";
 import AppointmentBooker from "./pages/AppointmentBooker/AppointmentBooker";
 import DocDash from "./pages/Dashboard/Doc/DocDash.jsx";
-import UpApp from "./pages/UpcomingApp/UpApp";
 import ViewMedRecord from "./pages/ViewMedRecord/ViewMedRecord";
+import UserUpApp from "./pages/UserUpcomingApp/UserUpApp";
+import DocUpApp from "./pages/DocUpcomingApp/DocUpApp";
 
 function App() {
   return (
@@ -37,10 +36,17 @@ function App() {
           path="/dashboard/user/bookappointment"
           element={<AppointmentBooker />}
         />
-        <Route path="/dashboard/user/upcoming-appointments" element={<UpApp />} />
+        <Route
+          path="/dashboard/user/upcoming-appointment"
+          element={<UserUpApp />}
+        />
         <Route path="/view/medicalrecord" element={<MedRecord />} />0
         <Route path="/view/pastmedrecord" element={<ViewMedRecord />} />
         <Route path="/dashboard/doctor" element={<DocDash />} />
+        <Route
+          path="/dashboard/doctor/upcoming-appointment"
+          element={<DocUpApp />}
+        />
       </Routes>
     </BrowserRouter>
   );
