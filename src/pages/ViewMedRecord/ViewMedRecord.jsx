@@ -58,11 +58,6 @@ function ViewMedRecord() {
     console.log("Details updated!");
   };
 
-  const [upAppEmpty, setUpAppEmpty] = useState(false);
-  const [recAppEmpty, setRecAppEmpty] = useState(false);
-  const [presEmpty, setPresEmpty] = useState(false);
-  const [recTransEmpty, setRecTransEmpty] = useState(false);
-
   const [fileURL, setFileURL] = useState("");
   const handleUpload = (file) => {
     setFileURL(URL.createObjectURL(file.blobFile));

@@ -10,39 +10,37 @@ import Info from "../../components/Info/Info";
 import { useDispatch, useSelector } from "react-redux";
 import {
   Button,
+  ButtonGroup,
   DatePicker,
   Divider,
+  IconButton,
   Input,
   InputPicker,
+  Panel,
+  Tag,
+  Tooltip,
   Uploader,
+  Whisper,
 } from "rsuite";
-import { Icon, Plus } from "@rsuite/icons";
+import {
+  ArowBack,
+  CheckRound,
+  Icon,
+  PagePrevious,
+  Plus,
+  TimeRound,
+} from "@rsuite/icons";
 import CameraRetroIcon from "@rsuite/icons/legacy/CameraRetro";
 import CardSelected from "../../components/CardSelected/CardSelected";
-const dummyDoctorObj = {
+import PatientCard from "../../components/PatientCard/PatientCard";
+const dummyPatientObj = {
   name: "Dr. Aditi Singh",
-  degree: "MBBS",
-  specialty: "General Physician",
-  experience: "4 years",
+  age: "MBBS",
+  gender: "Male",
   image:
     "https://i.pinimg.com/originals/35/57/55/355755832670880825ad87838e18d6b6.jpg",
-  availability: {
-    days: ["Monday", "Tuesday", "Thursday"],
-    time: [
-      "10:00AM-11:00AM",
-      "02:00PM-3:00PM",
-      "03:30PM-4:30PM",
-      "05:00PM-6:00PM",
-      "06:30PM-7:30PM",
-      "08:00PM-9:00PM",
-      "09:30PM-10:30PM",
-      "11:00PM-12:00AM",
-      "12:30AM-01:30AM",
-      "02:00AM-03:00AM",
-      "03:30AM-04:30AM",
-    ],
-  },
 };
+
 const PlusIcon = require("../../assets/images/hospital-svgrepo.png");
 
 // const MetaMaskIcon = React.forwardRef((props, ref) => (
@@ -78,6 +76,12 @@ function DocUpApp() {
   };
 
   const [pending, setIsPending] = useState(true);
+
+  const handleCompleteAppointment = () => {
+    // Handle the completion of the appointment in the backend
+
+    setIsPending(false);
+  };
   return (
     <>
       <div className={styles.container}>
@@ -121,19 +125,37 @@ function DocUpApp() {
         </div>
         <div className={styles.main}>
           <div className={styles.mainHeader}>
+            <IconButton
+              appearance="primary"
+              style={{
+                backgroundColor: "transparent",
+              }}
+              icon={
+                <PagePrevious
+                  size="lg"
+                  style={{
+                    fontSize: "1.5rem",
+                    backgroundColor: "transparent",
+                    color: "black",
+                    border: "0px",
+                  }}
+                />
+              }
+              link=""
+            />
             <div className={styles.PlusIconContainer}>
               <img src={PlusIcon} width="50px" alt="" />
             </div>
             <div className={styles.mainHeadingText}>
-              <h1 style={{ fontSize: "2rem" }}>Upcoming Appointments</h1>
+              <h1 style={{ fontSize: "2rem" }}>Upcoming Appointment</h1>
             </div>
           </div>
           <div className={styles.mainBody}>
             <div className={styles.docInfoContainer}>
-              <CardSelected
-                doctor={dummyDoctorObj}
-                avatarStyle={{ width: "100px", height: "100px" }}
-                style={{ width: "250px", height: "500px" }}
+              <PatientCard
+                patient={dummyPatientObj}
+                avatarStyle={{ width: "150px", height: "150px" }}
+                style={{ height: "100%" }}
               />
             </div>
             <div className={styles.appBox}>
@@ -151,48 +173,96 @@ function DocUpApp() {
                     <Divider vertical style={{ backgroundColor: "black" }} />
                     <div className={styles.pendingStatusBox}>
                       {pending ? (
-                        <p>
-                          pending
-                          <img
-                            alt=""
-                            src={require("../../assets/images/stopwatch.png")}
-                            style={{ display: "inline", height: "0.7rem" }}
-                          />
-                        </p>
+                        <Tag size="lg" style={{ fontSize: "0.8rem" }}>
+                          Pending <TimeRound />{" "}
+                        </Tag>
                       ) : (
-                        <p>complete</p>
+                        <Tag size="lg" style={{ fontSize: "0.8rem" }}>
+                          Completed <CheckRound color="green" />{" "}
+                        </Tag>
                       )}
                     </div>
+                  </div>
+                  <div className={styles.btnContainer}>
+                    <ButtonGroup>
+                      <Whisper
+                        placement="top"
+                        controlId="control-id-hover"
+                        trigger="hover"
+                        speaker={
+                          <Tooltip children="Warning! Do not click this if you want to add prescriptions." />
+                        }
+                      >
+                        <Button
+                          size="lg"
+                          disabled={pending ? false : true}
+                          appearance="ghost"
+                          className={styles.btnWhite}
+                          onClick={handleCompleteAppointment}
+                        >
+                          Complete Appointment
+                        </Button>
+                      </Whisper>
+                      <Button
+                        size="lg"
+                        disabled={pending ? false : true}
+                        appearance="ghost"
+                        className={styles.btnBlack}
+                      >
+                        {pending ? (
+                          <Link
+                            style={{ textDecoration: "none", color: "white" }}
+                            to="/edit/medicalrecord"
+                          >
+                            Add a prescription
+                          </Link>
+                        ) : (
+                          <Link
+                            style={{
+                              textDecoration: "none",
+                              color: "white",
+                              cursor: "not-allowed",
+                            }}
+                          >
+                            Add a prescription
+                          </Link>
+                        )}
+                      </Button>
+                    </ButtonGroup>
                   </div>
                 </div>
               </div>
               <div className={styles.appBoxBottom}>
                 <div className={styles.appBoxBottomLeft}>
-                  <div className={styles.appBoxBottomLeftHeader}>
-                    <p>Description:</p>
-                  </div>
-                  <div className={styles.appBoxBottomLeftBody}>
-                    Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-                    Porro non vel assumenda nisi iure dolorem, adipisci
-                    veritatis blanditiis consequatur architecto cupiditate
-                    maxime consequuntur possimus quam nesciunt rem? Voluptas,
-                    quo. Cumque.
-                  </div>
+                  <Panel shaded>
+                    <div className={styles.appBoxBottomLeftHeader}>
+                      <p>Description:</p>
+                    </div>
+                    <div className={styles.appBoxBottomLeftBody}>
+                      Lorem ipsum, dolor sit amet consectetur adipisicing elit.
+                      Porro non vel assumenda nisi iure dolorem, adipisci
+                      veritatis blanditiis consequatur architecto cupiditate
+                      maxime consequuntur possimus quam nesciunt rem? Voluptas,
+                      quo. Cumque.
+                    </div>
+                  </Panel>
                 </div>
                 <div className={styles.appBoxBottomRight}>
-                  <div className={styles.appBoxBottomRightHeader}>
-                    <p>Records:</p>
-                  </div>
-                  <div className={styles.appBoxBottomRightBody}>
-                    <div className={styles.presContainer}>
-                      <Info textRight="22/04/23" link="">
-                        Diabetes Prescription
-                      </Info>
-                      <Info textRight="22/04/23" link="">
-                        Diabetes Prescription
-                      </Info>
+                  <Panel shaded style={{ width: "100%" }}>
+                    <div className={styles.appBoxBottomRightHeader}>
+                      <p>Records:</p>
                     </div>
-                  </div>
+                    <div className={styles.appBoxBottomRightBody}>
+                      <div className={styles.presContainer}>
+                        <Info textRight="22/04/23" link="">
+                          Diabetes Prescription
+                        </Info>
+                        <Info textRight="22/04/23" link="">
+                          Diabetes Prescription
+                        </Info>
+                      </div>
+                    </div>
+                  </Panel>
                 </div>
               </div>
             </div>

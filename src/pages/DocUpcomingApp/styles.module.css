@@ -72,7 +72,6 @@
 
 .dropdown {
   position: relative;
-
   display: inline-block;
 }
 
@@ -133,7 +132,7 @@
   justify-content: flex-start;
   align-items: center;
   /* gap: 70%; */
-  padding: 3% 0px 0px 0px;
+  padding: 0.5% 0px 0px 0px;
   border-top-left-radius: 100px;
   border-top-right-radius: 100px;
 }
@@ -142,7 +141,8 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 5px;
+  padding: 0.5rem;
+  padding-left: 3rem;
 }
 
 .mainHeadingText {
@@ -158,11 +158,13 @@
   flex-direction: row;
   justify-content: stretch;
   align-items: center;
-  gap: 1.5rem;
-  padding: 60px;
+
+  padding: 1.5rem;
 }
 
 .docInfoContainer {
+  width: 50%;
+  height: 100%;
   display: flex;
   justify-content: center;
   align-items: flex-start;
@@ -173,6 +175,7 @@
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
+  padding-left: 1rem;
 }
 .appBoxTop {
   width: 100%;
@@ -188,12 +191,38 @@
   text-align: left;
 }
 
+.btnContainer {
+  display: flex;
+  flex-direction: row;
+}
+
+.btnBlack {
+  border: 1px solid black;
+  color: white;
+  background-color: black;
+}
+.btnBlack:hover {
+  color: rgb(255, 255, 255);
+  background-color: black;
+}
+
+.btnBlack:disabled {
+  color: rgb(255, 255, 255);
+  background-color: black;
+}
+
+.btnWhite {
+  border: 1px solid black;
+  color: black;
+  background-color: transparent;
+}
+
 .appTimeDateBoxContainer {
   display: flex;
   flex-direction: row;
-  justify-content: flex-start;
+  justify-content: space-between;
   align-items: center;
-
+  font-size: medium;
   width: 100%;
 }
 
@@ -244,7 +273,6 @@
   flex-direction: column;
   justify-content: stretch;
   align-items: center;
-  margin: 0.35rem;
 }
 .appBoxBottomLeftHeader {
   width: 100%;

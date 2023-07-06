@@ -63,7 +63,8 @@ const Modal = ({ type, onClose, handleEditClick }) => {
             </div>
           </div>
         );
-      // Add more cases for different modal types
+
+        // Add more cases for different modal types
       default:
         return null;
     }
