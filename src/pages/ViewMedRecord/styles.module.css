@@ -1,0 +1,223 @@
+@import "rsuite/dist/rsuite.css";
+:root {
+  --width-header: 10%;
+}
+* {
+  box-sizing: border-box;
+}
+
+.inputElem {
+  border-radius: 100px;
+  font-size: small;
+  background-color: #eeeeee;
+}
+
+.container {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  background-image: url("../../assets/images/bg-gradient.png");
+  background-size: cover;
+}
+
+.placeholderCont {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+}
+
+.modal {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  height: 100vh;
+  backdrop-filter: blur(2px);
+  top: 0px;
+  left: 0px;
+  z-index: 10;
+}
+
+.header {
+  width: var(--width-header);
+  width: 100%;
+  margin: 0;
+  padding: 10px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logotext {
+  box-sizing: border-box;
+  position: relative;
+  font-family: Impact, Haettenschweiler, Franklin Gothic Bold, Charcoal,
+    Helvetica Inserat, Bitstream Vera Sans Bold, Arial Black, sans serif;
+  color: black;
+  top: 0px;
+  left: 0px;
+  padding: 0.5rem;
+  font-size: 1.4rem;
+}
+
+.dropdown > img {
+  color: black;
+  border-radius: 10px;
+  background-color: #f9f9f9;
+  padding: 5px;
+  min-width: max-content;
+}
+
+.dropdown {
+  position: relative;
+
+  display: inline-block;
+}
+
+.dropdownContent {
+  display: none;
+  position: absolute;
+
+  z-index: 1;
+}
+.dropdownContent > * {
+  padding: 10px;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.dropdown:hover .dropdownContent {
+  position: absolute;
+  top: 15px;
+  right: 0px;
+  display: flex;
+  flex-direction: column;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  padding: 12px 16px;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+}
+
+.pfBox {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+.main {
+  position: absolute;
+  width: 100%;
+  height: 90vh;
+  bottom: 0;
+  display: flex;
+  flex-direction: column;
+  border-top-left-radius: 4rem;
+  border-top-right-radius: 4rem;
+  background: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  box-shadow: 0px 10px 40px rgba(0, 0, 0, 0.15);
+}
+
+.mainHeader {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+  /* gap: 70%; */
+  padding: 3% 0px 0px 0px;
+  border-top-left-radius: 100px;
+  border-top-right-radius: 100px;
+}
+
+.leftHeaderContainer {
+  padding: 1rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+.leftHeaderSub {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding-left: 1rem;
+}
+
+.rightHeaderContainer {
+  padding-right: 3rem;
+  display: flex;
+  flex-direction: row;
+}
+
+.mainBody {
+  width: 100%;
+  height: max-content;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1.5rem;
+  padding: 0;
+}
+
+.topFormBox {
+  width: 100%;
+  font-size: small;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 10px;
+}
+
+.topFormBox > * {
+  margin: 0.5rem;
+}
+
+.bottomFormBox {
+  background-color: #96d2f9;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  border-radius: 1.5rem;
+  padding: 1.5rem;
+}
+
+.bottomFormBoxHeader {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.bottomFormBoxBody {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  overflow-y: scroll;
+  max-height: 12rem;
+}
+.bottomFormBoxBody::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+}
+
+.drugContainer {
+  padding: 0.5rem;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
