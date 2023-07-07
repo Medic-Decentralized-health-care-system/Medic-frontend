@@ -62,6 +62,7 @@ function UserDash() {
   const [loading, setLoading] = useState(false);
 
   const { ethereum } = window;
+  const navigate = useNavigate();
 
   useEffect(() => {
     const { ethereum } = window;
@@ -191,7 +192,28 @@ function UserDash() {
   const getMedicalRecords = async () => {
     try{
       const getAllmedRecords = await contract.getAllPrescriptions(userInfo.walletAddress);
-      setMedRecords(getAllmedRecords);
+      console.log(getAllmedRecords)
+  //     fetch(`https://skywalker.infura-ipfs.io/ipfs/`+getAllmedRecords[0][0])
+  // .then(response => response.json())
+  // .then((jsonData) => {
+  //   console.log(jsonData)
+  // })
+  // .catch((error) => {
+  //   console.error(error)
+  // })
+      getAllmedRecords.map((medicalRecord , index)=>{
+        fetch(`https://skywalker.infura-ipfs.io/ipfs/`+medicalRecord[0])
+        .then(response => response.json())
+        .then((jsonData) => {
+          console.log(jsonData)
+          setMedRecords([...medRecords , jsonData])
+        })
+        .catch((error) => {
+          console.error(error)
+        })
+      })
+      // setMedRecords(getAllmedRecords);
+      console.log(medRecords)
       if(medRecords.length > 0){
         setPresEmpty(true);
       }
@@ -382,7 +404,13 @@ function UserDash() {
                         {
                           medRecords.map((item, index) => {
                             return (
-                              <Info textRight={"19/04/23"}>Medical record&nbsp;&nbsp;{index+1}</Info>
+                              <div onClick={()=>
+                                navigate("/view/pastmedrecord" , {state: {item}} )
+                              } className={styles.prevRecords}>
+                              <Info textRight={item.date.slice(0 ,10)} >{item.title}
+                              {/* &nbsp;&nbsp;{index+1} */}
+                              </Info>
+                              </div>
                             )
                           })
                         }

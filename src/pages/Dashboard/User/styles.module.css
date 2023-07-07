@@ -218,6 +218,10 @@
   align-items: center;
   padding: 6px;
 }
+.prevRecords{
+  width:100%;
+  cursor:pointer;
+}
 
 .MedicalRecords {
   display: flex;

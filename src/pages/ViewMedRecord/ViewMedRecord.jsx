@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styles from "./styles.module.css";
 import Avatar from "../../components/Avatar/Avatar";
 import { useState } from "react";
@@ -8,6 +8,7 @@ import ButtonHollow from "../../components/Buttons/ButtonHollow";
 import Modal from "../../components/Modal/Modal";
 import Info from "../../components/Info/Info";
 import { useDispatch, useSelector } from "react-redux";
+import { useLocation } from 'react-router-dom';
 import {
   Button,
   DatePicker,
@@ -39,8 +40,16 @@ function ViewMedRecord() {
   const dispatch = useDispatch();
   const userInfo = useSelector((state) => state.userInfo);
   console.log(userInfo);
+  const location = useLocation();
+  const { item } = location.state;
+  console.log(item);
 
   const [modal, setModal] = useState(false);
+  const [record , setRecord] = useState({});
+
+  useEffect(()=>{
+    setRecord(item);
+  })
   const toggleModal = () => {
     setModal(!modal);
   };
@@ -176,17 +185,17 @@ function ViewMedRecord() {
               <div className={styles.topFormBox}>
                 <Form.Group controlId="input">
                   <Form.ControlLabel>Diagnosed with</Form.ControlLabel>
-                  <Form.Control className={styles.inputElem} name="diagnosis" />
+                  <Form.Control className={styles.inputElem} name="diagnosis" value={item.diagnosis}/>
                 </Form.Group>
                 <Form.Group controlId="input">
                   <Form.ControlLabel>Blood Pressure</Form.ControlLabel>
-                  <Form.Control name="bp" className={styles.inputElem} />
+                  <Form.Control name="bp" className={styles.inputElem} value={item.bp}/>
                 </Form.Group>
                 <Form.Group controlId="input">
                   <Form.ControlLabel>Pulse Rate</Form.ControlLabel>
                   <Form.Control
                     name="pulse"
-                    value={"78BPM"}
+                    value={item.pulse}
                     className={styles.inputElem}
                   />
                 </Form.Group>
@@ -232,8 +241,7 @@ function ViewMedRecord() {
                     </Tag>
                   </div>
                   <div className={styles.bottomFormBoxBody}>
-                    {/* Map the following div (drugContainer) for the list of drugs prescribed: */}
-                    <div className={styles.drugContainer}>
+                    {/* <div className={styles.drugContainer}>
                       <Form.Control
                         className={styles.inputElem}
                         name="drug1"
@@ -249,42 +257,31 @@ function ViewMedRecord() {
                         name="drug1"
                         value={"50ml day/night"}
                       />
-                    </div>
-                    <div className={styles.drugContainer}>
-                      <Form.Control
-                        className={styles.inputElem}
-                        name="drug1"
-                        value={"Novocaine"}
-                      />
-                      <Form.Control
-                        className={styles.inputElem}
-                        name="drug1"
-                        value={"syrup"}
-                      />
-                      <Form.Control
-                        className={styles.inputElem}
-                        name="drug1"
-                        value={"50ml day/night"}
-                      />
-                    </div>
-                    <div className={styles.drugContainer}>
-                      <Form.Control
-                        className={styles.inputElem}
-                        name="drug1"
-                        value={"Novocaine"}
-                      />
-                      <Form.Control
-                        className={styles.inputElem}
-                        name="drug1"
-                        value={"syrup"}
-                      />
-                      <Form.Control
-                        className={styles.inputElem}
-                        name="drug1"
-                        value={"50ml day/night"}
-                      />
-                    </div>
-                    
+                    </div> */}
+                    {
+                      item.drugItems.map((eachItem , index)=>{
+                        return (
+
+                          <div className={styles.drugContainer}>
+                        <Form.Control
+                          className={styles.inputElem}
+                          name="drug1"
+                          value={eachItem.drugName}
+                          />
+                        <Form.Control
+                          className={styles.inputElem}
+                          name="drug1"
+                          value={eachItem.units}
+                          />
+                        <Form.Control
+                          className={styles.inputElem}
+                          name="drug1"
+                          value={eachItem.dosage}
+                          />
+                      </div> 
+                      )
+                      })
+                    }
                   </div>
                 </Form>
               </div>
