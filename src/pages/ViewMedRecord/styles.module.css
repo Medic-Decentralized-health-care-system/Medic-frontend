@@ -11,7 +11,16 @@
   font-size: small;
   background-color: #eeeeee;
 }
-
+.remarks{
+  width:100%;
+}
+.remarksInput{
+  width:100%;
+  height: 5rem;
+  border-radius: 1rem;
+  padding: 1rem;
+  font-size: small;
+}
 .container {
   width: 100%;
   height: 100vh;

@@ -175,6 +175,9 @@ function AppointmentBooker({ doctor }) {
         <div className={styles.fullscreenFrame}>
           <p className={styles.logoText}>MEDIC.</p>
           <div className={styles.fullTop}>
+            {
+              console.log(userInfo.doctor)
+            }
             <CardSelected
               doctor={userInfo.doctor}
               avatarStyle={{ height: "200px", width: "200px" }}

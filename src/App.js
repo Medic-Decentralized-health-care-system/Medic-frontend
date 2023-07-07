@@ -40,7 +40,7 @@ function App() {
           path="/dashboard/user/upcoming-appointment"
           element={<UserUpApp />}
         />
-        <Route path="/edit/medicalrecord" element={<MedRecord />} />
+        <Route path="/view/medicalrecord" element={<MedRecord />} />
         <Route path="/view/pastmedrecord" element={<ViewMedRecord />} />
         <Route path="/dashboard/doctor" element={<DocDash />} />
         <Route

@@ -14,7 +14,7 @@ function Login() {
   const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
   const state = useSelector((state) => state);
-  const Navigate = useNavigate();
+  const navigate = useNavigate();
 
   const handleLogin = async () => {
     console.log(username, password);
@@ -50,7 +50,12 @@ function Login() {
           confirmButtonText: "Ok",
         });
         dispatch(setUser(data.user));
-        Navigate('/dashboard/user')
+        // if(data.user.isDoct)
+        console.log(data.user)
+        if(data.user.isDoctor)
+        navigate('/dashboard/doctor')
+        else
+        navigate('/dashboard/user')
       } else {
         Swal.fire({
           title: "Error!",

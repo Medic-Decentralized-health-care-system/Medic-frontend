@@ -43,6 +43,7 @@ function ViewMedRecord() {
   const location = useLocation();
   const { item } = location.state;
   console.log(item);
+  const navigate = useNavigate();
 
   const [modal, setModal] = useState(false);
   const [record , setRecord] = useState({});
@@ -118,12 +119,15 @@ function ViewMedRecord() {
                         color: "black",
                         border: "0px",
                       }}
+                      onClick={()=>{
+                        navigate(-1);
+                      }}
                     />
                   }
                   link=""
                 />
                 <div className={styles.leftHeaderSub}>
-                  <h2 style={{ fontSize: "xx-large" }}>Diabetes Appointment</h2>
+                  <h2 style={{ fontSize: "xx-large" }}>{item.title} Appointment</h2>
                   <p>22/05/23</p>
                 </div>
               </div>
@@ -285,6 +289,10 @@ function ViewMedRecord() {
                   </div>
                 </Form>
               </div>
+                  <Form.Group controlId="input" className={styles.remarksInput}>
+                  <Form.ControlLabel>Blood Pressure</Form.ControlLabel>
+                  <Form.Control name="bp" className={`${styles.inputElem} ${styles.remarks}`} value={item.remarks}/>
+                </Form.Group>
             </Form>
           </div>
         </div>
