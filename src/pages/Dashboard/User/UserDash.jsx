@@ -14,7 +14,7 @@ import { ethers } from "ethers";
 import { setBalance, setWalletAddress } from "../../../state/auth/auth-slice";
 import Swal from "sweetalert2";
 import Loader from "react-js-loader";
-import prescriptionIPFSABI from "../../../constants/frontEndAbiLocation/PrescriptionIPFS.json"
+import prescriptionIPFSABI from "../../../constants/frontEndAbiLocation/PrescriptionIPFS.json";
 
 const MetaMaskIcon = React.forwardRef((props, ref) => (
   <svg
@@ -58,7 +58,7 @@ function UserDash() {
   const [isConnected, setIsConnected] = useState(false);
   const [upcomingAppointments, setUpcomingAppointments] = useState([]);
   const [recentAppointments, setRecentAppointments] = useState([]);
-  const [medRecords , setMedRecords] = useState([]);
+  const [medRecords, setMedRecords] = useState([]);
   const [loading, setLoading] = useState(false);
 
   const { ethereum } = window;
@@ -76,7 +76,7 @@ function UserDash() {
     getUpcomingAppointments();
     getrecentAppointments();
     getMedicalRecords();
-  },[]);
+  }, []);
 
   const walletAddress = async (id, walletAddress) => {
     console.log("Hiiiii");
@@ -149,7 +149,9 @@ function UserDash() {
   /******Get appointment details*** */
   const getUpcomingAppointments = async () => {
     const res = await fetch(
-      process.env.REACT_APP_BACKEND_URL + "patient/getpatientupcomingappointments/" + userInfo._id,
+      process.env.REACT_APP_BACKEND_URL +
+        "patient/getpatientupcomingappointments/" +
+        userInfo._id,
       {
         method: "GET",
       }
@@ -158,14 +160,15 @@ function UserDash() {
     if (data.data.data.length > 0) {
       setUpcomingAppointments(data.data.data);
       setUpAppEmpty(true);
-    }
-    else{
+    } else {
       setUpAppEmpty(false);
     }
-  }
-  const getrecentAppointments = async () =>{
+  };
+  const getrecentAppointments = async () => {
     const res = await fetch(
-      process.env.REACT_APP_BACKEND_URL + "patient/getrecentappointments/" + userInfo._id,
+      process.env.REACT_APP_BACKEND_URL +
+        "patient/getrecentappointments/" +
+        userInfo._id,
       {
         method: "GET",
       }
@@ -174,14 +177,13 @@ function UserDash() {
     if (data.data.data.length > 0) {
       setRecentAppointments(data.data.data);
       setRecAppEmpty(true);
-    }
-    else{
+    } else {
       setRecAppEmpty(false);
     }
-  }
+  };
 
   /*********Medical records********/
-  const contractIPFSAddress = "0xa72736eC5d995780f370630346b48319eEfC4239"
+  const contractIPFSAddress = "0xa72736eC5d995780f370630346b48319eEfC4239";
   const provider = new ethers.providers.Web3Provider(window.ethereum);
   const signer = provider.getSigner();
   const contract = new ethers.Contract(
@@ -190,39 +192,34 @@ function UserDash() {
     signer
   );
   const getMedicalRecords = async () => {
-    try{
-      const getAllmedRecords = await contract.getAllPrescriptions(userInfo.walletAddress);
-      console.log(getAllmedRecords)
-  //     fetch(`https://skywalker.infura-ipfs.io/ipfs/`+getAllmedRecords[0][0])
-  // .then(response => response.json())
-  // .then((jsonData) => {
-  //   console.log(jsonData)
-  // })
-  // .catch((error) => {
-  //   console.error(error)
-  // })
-      getAllmedRecords.map((medicalRecord , index)=>{
-        fetch(`https://skywalker.infura-ipfs.io/ipfs/`+medicalRecord[0])
-        .then(response => response.json())
-        .then((jsonData) => {
-          console.log(jsonData)
-          setMedRecords([...medRecords , jsonData])
-        })
-        .catch((error) => {
-          console.error(error)
-        })
-      })
+    try {
+      console.log(userInfo.walletAddress, "walletAddress");
+      console.log(contract);
+      const getAllmedRecords = await contract.getAllPrescriptions(
+        userInfo.walletAddress
+      );
+      console.log(getAllmedRecords);
+      getAllmedRecords.map((medicalRecord, index) => {
+        fetch(`https://skywalker.infura-ipfs.io/ipfs/` + medicalRecord[0])
+          .then((response) => response.json())
+          .then((jsonData) => {
+            console.log(jsonData);
+            setMedRecords([...medRecords, jsonData]);
+          })
+          .catch((error) => {
+            console.error(error);
+          });
+      });
       // setMedRecords(getAllmedRecords);
-      console.log(medRecords)
-      if(medRecords.length > 0){
+      console.log(medRecords);
+      if (medRecords.length > 0) {
         setPresEmpty(true);
       }
-      console.log(medRecords)
-    }
-    catch(err){
+      console.log(medRecords);
+    } catch (err) {
       console.log(err);
     }
-  }
+  };
   return (
     <>
       <div className={styles.container}>
@@ -316,13 +313,13 @@ function UserDash() {
                         <Info textRight={"19/04/23"}>Dr. Rajesh Joshi</Info>
                         <Info textRight={"19/04/23"}>Dr. Rajesh Joshi</Info>
                         <Info textRight={"19/04/23"}>Dr. Rajesh Joshi</Info> */}
-                        {
-                          upcomingAppointments.map((item, index) => {
-                            return (
-                              <Info textRight={"19/04/23"}>{item.doctorName}</Info>
-                            )
-                          })
-                        }
+                        {upcomingAppointments.map((item, index) => {
+                          return (
+                            <Info textRight={"19/04/23"}>
+                              {item.doctorName}
+                            </Info>
+                          );
+                        })}
                       </>
                     ) : (
                       <>
@@ -359,13 +356,13 @@ function UserDash() {
                         <Info textRight={"19/04/23"}>Dr. Rajesh Joshi</Info>
                         <Info textRight={"19/04/23"}>Dr. Rajesh Joshi</Info>
                         <Info textRight={"19/04/23"}>Dr. Rajesh Joshi</Info> */}
-                        {
-                          recentAppointments.map((item, index) => {
-                            return (
-                              <Info textRight={"19/04/23"}>{item.doctorName}</Info>
-                            )
-                          })
-                        }
+                        {recentAppointments.map((item, index) => {
+                          return (
+                            <Info textRight={"19/04/23"}>
+                              {item.doctorName}
+                            </Info>
+                          );
+                        })}
                       </>
                     ) : (
                       <>
@@ -390,43 +387,41 @@ function UserDash() {
                 <div className={styles.MedicalRecordsContainer}>
                   <div className={styles.dashDivHeader}>Medical Record</div>
                   <div className={styles.dashDivContent}>
-                    {presEmpty ? (
+                    {!medRecords ? (
                       <>
-                        {/* <Info textRight={"19/04/23"}>Dr. Rajesh Joshi</Info>
-                        <Info textRight={"19/04/23"}>Dr. Rajesh Joshi</Info>
-                        <Info textRight={"19/04/23"}>Dr. Rajesh Joshi</Info>
-                        <Info textRight={"19/04/23"}>Dr. Rajesh Joshi</Info>
-                        <Info textRight={"19/04/23"}>Dr. Rajesh Joshi</Info>
-                        <Info textRight={"19/04/23"}>Dr. Rajesh Joshi</Info>
-                        <Info textRight={"19/04/23"}>Dr. Rajesh Joshi</Info>
-                        <Info textRight={"19/04/23"}>Dr. Rajesh Joshi</Info>
-                        <Info textRight={"19/04/23"}>Dr. Rajesh Joshi</Info> */}
-                        {
-                          medRecords.map((item, index) => {
-                            return (
-                              <div onClick={()=>
-                                navigate("/view/pastmedrecord" , {state: {item}} )
-                              } className={styles.prevRecords}>
-                              <Info textRight={item.date.slice(0 ,10)} >{item.title}
-                              {/* &nbsp;&nbsp;{index+1} */}
-                              </Info>
-                              </div>
-                            )
-                          })
-                        }
+                        <p style={{ textAlign: "center", fontSize: "1.5rem" }}>
+                          Loading...
+                        </p>
                       </>
-                    ) : (
+                    ) : medRecords.length === 0 ? (
                       <>
                         <div className={styles.placeholderCont}>
                           <p
-                            style={{
-                              textAlign: "center",
-                              fontSize: "1.5rem",
-                            }}
+                            style={{ textAlign: "center", fontSize: "1.5rem" }}
                           >
                             No Prescriptions Yet
                           </p>
                         </div>
+                      </>
+                    ) : (
+                      <>
+                        {medRecords.map((item, index) => {
+                          return (
+                            <div
+                              key={index}
+                              onClick={() =>
+                                navigate("/view/pastmedrecord", {
+                                  state: { item },
+                                })
+                              }
+                              className={styles.prevRecords}
+                            >
+                              <Info textRight={item.date.slice(0, 10)}>
+                                {item.title}
+                              </Info>
+                            </div>
+                          );
+                        })}
                       </>
                     )}
                   </div>
