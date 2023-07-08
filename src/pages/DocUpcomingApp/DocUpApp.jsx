@@ -1,8 +1,8 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styles from "./styles.module.css";
 import Avatar from "../../components/Avatar/Avatar";
 import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import ButtonDark from "../../components/Buttons/ButtonDark";
 import ButtonHollow from "../../components/Buttons/ButtonHollow";
 import Modal from "../../components/Modal/Modal";
@@ -43,24 +43,31 @@ const dummyPatientObj = {
 
 const PlusIcon = require("../../assets/images/hospital-svgrepo.png");
 
-// const MetaMaskIcon = React.forwardRef((props, ref) => (
-//   <svg
-//     {...props}
-//     width="2em"
-//     height="2em"
-//     fill="currentColor"
-//     viewBox="0 0 320 512"
-//     ref={ref}
-//   >
-//     <path d="M311.9 260.8L160 353.6 8 260.8 160 0l151.9 260.8zM160 383.4L8 290.6 160 512l152-221.4-152 92.8z" />
-//   </svg>
-// ));
-
 function DocUpApp() {
   const Navigate = useNavigate();
   const dispatch = useDispatch();
   const userInfo = useSelector((state) => state.userInfo);
-  console.log(userInfo);
+  const [patient , setPatient] = useState({});
+  const [loading , setLoading] = useState(true);
+  const location = useLocation();
+  const {item} = location.state;
+  console.log(item);
+
+  useEffect(()=>{
+    getPatientById();
+  },[])
+
+  const getPatientById = async () => {
+    const res = await fetch(process.env.REACT_APP_BACKEND_URL + `patient/getpatientbyid/${item.patientId}`, {
+      method: "GET",
+  });
+  const data = await res.json();
+  console.log(data);
+  if(data.data.patient){
+    setPatient(data.data.patient);
+    setLoading(false);
+  }
+  }
 
   const [modal, setModal] = useState(false);
   const toggleModal = () => {
@@ -153,7 +160,7 @@ function DocUpApp() {
           <div className={styles.mainBody}>
             <div className={styles.docInfoContainer}>
               <PatientCard
-                patient={dummyPatientObj}
+                patient={patient}
                 avatarStyle={{ width: "150px", height: "150px" }}
                 style={{ height: "100%" }}
               />
@@ -168,13 +175,14 @@ function DocUpApp() {
                     </div>
                     <Divider vertical style={{ backgroundColor: "black" }} />
                     <div className={styles.appTime}>
-                      <p>10-11AM</p>
+                      <p>{
+                        item.startTime} - {item.endTime}</p>
                     </div>
                     <Divider vertical style={{ backgroundColor: "black" }} />
                     <div className={styles.pendingStatusBox}>
                       {pending ? (
                         <Tag size="lg" style={{ fontSize: "0.8rem" }}>
-                          Pending <TimeRound />{" "}
+                          {item.status} <TimeRound />{"  `"}
                         </Tag>
                       ) : (
                         <Tag size="lg" style={{ fontSize: "0.8rem" }}>
@@ -212,7 +220,7 @@ function DocUpApp() {
                         {pending ? (
                           <Link
                             style={{ textDecoration: "none", color: "white" }}
-                            to="/edit/medicalrecord"
+                            to="/view/medicalrecord"
                           >
                             Add a prescription
                           </Link>
