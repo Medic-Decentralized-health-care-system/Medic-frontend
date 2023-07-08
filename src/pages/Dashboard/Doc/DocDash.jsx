@@ -9,8 +9,8 @@ import ButtonHollow from "../../../components/Buttons/ButtonHollow";
 import Modal from "../../../components/Modal/Modal";
 import Info from "../../../components/Info/Info";
 import { connect, useDispatch, useSelector } from "react-redux";
-import { Button, IconButton, Tag } from "rsuite";
-import { Icon } from "@rsuite/icons";
+import { Button, Dropdown, IconButton, Tag } from "rsuite";
+import { Icon, ArrowDownLine } from "@rsuite/icons";
 import { ethers } from "ethers";
 import { setBalance, setWalletAddress } from "../../../state/auth/auth-slice";
 import Swal from "sweetalert2";
@@ -53,13 +53,14 @@ function DocDash() {
   const [recAppEmpty, setRecAppEmpty] = useState(false);
   const [recTransEmpty, setRecTransEmpty] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [upcoming , setUpcoming] = useState([]);
-  const [recent , setRecent] = useState([]);
+  const [upcoming, setUpcoming] = useState([]);
+  const [recent, setRecent] = useState([]);
 
   const getUpcomingAppointments = async () => {
     try {
       const res = await fetch(
-        process.env.REACT_APP_BACKEND_URL + "doctors/getupcomingappointments/649e79d6d3828be03c885fcb",
+        process.env.REACT_APP_BACKEND_URL +
+          "doctors/getupcomingappointments/649e79d6d3828be03c885fcb",
         {
           method: "GET",
           headers: {
@@ -92,12 +93,13 @@ function DocDash() {
         confirmButtonText: "Ok",
       });
     }
-  }
+  };
 
   const getRecentAppointments = async () => {
     try {
       const res = await fetch(
-        process.env.REACT_APP_BACKEND_URL + "doctors/getrecentappointments/649e79d6d3828be03c885fcb",
+        process.env.REACT_APP_BACKEND_URL +
+          "doctors/getrecentappointments/649e79d6d3828be03c885fcb",
         {
           method: "GET",
           headers: {
@@ -130,12 +132,26 @@ function DocDash() {
         confirmButtonText: "Ok",
       });
     }
-  }
+  };
 
-  useEffect(()=>{
+  useEffect(() => {
     getUpcomingAppointments();
     getRecentAppointments();
-  },[])
+  }, []);
+
+  const renderIconButton = (props, ref) => {
+    return (
+      <IconButton
+        {...props}
+        ref={ref}
+        icon={<ArrowDownLine />}
+        circle
+        style={{ backgroundColor: "#051923" }}
+        appearance="primary"
+        size="sm"
+      />
+    );
+  };
   return (
     <>
       <div className={styles.container}>
@@ -152,24 +168,31 @@ function DocDash() {
           <p className={styles.logotext}>MEDIC.</p>
           <div className={styles.pfBox}>
             <div className={styles.dropdown}>
-              <img
-                src={require("../../../assets/images/down.png")}
-                alt=""
-                draggable={false}
-                height={"18px"}
-              />
-              <div className={styles.dropdownContent}>
-                <Link
-                  to="/dashboard/user/editprofile"
-                  style={{ textDecoration: "none" }}
+              <Dropdown placement="leftStart" renderToggle={renderIconButton}>
+                <Dropdown.Item
+                  panel
+                  style={{ padding: 10, fontSize: "medium" }}
                 >
-                  Edit Profile
-                </Link>
-                <p onClick={toggleModal}>Edit Tag</p>
-                <a href="/" style={{ textDecoration: "none" }}>
-                  Logout
-                </a>
-              </div>
+                  <p>Signed in as</p>
+                  <strong>{`${"vgfrr"}`}</strong>
+                </Dropdown.Item>
+                <Dropdown.Item style={{ padding: 10, fontSize: "small" }}>
+                  <Link
+                    to="/dashboard/user/editprofile"
+                    style={{ textDecoration: "none", color: "black" }}
+                  >
+                    Edit Profile
+                  </Link>
+                </Dropdown.Item>
+                <Dropdown.Item style={{ padding: 10, fontSize: "small" }}>
+                  <Link
+                    to="/"
+                    style={{ textDecoration: "none", color: "black" }}
+                  >
+                    Sign Out
+                  </Link>
+                </Dropdown.Item>
+              </Dropdown>
             </div>
             <Avatar
               imgURL={require("../../../assets/images/pfptemplate.png")}
@@ -203,21 +226,33 @@ function DocDash() {
                   <div className={styles.dashDivContent}>
                     {/* Use this div to map the upcoming appointments to */}
                     {upAppEmpty ? (
-                      <div style={{textAlign: "left", width: "100%"}}>
+                      <div style={{ textAlign: "left", width: "100%" }}>
                         <Tag size="lg" appearance="primary" color="blue">
                           22/02/23
                         </Tag>
-                        <div style={{ display: "flex", flexDirection: "column", width: "98%"}}>
-                          {upcoming.map((item)=>{
-                            return(
-                              <div onClick={(e)=>{
-                                Navigate(`/dashboard/doctor/upcoming-appointment/`, {state: {item}})
-                              }}>
-                              <Info textRight={item.startTime}>{item.patientName}</Info>
+                        <div
+                          style={{
+                            display: "flex",
+                            flexDirection: "column",
+                            width: "98%",
+                          }}
+                        >
+                          {upcoming.map((item) => {
+                            return (
+                              <div
+                                onClick={(e) => {
+                                  Navigate(
+                                    `/dashboard/doctor/upcoming-appointment/`,
+                                    { state: { item } }
+                                  );
+                                }}
+                              >
+                                <Info textRight={item.startTime}>
+                                  {item.patientName}
+                                </Info>
                               </div>
-                            )
-                          })
-                        }
+                            );
+                          })}
                         </div>
                       </div>
                     ) : (
@@ -249,13 +284,15 @@ function DocDash() {
                       {/* Use this div to map the recent appointments to */}
                       {recAppEmpty ? (
                         <>
-                          {
-                            recent.map((item)=>{
-                              return(
-                                <Info textRight={`${item.startTime}-${item.endTime}`}>{item.patientName}</Info>
-                              )
-                            })
-                          }
+                          {recent.map((item) => {
+                            return (
+                              <Info
+                                textRight={`${item.startTime}-${item.endTime}`}
+                              >
+                                {item.patientName}
+                              </Info>
+                            );
+                          })}
                         </>
                       ) : (
                         <>

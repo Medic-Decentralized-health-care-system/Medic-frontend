@@ -8,8 +8,8 @@ import ButtonHollow from "../../../components/Buttons/ButtonHollow";
 import Modal from "../../../components/Modal/Modal";
 import Info from "../../../components/Info/Info";
 import { connect, useDispatch, useSelector } from "react-redux";
-import { Button, IconButton } from "rsuite";
-import { Icon } from "@rsuite/icons";
+import { Button, Dropdown, IconButton } from "rsuite";
+import { Icon, ArrowDownLine } from "@rsuite/icons";
 import { ethers } from "ethers";
 import { setBalance, setWalletAddress } from "../../../state/auth/auth-slice";
 import Swal from "sweetalert2";
@@ -32,19 +32,6 @@ function UserDash() {
   const Navigate = useNavigate();
   const dispatch = useDispatch();
   const userInfo = useSelector((state) => state.userInfo);
-
-  const [modal, setModal] = useState(false);
-  const toggleModal = () => {
-    setModal(!modal);
-  };
-  const onModalClose = () => {
-    setModal(false);
-  };
-  const handleTagSave = () => {
-    // TODO: Handle the actual saving of the tag in the backend
-
-    setModal(false);
-  };
 
   const [editProfile, setEditProfile] = useState(false);
 
@@ -220,40 +207,69 @@ function UserDash() {
       console.log(err);
     }
   };
+
+  const renderIconButton = (props, ref) => {
+    return (
+      <IconButton
+        {...props}
+        ref={ref}
+        icon={<ArrowDownLine />}
+        circle
+        style={{ backgroundColor: "#051923" }}
+        appearance="primary"
+        size="sm"
+      />
+    );
+  };
+
   return (
     <>
       <div className={styles.container}>
-        {modal && (
-          <div className={styles.modal}>
-            <Modal
-              type="editTag"
-              onClose={onModalClose}
-              handleEditClick={handleTagSave}
-            />
-          </div>
-        )}
         <div className={styles.header}>
           <p className={styles.logotext}>MEDIC.</p>
           <div className={styles.pfBox}>
             <div className={styles.dropdown}>
-              <img
+              {/* <img
                 src={require("../../../assets/images/down.png")}
                 alt=""
                 draggable={false}
                 height={"18px"}
-              />
-              <div className={styles.dropdownContent}>
+              /> */}
+
+              <Dropdown placement="leftStart" renderToggle={renderIconButton}>
+                <Dropdown.Item panel style={{ padding: 10, width: 160 }}>
+                  <p>Signed in as</p>
+                  <strong>{`${"vgfrr"}`}</strong>
+                </Dropdown.Item>
+                <Dropdown.Item>
+                  <Link
+                    to="/dashboard/user/editprofile"
+                    style={{ textDecoration: "none", color: "black" }}
+                  >
+                    Edit Profile
+                  </Link>
+                </Dropdown.Item>
+                <Dropdown.Item>
+                  <Link
+                    to="/"
+                    style={{ textDecoration: "none", color: "black" }}
+                  >
+                    Sign Out
+                  </Link>
+                </Dropdown.Item>
+              </Dropdown>
+              {/* <div className={styles.dropdownContent}>
                 <Link
                   to="/dashboard/user/editprofile"
                   style={{ textDecoration: "none" }}
                 >
                   Edit Profile
                 </Link>
-                <p onClick={toggleModal}>Edit Tag</p>
+
                 <a href="/" style={{ textDecoration: "none" }}>
                   Logout
                 </a>
-              </div>
+              </div> */}
             </div>
             <Avatar
               imgURL={require("../../../assets/images/pfptemplate.png")}
@@ -313,17 +329,21 @@ function UserDash() {
                         <Info textRight={"19/04/23"}>Dr. Rajesh Joshi</Info>
                         <Info textRight={"19/04/23"}>Dr. Rajesh Joshi</Info>
                         <Info textRight={"19/04/23"}>Dr. Rajesh Joshi</Info> */}
-                        {
-                          console.log(upcomingAppointments)
-                        }
+                        {console.log(upcomingAppointments)}
                         {upcomingAppointments.map((item, index) => {
                           return (
-                            <div className={styles.eachUpcomingAppointment} onClick={()=>{
-                              navigate('/dashboard/user/upcoming-appointment' , {state:{item , medRecords}})
-                            }}>
-                            <Info textRight={item.startTime}>
-                              {item.doctorName}
-                            </Info>
+                            <div
+                              className={styles.eachUpcomingAppointment}
+                              onClick={() => {
+                                navigate(
+                                  "/dashboard/user/upcoming-appointment",
+                                  { state: { item, medRecords } }
+                                );
+                              }}
+                            >
+                              <Info textRight={item.startTime}>
+                                {item.doctorName}
+                              </Info>
                             </div>
                           );
                         })}
