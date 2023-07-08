@@ -22,7 +22,7 @@ import CardSelected from "../../components/CardSelected/CardSelected";
 const dummyDoctorObj = {
   name: "Dr. Aditi Singh",
   degree: "MBBS",
-  specialty: "General Physician",
+  specialities: ["General Physician"],
   experience: "4 years",
   image:
     "https://i.pinimg.com/originals/35/57/55/355755832670880825ad87838e18d6b6.jpg",
@@ -42,6 +42,7 @@ const dummyDoctorObj = {
       "03:30AM-04:30AM",
     ],
   },
+  clinicAddress:"BH-1 , ABV-IIIT Gwalior , Morena Link Road"
 };
 const PlusIcon = require("../../assets/images/hospital-svgrepo.png");
 

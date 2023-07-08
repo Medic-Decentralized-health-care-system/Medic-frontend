@@ -16,10 +16,13 @@ function CardSelected({ doctor, style, avatarStyle }) {
           <div className={styles.infoBox}>
             <p className={styles.text3}>{doctor.degree}</p>
             <span className={styles.divider}></span>
-            <p className={styles.text4}>{doctor.specialities[0]}</p>
+            <p className={styles.text4}>{
+              doctor.specialities.length > 0 && doctor.specialities[0]
+            }</p>
             <span className={styles.divider}></span>
             <p className={styles.text5}>{doctor.experience}</p>
           </div>
+          <div>{doctor.clinicAddress}</div>
         </div>
       </div>
     </>
