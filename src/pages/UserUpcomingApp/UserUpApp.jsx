@@ -66,8 +66,9 @@ function UserUpApp() {
   const [doctor, setDoctor] = useState({});
   const [loading, setLoading] = useState(true);
   const location = useLocation();
-  const { item } = location.state;
+  const { item , medRecords } = location.state;
   console.log(item)
+  const navigate = useNavigate();
 
   useEffect(() => {
     getDoctorById();
@@ -218,12 +219,43 @@ function UserUpApp() {
                   </div>
                   <div className={styles.appBoxBottomRightBody}>
                     <div className={styles.presContainer}>
-                      <Info textRight="22/04/23" link="">
-                        Diabetes Prescription
-                      </Info>
-                      <Info textRight="22/04/23" link="">
-                        Diabetes Prescription
-                      </Info>
+                    {!medRecords ? (
+                      <>
+                        <p style={{ textAlign: "center", fontSize: "1.5rem" }}>
+                          Loading...
+                        </p>
+                      </>
+                    ) : medRecords.length === 0 ? (
+                      <>
+                        <div className={styles.placeholderCont}>
+                          <p
+                            style={{ textAlign: "center", fontSize: "1.5rem" }}
+                          >
+                            No Prescriptions Yet
+                          </p>
+                        </div>
+                      </>
+                    ) : (
+                      <>
+                        {medRecords.map((item, index) => {
+                          return (
+                            <div
+                              key={index}
+                              onClick={() =>
+                                navigate("/view/pastmedrecord", {
+                                  state: { item },
+                                })
+                              }
+                              className={styles.prevRecords}
+                            >
+                              <Info textRight={item.date.slice(0, 10)}>
+                                {item.title}
+                              </Info>
+                            </div>
+                          );
+                        })}
+                      </>
+                    )}
                     </div>
                   </div>
                 </div>

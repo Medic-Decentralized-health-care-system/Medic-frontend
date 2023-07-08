@@ -319,7 +319,7 @@ function UserDash() {
                         {upcomingAppointments.map((item, index) => {
                           return (
                             <div className={styles.eachUpcomingAppointment} onClick={()=>{
-                              navigate('/dashboard/user/upcoming-appointment' , {state:{item}})
+                              navigate('/dashboard/user/upcoming-appointment' , {state:{item , medRecords}})
                             }}>
                             <Info textRight={item.startTime}>
                               {item.doctorName}
