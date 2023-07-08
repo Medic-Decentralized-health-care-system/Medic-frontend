@@ -133,7 +133,7 @@
   justify-content: center;
   align-items: center;
   /* gap: 70%; */
-  padding: 3% 0px 0px 0px;
+  padding: 4% 0px 0px 0px;
   border-top-left-radius: 100px;
   border-top-right-radius: 100px;
 }
@@ -163,7 +163,15 @@
   justify-content: center;
   align-items: center;
   gap: 1.5rem;
-  padding: 60px;
+  padding: 2rem;
+}
+
+.panel1 {
+  background-color: #b30b0b17;
+}
+
+.rs-toggle-presentation {
+  background-color: black;
 }
 
 .FormBox {
@@ -172,7 +180,7 @@
   justify-content: center;
   align-items: stretch;
   font-size: medium;
-  width: 50%;
+  width: 100%;
 }
 
 .updateBtnBox {
@@ -191,4 +199,20 @@
 .topFormBox > *,
 .bottomFormBox > * {
   margin: 5px;
+  font-size: x-small;
+}
+
+.toggleBox {
+  display: flex;
+  flex-direction: row;
+  min-width: max-content;
+}
+
+.toggleBox > p {
+  margin-left: 1rem;
+}
+
+.panelTagEdit {
+  display: flex;
+  flex-direction: row;
 }

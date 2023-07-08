@@ -8,10 +8,21 @@ import ButtonHollow from "../../components/Buttons/ButtonHollow";
 import Modal from "../../components/Modal/Modal";
 import Info from "../../components/Info/Info";
 import { useDispatch, useSelector } from "react-redux";
-import { Button, DatePicker, Input, InputPicker, Uploader } from "rsuite";
+import {
+  Button,
+  DatePicker,
+  Form,
+  Input,
+  InputPicker,
+  Panel,
+  SelectPicker,
+  Toggle,
+  Uploader,
+} from "rsuite";
 import { Icon } from "@rsuite/icons";
 
 import CameraRetroIcon from "@rsuite/icons/legacy/CameraRetro";
+import { createEntityAdapter } from "@reduxjs/toolkit";
 
 const MetaMaskIcon = React.forwardRef((props, ref) => (
   <svg
@@ -25,11 +36,19 @@ const MetaMaskIcon = React.forwardRef((props, ref) => (
     <path d="M311.9 260.8L160 353.6 8 260.8 160 0l151.9 260.8zM160 383.4L8 290.6 160 512l152-221.4-152 92.8z" />
   </svg>
 ));
-function UserDash() {
+
+const data = ["iiitm", "nitk", "mits", "amity"].map((item) => ({
+  label: item,
+  value: item,
+}));
+function EditProfile() {
   const Navigate = useNavigate();
   const dispatch = useDispatch();
   const userInfo = useSelector((state) => state.userInfo);
   console.log(userInfo);
+
+  // We need to have a tag key in the userInfo object which is empty if there's no tag selectd and contains a string of the exact tag if it is selected. Temporarily using a temp string named userTag to simulate this implementation
+  const userTag = "";
 
   const [modal, setModal] = useState(false);
   const toggleModal = () => {
@@ -46,13 +65,18 @@ function UserDash() {
 
   const handleUpdateDetails = () => {
     // TODO: Handle the updating of details in the backend
-    console.log("Details updated!")
-  }
+    console.log("Details updated!");
+  };
 
-  const [upAppEmpty, setUpAppEmpty] = useState(false);
-  const [recAppEmpty, setRecAppEmpty] = useState(false);
-  const [presEmpty, setPresEmpty] = useState(false);
-  const [recTransEmpty, setRecTransEmpty] = useState(false);
+  const [toggleChecked, setToggleChecked] = useState(false);
+  const handleToggleChange = () => {
+    setToggleChecked(!toggleChecked);
+    if (userTag !== "") {
+      // Display an empty select dropdown
+    } else {
+      // Display an already selected tag from the select dropdown
+    }
+  };
 
   const [fileURL, setFileURL] = useState("");
   const handleUpload = (file) => {
@@ -77,7 +101,7 @@ function UserDash() {
           </div>
         )}
         <div className={styles.header}>
-          <p className={styles.logotext}>MEDIC.</p>
+          <p className={styles.logotext}>DeMedic.</p>
           <div className={styles.pfBox}>
             <Avatar
               imgURL={
@@ -113,96 +137,131 @@ function UserDash() {
                       setFileURL(URL.createObjectURL(file.blobFile));
                     }}
                   >
-                    <button style={{ backgroundColor: "transparent" }}>
+                    <button
+                      style={{
+                        borderRadius: "100px",
+                        backgroundColor: "white",
+                        height: "1.6rem",
+                        width: "1.6rem",
+                      }}
+                    >
                       <CameraRetroIcon
-                        style={{ backgroundColor: "transparent" }}
+                        style={{
+                          backgroundColor: "transparent",
+                          fontSize: "1rem",
+                        }}
                       />
                     </button>
                   </Uploader>
                 </div>
               </div>
             </div>
-            <div className={styles.mainNameBox}>
-              {/* {userInfo && (
+            {/* {userInfo && (
                 <p style={{ fontSize: "1.4rem" }}>{userInfo.name}</p>
               )} */}
+            {/* <div className={styles.mainNameBox}>
               <h1>John Dahl</h1>
-            </div>
+            </div> */}
           </div>
           <div className={styles.mainBody}>
-            <div className={styles.bodyHeader}>
-              <h2>Edit Profile</h2>
-            </div>
-            <div className={styles.FormBox}>
-              <div className={styles.topFormBox}>
-                <div className={styles.firstName}>
-                  <p>First Name</p>
-                  <Input
-                    type="text"
-                    id="fName"
-                    appearance="ghost"
-                    placeholder="First Name"
-                  />
+            <Panel shaded className={styles.panel1}>
+              <div className={styles.bodyHeader}>
+                <h2 style={{ textAlign: "center" }}></h2>
+              </div>
+              <div className={styles.FormBox}>
+                <div className={styles.topFormBox}>
+                  <div className={styles.firstName}>
+                    <p>First Name</p>
+                    <Input
+                      type="text"
+                      id="fName"
+                      appearance="ghost"
+                      placeholder="First Name"
+                    />
+                  </div>
+                  <div className={styles.lastName}>
+                    <p>Last Name</p>
+                    <Input
+                      type="text"
+                      id="lName"
+                      appearance="ghost"
+                      placeholder="Last Name"
+                    />
+                  </div>
+                  <div className={styles.dob}>
+                    <p>Date of Birth</p>
+                    <DatePicker
+                      style={{ backgroundColor: "white", borderRadius: "10px" }}
+                      type="text"
+                      id="dob"
+                      appearance="primary"
+                      placeholder="Date Of Birth"
+                    />
+                  </div>
                 </div>
-                <div className={styles.lastName}>
-                  <p>Last Name</p>
-                  <Input
-                    type="text"
-                    id="lName"
-                    appearance="ghost"
-                    placeholder="Last Name"
-                  />
+                <div className={styles.bottomFormBox}>
+                  <div className={styles.sex}>
+                    <p>Gender</p>
+                    <InputPicker
+                      data={sex}
+                      id="sex"
+                      appearance="default"
+                      placeholder="Gender"
+                    />
+                  </div>
+                  <div className={styles.email}>
+                    <p>Email</p>
+                    <Input
+                      type="email"
+                      id="email"
+                      appearance="default"
+                      placeholder="Email"
+                    />
+                  </div>
+                  <div className={styles.pwd}>
+                    <p>Password</p>
+                    <Input
+                      type="password"
+                      id="pwd"
+                      appearance="default"
+                      placeholder="Password"
+                    />
+                  </div>
                 </div>
-                <div className={styles.dob}>
-                  <p>Date of Birth</p>
-                  <DatePicker
-                    type="text"
-                    id="dob"
-                    appearance="ghost"
-                    placeholder="Date Of Birth"
-                  />
+                <Panel className={styles.panelTagEdit}>
+                  <div className={styles.toggleBox}>
+                    <Toggle
+                      className={styles.toggle}
+                      checked={toggleChecked}
+                      onChange={handleToggleChange}
+                    ></Toggle>
+                    <p>
+                      Do you want to share your information to your institute?
+                    </p>
+                  </div>
+                  {toggleChecked && (
+                    <Panel>
+                      <div className={styles.selectTagBox}>
+                        <SelectPicker
+                          placement="topStart"
+                          label="Tag"
+                          data={data}
+                        />
+                      </div>
+                    </Panel>
+                  )}
+                </Panel>
+                <div className={styles.updateBtnBox}>
+                  <Button
+                    appearance="primary"
+                    style={{ margin: "10px", backgroundColor: "#023020" }}
+                    onClick={handleUpdateDetails}
+                  >
+                    Update Details
+                  </Button>
                 </div>
               </div>
-              <div className={styles.bottomFormBox}>
-                <div className={styles.sex}>
-                  <p>Gender</p>
-                  <InputPicker
-                    data={sex}
-                    id="sex"
-                    appearance="default"
-                    placeholder="Gender"
-                  />
-                </div>
-                <div className={styles.email}>
-                  <p>Email</p>
-                  <Input
-                    type="email"
-                    id="email"
-                    appearance="default"
-                    placeholder="Email"
-                  />
-                </div>
-                <div className={styles.pwd}>
-                  <p>Password</p>
-                  <Input
-                    type="password"
-                    id="pwd"
-                    appearance="default"
-                    placeholder="Password"
-                  />
-                </div>
-              </div>
-              <div className={styles.updateBtnBox}>
-                <Button
-                  appearance="primary"
-                  style={{ margin: "10px", backgroundColor: "#023020" }}
-                  
-                  onClick={handleUpdateDetails}
-                >
-                  Update Details
-                </Button>
-              </div>
-            </div>
+            </Panel>
           </div>
         </div>
       </div>
@@ -210,4 +269,4 @@ function UserDash() {
   );
 }
 
-export default UserDash;
+export default EditProfile;
