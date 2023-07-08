@@ -210,7 +210,11 @@ function DocDash() {
                         <div style={{ display: "flex", flexDirection: "column", width: "98%"}}>
                           {upcoming.map((item)=>{
                             return(
+                              <div onClick={(e)=>{
+                                Navigate(`/dashboard/doctor/upcoming-appointment/`, {state: {item}})
+                              }}>
                               <Info textRight={item.startTime}>{item.patientName}</Info>
+                              </div>
                             )
                           })
                         }

@@ -19,6 +19,10 @@ function PatientCard({ patient, style, avatarStyle }) {
             <Divider vertical style={{ backgroundColor: "black" }} />
             <p className={styles.text4}>{patient.gender}</p>
           </div>
+          <div>
+            <p className={styles.text5}>{patient.email}</p>
+            <p className={styles.text5}>{patient.username}</p>
+          </div>
         </div>
       </div>
     </>
