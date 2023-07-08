@@ -4,7 +4,7 @@ import MenubarStyle from "./Menubar.module.css";
 import WhiteButton from "../Buttons/WhiteButton";
 
 const navbarPages = {
-  text: ["Pricing", "How it works", "Help Center", "News"],
+  text: ["Pricing", "How it works", "Help Center"],
 };
 
 const handleClick = () => {};

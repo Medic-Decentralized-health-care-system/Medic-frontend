@@ -26,7 +26,7 @@ function Home() {
       <div className={Homestyle.section}>
         <div className={Homestyle.actualsection}>
           <div className={Homestyle.navbar}>
-            <p className={Homestyle.logotext}>MEDIC.</p>
+            <p className={Homestyle.logotext}>DeMedic.</p>
 
             <ButtonDark
               text="LOGIN"
