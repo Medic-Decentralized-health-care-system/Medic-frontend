@@ -1,8 +1,8 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styles from "./styles.module.css";
 import Avatar from "../../components/Avatar/Avatar";
 import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import ButtonDark from "../../components/Buttons/ButtonDark";
 import ButtonHollow from "../../components/Buttons/ButtonHollow";
 import Modal from "../../components/Modal/Modal";
@@ -42,7 +42,7 @@ const dummyDoctorObj = {
       "03:30AM-04:30AM",
     ],
   },
-  clinicAddress:"BH-1 , ABV-IIIT Gwalior , Morena Link Road"
+  clinicAddress: "BH-1 , ABV-IIIT Gwalior , Morena Link Road",
 };
 const PlusIcon = require("../../assets/images/hospital-svgrepo.png");
 
@@ -63,7 +63,32 @@ function UserUpApp() {
   const Navigate = useNavigate();
   const dispatch = useDispatch();
   const userInfo = useSelector((state) => state.userInfo);
-  console.log(userInfo);
+  const [doctor, setDoctor] = useState({});
+  const [loading, setLoading] = useState(true);
+  const location = useLocation();
+  const { item } = location.state;
+  console.log(item)
+
+  useEffect(() => {
+    getDoctorById();
+  }, []);
+
+  const getDoctorById = async (id) => {
+    const res = await fetch(
+      process.env.REACT_APP_BACKEND_URL +
+        "doctors/getdoctorbyid/" +
+        item.doctorId,
+      {
+        method: "GET",
+      }
+    );
+    const data = await res.json();
+    console.log(data);
+    if (data.data) {
+      setDoctor(data.data.doctor);
+      setLoading(false);
+    }
+  };
 
   const [modal, setModal] = useState(false);
   const toggleModal = () => {
@@ -123,7 +148,7 @@ function UserUpApp() {
         <div className={styles.main}>
           <div className={styles.mainHeader}>
             <div className={styles.PlusIconContainer}>
-              <img src={PlusIcon} width="50px" alt=""/>
+              <img src={PlusIcon} width="50px" alt="" />
             </div>
             <div className={styles.mainHeadingText}>
               <h1 style={{ fontSize: "2rem" }}>Upcoming Appointments</h1>
@@ -131,11 +156,15 @@ function UserUpApp() {
           </div>
           <div className={styles.mainBody}>
             <div className={styles.docInfoContainer}>
-              <CardSelected
-                doctor={dummyDoctorObj}
-                avatarStyle={{ width: "100px", height: "100px" }}
-                style={{ width: "250px", height: "500px" }}
-              />
+              {loading ? (
+                <div>Loading...</div>
+              ) : (
+                <CardSelected
+                  doctor={doctor}
+                  avatarStyle={{ width: "100px", height: "100px" }}
+                  style={{ width: "250px", height: "500px" }}
+                />
+              )}
             </div>
             <div className={styles.appBox}>
               <div className={styles.appBoxTop}>
@@ -147,11 +176,25 @@ function UserUpApp() {
                     </div>
                     <Divider vertical style={{ backgroundColor: "black" }} />
                     <div className={styles.appTime}>
-                      <p>10-11AM</p>
+                      <p>{
+                        item.startTime } - {item.endTime}</p>
                     </div>
                     <Divider vertical style={{ backgroundColor: "black" }} />
                     <div className={styles.pendingStatusBox}>
-                      {pending ? <p>pending<img alt="" src={require("../../assets/images/stopwatch.png")} style={{display: "inline", height: "0.7rem"}}/></p> : <p>complete</p>}
+                      {pending ? (
+                        <p>
+                          {
+                            item.status
+                          }
+                          <img
+                            alt=""
+                            src={require("../../assets/images/stopwatch.png")}
+                            style={{ display: "inline", height: "0.7rem" }}
+                          />
+                        </p>
+                      ) : (
+                        <p>Completed</p>
+                      )}
                     </div>
                   </div>
                 </div>

@@ -6,7 +6,6 @@ import Avatar from "../Avatar/Avatar";
 
 function CardSelected({ doctor, style, avatarStyle }) {
   return (
-    <>
       <div className={styles.card}>
         <div className={styles.container}>
           <Avatar imgURL={doctor.image} imgStyle={avatarStyle} />
@@ -25,7 +24,6 @@ function CardSelected({ doctor, style, avatarStyle }) {
           <div>{doctor.clinicAddress}</div>
         </div>
       </div>
-    </>
   );
 }
 

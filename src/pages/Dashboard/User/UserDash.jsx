@@ -313,11 +313,18 @@ function UserDash() {
                         <Info textRight={"19/04/23"}>Dr. Rajesh Joshi</Info>
                         <Info textRight={"19/04/23"}>Dr. Rajesh Joshi</Info>
                         <Info textRight={"19/04/23"}>Dr. Rajesh Joshi</Info> */}
+                        {
+                          console.log(upcomingAppointments)
+                        }
                         {upcomingAppointments.map((item, index) => {
                           return (
-                            <Info textRight={"19/04/23"}>
+                            <div className={styles.eachUpcomingAppointment} onClick={()=>{
+                              navigate('/dashboard/user/upcoming-appointment' , {state:{item}})
+                            }}>
+                            <Info textRight={item.startTime}>
                               {item.doctorName}
                             </Info>
+                            </div>
                           );
                         })}
                       </>
