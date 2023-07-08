@@ -7,9 +7,12 @@ import Loader from "react-js-loader";
 import Swal from "sweetalert2";
 import { useSelector, useDispatch } from "react-redux";
 import { setUser } from "../../../state/auth/auth-slice";
+import { Button, Tooltip, Uploader, Whisper } from "rsuite";
+import { FileUpload } from "@rsuite/icons";
 
 function RegisterPatient() {
   const [profilePicture, setProfilePicture] = useState(null);
+  const [pfpBlobFile, setPfpBlobFile] = useState();
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [username, setUsername] = useState("");
@@ -20,10 +23,18 @@ function RegisterPatient() {
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
 
-  const handleProfilePictureUpload = (event) => {
-    const file = event.target.files[0];
-    setProfilePicture(file);
-  };
+  function previewFile(file, callback) {
+    const reader = new FileReader();
+    reader.onloadend = () => {
+      callback(reader.result);
+    };
+    reader.readAsDataURL(file);
+  }
+
+  // const handleProfilePictureUpload = (event) => {
+  //   const file = event.target.files[0];
+  //   setProfilePicture(file);
+  // };
   const dispatch = useDispatch();
   const state = useSelector((state) => state);
 
@@ -122,36 +133,42 @@ function RegisterPatient() {
                   className={registerPatientStyles.pfp}
                   src={
                     profilePicture
-                      ? URL.createObjectURL(profilePicture)
+                      ? pfpBlobFile
                       : require("../../../assets/images/pfptemplate.png")
                   }
                   alt=""
                 />
-                {/* <label htmlFor="uploadProfilePicture"> */}
-                {/* <ButtonDark
-                size="small"
-                text="Upload Profile Picture"
-                style={{
-                  width: "100%",
-                  borderRadius: "1.5rem",
-                  fontSize: "0.8rem",
-                  padding: "0.28rem",
-                }}
-              /> */}
-                <input
-                  id="uploadProfilePicture"
+                <Uploader
                   className={registerPatientStyles.uploadProfilePic}
-                  type="file"
+                  style={{ borderRadius: "100px", marginTop: "0.2rem" }}
                   accept="image/*"
-                  onChange={handleProfilePictureUpload}
-                  style={{
-                    width: "75%",
-                    borderRadius: "1.5rem",
-                    fontSize: "0.8rem",
-                    padding: "0.28rem",
+                  fileListVisible={false}
+                  onUpload={(file) => {
+                    setProfilePicture(file);
+                    previewFile(file.blobFile, (value) => {
+                      setPfpBlobFile(value);
+                    });
                   }}
-                />
-                {/* </label> */}
+                >
+                  <Whisper
+                    placement="right"
+                    controlId="control-id-hover"
+                    trigger="hover"
+                    speaker={<Tooltip>Add Profile Picture</Tooltip>}
+                  >
+                    <Button
+                      style={{
+                        borderRadius: "100px",
+                        fontSize: "small",
+                        backgroundColor: "black",
+                        color: "white",
+                        padding: "0.3rem",
+                      }}
+                    >
+                      <FileUpload style={{ fontSize: "0.75rem" }} />
+                    </Button>
+                  </Whisper>
+                </Uploader>
               </div>
               <hr style={{ width: "100%" }}></hr>
               <form

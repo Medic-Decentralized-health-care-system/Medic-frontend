@@ -156,25 +156,10 @@
   object-fit: cover;
 }
 .uploadProfilePic {
-  font-size: x-small;
-  border-radius: 100px;
-  background-color: black;
-  color: white;
+  background-color: white;
+  color: black;
 }
 
-.uploadProfilePic::file-selector-button {
-  background-color: rgb(29, 23, 88);
-  color: rgb(255, 255, 255);
-  border-radius: 100px;
-  outline: none;
-}
-
-.uploadProfilePic::file-selector-button:hover {
-  background-color: rgb(72, 72, 186);
-  color: rgb(255, 255, 255);
-  border-radius: 100px;
-  outline: none;
-}
 /* .usernameInputField ,.passwordInputField {
 	border: none;
 	border-radius: 100px;

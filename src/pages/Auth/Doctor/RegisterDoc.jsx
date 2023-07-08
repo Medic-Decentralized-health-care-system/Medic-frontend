@@ -8,10 +8,13 @@ import { useSelector, useDispatch } from "react-redux";
 import { setUser } from "../../../state/auth/auth-slice";
 import Loader from "react-js-loader";
 import Swal from "sweetalert2";
+import { Button, Tooltip, Uploader, Whisper } from "rsuite";
+import { FileUpload } from "@rsuite/icons";
 
 function RegisterDoc() {
   const [firstname, setFirstName] = useState("");
   const [profilePic, setProfilePic] = useState("");
+  const [pfpBlobFile, setPfpBlobFile] = useState();
   const [lastName, setlastName] = useState("");
   const [username, setUserName] = useState("");
   const [email, setEmail] = useState("");
@@ -24,10 +27,13 @@ function RegisterDoc() {
   const dispatch = useDispatch();
   const state = useSelector((state) => state);
 
-  const handleProfilePictureUpload = (event) => {
-    const file = event.target.files[0];
-    setProfilePic(file);
-  };
+  function previewFile(file, callback) {
+    const reader = new FileReader();
+    reader.onloadend = () => {
+      callback(reader.result);
+    };
+    reader.readAsDataURL(file);
+  }
 
   const handleDocRegister = async () => {
     try {
@@ -113,21 +119,45 @@ function RegisterDoc() {
             <div className={registerDocStyles.regFormBox}>
               <div className={registerDocStyles.pfpBox}>
                 <img
+                  alt=""
                   className={registerDocStyles.pfp}
                   src={
                     profilePic
-                      ? URL.createObjectURL(profilePic)
+                      ? pfpBlobFile
                       : require("../../../assets/images/pfptemplate.png")
                   }
                 />
-                <input
-                  id="uploadProfilePicture"
+                <Uploader
                   className={registerDocStyles.uploadProfilePic}
-                  type="file"
+                  style={{ borderRadius: "100px", marginTop: "0.2rem" }}
                   accept="image/*"
-                  style={{}}
-                  onChange={handleProfilePictureUpload}
-                />
+                  fileListVisible={false}
+                  onUpload={(file) => {
+                    setProfilePic(file);
+                    previewFile(file.blobFile, (value) => {
+                      setPfpBlobFile(value);
+                    });
+                  }}
+                >
+                  <Whisper
+                    placement="right"
+                    controlId="control-id-hover"
+                    trigger="hover"
+                    speaker={<Tooltip>Add Profile Picture</Tooltip>}
+                  >
+                    <Button
+                      style={{
+                        borderRadius: "100px",
+                        fontSize: "small",
+                        backgroundColor: "black",
+                        color: "white",
+                        padding: "0.3rem",
+                      }}
+                    >
+                      <FileUpload style={{ fontSize: "0.75rem" }} />
+                    </Button>
+                  </Whisper>
+                </Uploader>
               </div>
               <hr style={{ width: "100%" }}></hr>
               <form className={registerDocStyles.form} action="" method="post">
