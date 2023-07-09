@@ -214,5 +214,6 @@
 
 .panelTagEdit {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
+  justify-content: center;
 }

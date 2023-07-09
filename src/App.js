@@ -18,6 +18,7 @@ import ViewMedRecord from "./pages/ViewMedRecord/ViewMedRecord";
 import UserUpApp from "./pages/UserUpcomingApp/UserUpApp";
 import DocUpApp from "./pages/DocUpcomingApp/DocUpApp";
 import EditProfileUser from "./pages/EditProfileUser/EditProfileUser";
+import EditProfileDoc from "./pages/EditProfileDoc/EditProfileDoc";
 
 function App() {
   return (
@@ -47,10 +48,10 @@ function App() {
         <Route path="/view/medicalrecord" element={<MedRecord />} />
         <Route path="/view/pastmedrecord" element={<ViewMedRecord />} />
         <Route path="/dashboard/doctor" element={<DocDash />} />
-        {/* <Route
+        <Route
           path="/dashboard/doctor/editprofile"
           element={<EditProfileDoc />}
-        /> */}
+        />
         <Route
           path="/dashboard/doctor/upcoming-appointment"
           element={<DocUpApp />}

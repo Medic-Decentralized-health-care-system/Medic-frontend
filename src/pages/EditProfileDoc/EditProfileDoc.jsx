@@ -13,6 +13,7 @@ import {
   DatePicker,
   Form,
   Input,
+  InputNumber,
   InputPicker,
   Panel,
   SelectPicker,
@@ -23,6 +24,21 @@ import { Icon } from "@rsuite/icons";
 
 import CameraRetroIcon from "@rsuite/icons/legacy/CameraRetro";
 import { createEntityAdapter } from "@reduxjs/toolkit";
+import { TagPicker } from "rsuite";
+
+const timeSlots = [];
+for (let i = 8; i <= 20; i++) {
+  const hour = i < 10 ? `0${i}` : i;
+  timeSlots.push({
+    label: `${hour}:00AM-${hour}:30AM`,
+    value: `${hour}:00AM-${hour}:30AM`,
+  });
+  timeSlots.push({
+    label: `${hour}:30AM-${hour}:00PM`,
+    value: `${hour}:30AM-${hour}:00PM`,
+  });
+}
+console.log(timeSlots);
 
 const MetaMaskIcon = React.forwardRef((props, ref) => (
   <svg
@@ -49,19 +65,6 @@ function EditProfileDoc() {
 
   // We need to have a tag key in the userInfo object which is empty if there's no tag selectd and contains a string of the exact tag if it is selected. Temporarily using a temp string named userTag to simulate this implementation
   const userTag = "";
-
-  const [modal, setModal] = useState(false);
-  const toggleModal = () => {
-    setModal(!modal);
-  };
-  const onModalClose = () => {
-    setModal(false);
-  };
-  const handleTagSave = () => {
-    // TODO: Handle the actual saving of the tag in the backend
-
-    setModal(false);
-  };
 
   const handleUpdateDetails = () => {
     // TODO: Handle the updating of details in the backend
@@ -91,15 +94,6 @@ function EditProfileDoc() {
   return (
     <>
       <div className={styles.container}>
-        {modal && (
-          <div className={styles.modal}>
-            <Modal
-              type="editTag"
-              onClose={onModalClose}
-              handleEditClick={handleTagSave}
-            />
-          </div>
-        )}
         <div className={styles.header}>
           <p className={styles.logotext}>DeMedic.</p>
           <div className={styles.pfBox}>
@@ -229,27 +223,17 @@ function EditProfileDoc() {
                   </div>
                 </div>
                 <Panel className={styles.panelTagEdit}>
-                  <div className={styles.toggleBox}>
-                    <Toggle
-                      className={styles.toggle}
-                      checked={toggleChecked}
-                      onChange={handleToggleChange}
-                    ></Toggle>
-                    <p>
-                      Do you want to share your information to your institute?
-                    </p>
-                  </div>
-                  {toggleChecked && (
-                    <Panel>
-                      <div className={styles.selectTagBox}>
-                        <SelectPicker
-                          placement="topStart"
-                          label="Tag"
-                          data={data}
-                        />
-                      </div>
-                    </Panel>
-                  )}
+                  <p style={{ padding: "0.5rem", fontSize: "small" }}>
+                    Add Time Slots
+                  </p>
+                  <TagPicker
+                    style={{ width: "100%", maxHeight: "100px" }}
+                    placement="topStart"
+                    data={timeSlots}
+                    placeholder="Select time slots"
+                  />
+                  <p style={{ padding: "0.5rem", fontSize: "small" }}>Fees</p>
+                  <InputNumber prefix="₹" />
                 </Panel>
                 <div className={styles.updateBtnBox}>
                   <Button
