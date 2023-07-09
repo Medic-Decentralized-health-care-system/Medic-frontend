@@ -41,7 +41,7 @@ function ViewMedRecord() {
   const userInfo = useSelector((state) => state.userInfo);
   console.log(userInfo);
   const location = useLocation();
-  const { item } = location.state;
+  const { item , patient } = location.state;
   console.log(item);
   const navigate = useNavigate();
 
@@ -171,11 +171,11 @@ function ViewMedRecord() {
               <div className={styles.topFormBox}>
                 <Form.Group controlId="input">
                   <Form.ControlLabel>Full Name</Form.ControlLabel>
-                  <Form.Control name="fullName" className={styles.inputElem} />
+                  <Form.Control name="fullName" className={styles.inputElem} value={patient.name}/>
                 </Form.Group>
                 <Form.Group controlId="input">
                   <Form.ControlLabel>Age</Form.ControlLabel>
-                  <Form.Control name="age" className={styles.inputElem} />
+                  <Form.Control name="age" className={styles.inputElem} value = {patient.age}/>
                 </Form.Group>
                 <Form.Group controlId="input">
                   <Form.ControlLabel>Gender</Form.ControlLabel>
@@ -290,7 +290,7 @@ function ViewMedRecord() {
                 </Form>
               </div>
                   <Form.Group controlId="input" className={styles.remarksInput}>
-                  <Form.ControlLabel>Blood Pressure</Form.ControlLabel>
+                  <Form.ControlLabel>Description</Form.ControlLabel>
                   <Form.Control name="bp" className={`${styles.inputElem} ${styles.remarks}`} value={item.remarks}/>
                 </Form.Group>
             </Form>

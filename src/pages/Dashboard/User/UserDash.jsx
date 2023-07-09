@@ -186,18 +186,19 @@ function UserDash() {
         userInfo.walletAddress
       );
       console.log(getAllmedRecords);
-      getAllmedRecords.map((medicalRecord, index) => {
-        fetch(`https://skywalker.infura-ipfs.io/ipfs/` + medicalRecord[0])
+  
+      const fetchRequests = getAllmedRecords.map((medicalRecord, index) => {
+        return fetch(`https://skywalker.infura-ipfs.io/ipfs/` + medicalRecord[0])
           .then((response) => response.json())
-          .then((jsonData) => {
-            console.log(jsonData);
-            setMedRecords([...medRecords, jsonData]);
-          })
           .catch((error) => {
             console.error(error);
           });
       });
-      // setMedRecords(getAllmedRecords);
+  
+      const fetchedRecords = await Promise.all(fetchRequests);
+      console.log(fetchedRecords);
+      setMedRecords(fetchedRecords);
+      
       console.log(medRecords);
       if (medRecords.length > 0) {
         setPresEmpty(true);

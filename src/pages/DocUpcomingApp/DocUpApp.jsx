@@ -30,44 +30,43 @@ import {
   Plus,
   TimeRound,
 } from "@rsuite/icons";
-import CameraRetroIcon from "@rsuite/icons/legacy/CameraRetro";
-import CardSelected from "../../components/CardSelected/CardSelected";
 import PatientCard from "../../components/PatientCard/PatientCard";
-const dummyPatientObj = {
-  name: "Dr. Aditi Singh",
-  age: "MBBS",
-  gender: "Male",
-  image:
-    "https://i.pinimg.com/originals/35/57/55/355755832670880825ad87838e18d6b6.jpg",
-};
-
-const PlusIcon = require("../../assets/images/hospital-svgrepo.png");
+import prescriptionIPFSABI from "../../constants/frontEndAbiLocation/PrescriptionIPFS.json";
+import { contractAddresses } from "../../constants";
+import PlusIcon from "../../assets/images/hospital-svgrepo.png";
+import { ethers } from "ethers";
 
 function DocUpApp() {
   const Navigate = useNavigate();
   const dispatch = useDispatch();
   const userInfo = useSelector((state) => state.userInfo);
-  const [patient , setPatient] = useState({});
-  const [loading , setLoading] = useState(true);
+  const [patient, setPatient] = useState({});
+  const [medRecords, setMedRecords] = useState(null);
+  const [presEmpty, setPresEmpty] = useState(false);
+  const [loading, setLoading] = useState(true);
   const location = useLocation();
-  const {item} = location.state;
-  console.log(item);
+  const { item } = location.state;
 
-  useEffect(()=>{
+  useEffect(() => {
     getPatientById();
-  },[])
+    getMedicalRecords();
+  }, []);
 
   const getPatientById = async () => {
-    const res = await fetch(process.env.REACT_APP_BACKEND_URL + `patient/getpatientbyid/${item.patientId}`, {
-      method: "GET",
-  });
-  const data = await res.json();
-  console.log(data);
-  if(data.data.patient){
-    setPatient(data.data.patient);
-    setLoading(false);
-  }
-  }
+    const res = await fetch(
+      process.env.REACT_APP_BACKEND_URL +
+        `patient/getpatientbyid/${item.patientId}`,
+      {
+        method: "GET",
+      }
+    );
+    const data = await res.json();
+    console.log(data);
+    if (data.data.patient) {
+      setPatient(data.data.patient);
+      setLoading(false);
+    }
+  };
 
   const [modal, setModal] = useState(false);
   const toggleModal = () => {
@@ -89,6 +88,51 @@ function DocUpApp() {
 
     setIsPending(false);
   };
+
+  /*Handling smart contracts*/
+  const contractIPFSAddress = "0xa72736eC5d995780f370630346b48319eEfC4239";
+  const provider = new ethers.providers.Web3Provider(window.ethereum);
+  const signer = provider.getSigner();
+  const contract = new ethers.Contract(
+    contractIPFSAddress,
+    prescriptionIPFSABI,
+    signer
+  );
+  const getMedicalRecords = async () => {
+    try {
+      console.log(contract);
+      setLoading(true);
+      const getAllmedRecords = await contract.getAllPrescriptions(
+        patient.walletAddress
+      );
+      console.log(getAllmedRecords);
+
+      const fetchRequests = getAllmedRecords.map((medicalRecord, index) => {
+        return fetch(
+          `https://skywalker.infura-ipfs.io/ipfs/` + medicalRecord[0]
+        )
+          .then((response) => response.json())
+          .catch((error) => {
+            console.error(error);
+          });
+      });
+
+      const fetchedRecords = await Promise.all(fetchRequests);
+      console.log(fetchedRecords);
+      setMedRecords(fetchedRecords);
+
+      console.log(medRecords);
+      if (medRecords.length > 0) {
+        setPresEmpty(true);
+      }
+      console.log(medRecords);
+    } catch (err) {
+      console.log(err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <>
       <div className={styles.container}>
@@ -175,14 +219,16 @@ function DocUpApp() {
                     </div>
                     <Divider vertical style={{ backgroundColor: "black" }} />
                     <div className={styles.appTime}>
-                      <p>{
-                        item.startTime} - {item.endTime}</p>
+                      <p>
+                        {item.startTime} - {item.endTime}
+                      </p>
                     </div>
                     <Divider vertical style={{ backgroundColor: "black" }} />
                     <div className={styles.pendingStatusBox}>
                       {pending ? (
                         <Tag size="lg" style={{ fontSize: "0.8rem" }}>
-                          {item.status} <TimeRound />{"  `"}
+                          {item.status} <TimeRound />
+                          {"  `"}
                         </Tag>
                       ) : (
                         <Tag size="lg" style={{ fontSize: "0.8rem" }}>
@@ -216,14 +262,22 @@ function DocUpApp() {
                         disabled={pending ? false : true}
                         appearance="ghost"
                         className={styles.btnBlack}
+                        onClick={()=>{
+                          Navigate("/view/medicalrecord", {
+                            state: { patient},
+                          })
+                        }}
                       >
                         {pending ? (
-                          <Link
-                            style={{ textDecoration: "none", color: "white" }}
-                            to="/view/medicalrecord"
-                          >
-                            Add a prescription
-                          </Link>
+                          // <Link
+                          //   style={{ textDecoration: "none", color: "white" }}
+                          //   to={{
+                          //     pathname:"/view/medicalrecord",
+                          //     state: { patient},
+                          //   }}
+                          // >
+                           " Add a prescription"
+                          // </Link>
                         ) : (
                           <Link
                             style={{
@@ -247,10 +301,11 @@ function DocUpApp() {
                       <p>Description:</p>
                     </div>
                     <div className={styles.appBoxBottomLeftBody}>
-                            Hey , I am {patient.name} . I am {patient.age} years old . I have my medical records to the right . Please have a look at them .
-                            You can contact me on my email : {patient.email} .
-                            Hoping to have a wonderful experience with you .
-                            
+                      Hey , I am {patient.name} . I am {patient.age} years old .
+                      I have my medical records to the right . Please have a
+                      look at them . You can contact me on my email :{" "}
+                      {patient.email} . Hoping to have a wonderful experience
+                      with you .
                     </div>
                   </Panel>
                 </div>
@@ -261,12 +316,55 @@ function DocUpApp() {
                     </div>
                     <div className={styles.appBoxBottomRightBody}>
                       <div className={styles.presContainer}>
-                        <Info textRight="22/04/23" link="">
-                          Diabetes Prescription
-                        </Info>
-                        <Info textRight="22/04/23" link="">
-                          Diabetes Prescription
-                        </Info>
+                        {!medRecords ? (
+                          <>
+                            <p
+                              style={{
+                                textAlign: "center",
+                                fontSize: "1.5rem",
+                              }}
+                            >
+                              Loading...
+                            </p>
+                          </>
+                        ) : (
+                          <>
+                            {medRecords.length === 0 ? (
+                              <>
+                                <div className={styles.placeholderCont}>
+                                  <p
+                                    style={{
+                                      textAlign: "center",
+                                      fontSize: "1.5rem",
+                                    }}
+                                  >
+                                    No Prescriptions Yet
+                                  </p>
+                                </div>
+                              </>
+                            ) : (
+                              <>
+                                {medRecords.map((item, index) => {
+                                  return (
+                                    <div
+                                      key={index}
+                                      onClick={() =>
+                                        Navigate("/view/pastmedrecord", {
+                                          state: { item , patient},
+                                        })
+                                      }
+                                      className={styles.prevRecords}
+                                    >
+                                      <Info textRight={item.date.slice(0, 10)}>
+                                        {item.title}
+                                      </Info>
+                                    </div>
+                                  );
+                                })}
+                              </>
+                            )}
+                          </>
+                        )}
                       </div>
                     </div>
                   </Panel>

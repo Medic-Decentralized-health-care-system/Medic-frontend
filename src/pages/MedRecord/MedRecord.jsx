@@ -3,12 +3,13 @@ import styles from "./styles.module.css";
 import WhiteButton from "../../components/Buttons/WhiteButton";
 import ButtonDark from "../../components/Buttons/ButtonDark";
 import DrugItem from "../../components/DrugItem/DrugItem";
-import { json, useNavigate } from "react-router-dom";
+import { json, useLocation, useNavigate } from "react-router-dom";
 import { create as ipfsHttpClient } from "ipfs-http-client";
 import { useMoralis, useWeb3Contract } from "react-moralis"
 import { ethers } from "ethers"
 import {contractAddresses} from '../../constants/index.js';
 import prescriptionIPFSABI from "../../constants/frontEndAbiLocation/PrescriptionIPFS.json" 
+import { useSelector } from "react-redux";
 //Handle Infura Connection
 const projectId = process.env.REACT_APP_PROJECT_ID;
 const projectSecretKey = process.env.REACT_APP_PROJECT_KEY;
@@ -30,6 +31,10 @@ function MedRecord() {
   const [bp , setBp] = useState("");
   const [pulse , setPulse] = useState("");
   const [remarks , setRemarks] = useState();
+  const location = useLocation();
+  const {patient} = location.state;
+  const userInfo = useSelector((state) => state.userInfo);
+  console.log(patient , userInfo)
 
   //Handle contract connection
   const { Moralis, isWeb3Enabled, chainId: chainIdHex , web3 } = useMoralis()
@@ -63,18 +68,18 @@ function MedRecord() {
       pulse,
       drugItems,
       remarks,
-      doctorAddress:"0x490aeeA34202D19b42731f00371e949c01F2eC53",
-      patientAddress: "0xfE6dF0B6b9be0aFe1218aBaa98d064A1147C759a"
+      doctorAddress:userInfo.walletAddress,
+      patientAddress: patient.walletAddress,
     });
     try{
       const result = await ipfs.add(body);
-      const count = await contract.getPrescriptionCount("0xfE6dF0B6b9be0aFe1218aBaa98d064A1147C759a");
+      const count = await contract.getPrescriptionCount(patient.walletAddress);
       console.log(count.toNumber())
-      const data = await contract.addPrescription(result.path , "0xfE6dF0B6b9be0aFe1218aBaa98d064A1147C759a", count.toNumber() , {
-          from :"0x490aeeA34202D19b42731f00371e949c01F2eC53"
+      const data = await contract.addPrescription(result.path , patient.walletAddress, count.toNumber() , {
+          from : userInfo.walletAddress
         });
-        const pres = await contract.getPrescription("0xfE6dF0B6b9be0aFe1218aBaa98d064A1147C759a" , count.toNumber() , {
-            from :"0x490aeeA34202D19b42731f00371e949c01F2eC53"
+        const pres = await contract.getPrescription(patient.walletAddress , count.toNumber() , {
+            from :userInfo.walletAddress
           })
       console.log(pres)
       console.log(result)

@@ -209,7 +209,7 @@ function UserUpApp() {
                   {loading ? (
                 <div>Loading...</div>
               ) : (
-                `Hey , I am ${doctor.name} . I am a doctor by profession . I am a ${doctor.specialities[0]} . I have an experience of ${doctor.experience} years in this field . I have ${doctor.degree} degree . My clinic is at "${doctor.clinicAddress}" .` 
+                `Hey , I am Dr.${doctor.name} . I am a doctor by profession . I am a ${doctor.specialities[0]} . I have an experience of ${doctor.experience} years in this field . I have ${doctor.degree} degree . My clinic is at "${doctor.clinicAddress}" .` 
               )}     
                       </div>
                 </div>
