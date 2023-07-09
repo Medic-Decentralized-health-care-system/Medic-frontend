@@ -41,7 +41,7 @@ const data = ["iiitm", "nitk", "mits", "amity"].map((item) => ({
   label: item,
   value: item,
 }));
-function EditProfile() {
+function EditProfileDoc() {
   const Navigate = useNavigate();
   const dispatch = useDispatch();
   const userInfo = useSelector((state) => state.userInfo);
@@ -269,4 +269,4 @@ function EditProfile() {
   );
 }
 
-export default EditProfile;
+export default EditProfileDoc;

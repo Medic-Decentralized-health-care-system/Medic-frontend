@@ -11,12 +11,13 @@ import Login from "./pages/Auth/Login/Login";
 import Search from "./pages/Search/Search";
 import MedRecord from "./pages/MedRecord/MedRecord";
 import UserDash from "./pages/Dashboard/User/UserDash";
-import EditProfile from "./pages/EditProfile/EditProfile";
+
 import AppointmentBooker from "./pages/AppointmentBooker/AppointmentBooker";
 import DocDash from "./pages/Dashboard/Doc/DocDash.jsx";
 import ViewMedRecord from "./pages/ViewMedRecord/ViewMedRecord";
 import UserUpApp from "./pages/UserUpcomingApp/UserUpApp";
 import DocUpApp from "./pages/DocUpcomingApp/DocUpApp";
+import EditProfileUser from "./pages/EditProfileUser/EditProfileUser";
 
 function App() {
   return (
@@ -31,7 +32,10 @@ function App() {
         <Route path="/registeradmin" element={<RegisterAdmin />} />
         <Route path="/search" element={<Search />} />
         <Route path="/dashboard/user" element={<UserDash />} />
-        <Route path="/dashboard/user/editprofile" element={<EditProfile />} />
+        <Route
+          path="/dashboard/user/editprofile"
+          element={<EditProfileUser />}
+        />
         <Route
           path="/dashboard/user/bookappointment"
           element={<AppointmentBooker />}
@@ -43,6 +47,10 @@ function App() {
         <Route path="/view/medicalrecord" element={<MedRecord />} />
         <Route path="/view/pastmedrecord" element={<ViewMedRecord />} />
         <Route path="/dashboard/doctor" element={<DocDash />} />
+        {/* <Route
+          path="/dashboard/doctor/editprofile"
+          element={<EditProfileDoc />}
+        /> */}
         <Route
           path="/dashboard/doctor/upcoming-appointment"
           element={<DocUpApp />}
