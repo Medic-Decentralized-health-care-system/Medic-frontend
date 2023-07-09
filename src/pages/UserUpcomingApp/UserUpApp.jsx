@@ -206,12 +206,12 @@ function UserUpApp() {
                     <p>Description:</p>
                   </div>
                   <div className={styles.appBoxBottomLeftBody}>
-                    Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-                    Porro non vel assumenda nisi iure dolorem, adipisci
-                    veritatis blanditiis consequatur architecto cupiditate
-                    maxime consequuntur possimus quam nesciunt rem? Voluptas,
-                    quo. Cumque.
-                  </div>
+                  {loading ? (
+                <div>Loading...</div>
+              ) : (
+                `Hey , I am ${doctor.name} . I am a doctor by profession . I am a ${doctor.specialities[0]} . I have an experience of ${doctor.experience} years in this field . I have ${doctor.degree} degree . My clinic is at "${doctor.clinicAddress}" .` 
+              )}     
+                      </div>
                 </div>
                 <div className={styles.appBoxBottomRight}>
                   <div className={styles.appBoxBottomRightHeader}>

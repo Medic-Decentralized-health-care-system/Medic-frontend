@@ -247,11 +247,10 @@ function DocUpApp() {
                       <p>Description:</p>
                     </div>
                     <div className={styles.appBoxBottomLeftBody}>
-                      Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-                      Porro non vel assumenda nisi iure dolorem, adipisci
-                      veritatis blanditiis consequatur architecto cupiditate
-                      maxime consequuntur possimus quam nesciunt rem? Voluptas,
-                      quo. Cumque.
+                            Hey , I am {patient.name} . I am {patient.age} years old . I have my medical records to the right . Please have a look at them .
+                            You can contact me on my email : {patient.email} .
+                            Hoping to have a wonderful experience with you .
+                            
                     </div>
                   </Panel>
                 </div>
