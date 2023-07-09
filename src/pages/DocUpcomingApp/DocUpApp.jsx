@@ -303,7 +303,7 @@ function DocUpApp() {
                     </div>
                     <div className={styles.appBoxBottomRightBody}>
                       <div className={styles.presContainer}>
-                      {/* {!medRecords ? (
+                      {!medRecords ? (
                       <>
                         <p style={{ textAlign: "center", fontSize: "1.5rem" }}>
                           Loading...
@@ -339,8 +339,8 @@ function DocUpApp() {
                           );
                         })}
                       </>
-                    )} */}
-                    {
+                    )}
+                    {/* {
                       medRecords && medRecords.length != 0 && 
                         medRecords.map((item, index) => {
                         return (
@@ -359,7 +359,7 @@ function DocUpApp() {
                           </div>
                         );
                       })
-                    }
+                    } */}
                       </div>
                     </div>
                   </Panel>
