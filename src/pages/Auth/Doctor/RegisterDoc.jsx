@@ -36,6 +36,7 @@ function RegisterDoc() {
   }
 
   const handleDocRegister = async () => {
+    console.log(profilePic , pfpBlobFile)
     try {
       setLoading(true);
       if (
@@ -133,7 +134,11 @@ function RegisterDoc() {
                   accept="image/*"
                   fileListVisible={false}
                   onUpload={(file) => {
-                    setProfilePic(file);
+                    const fileObject = new File([file.blobFile], file.name, {
+                      type: file.type,
+                      lastModified: file.lastModified,
+                    });
+                    setProfilePic(fileObject);
                     previewFile(file.blobFile, (value) => {
                       setPfpBlobFile(value);
                     });

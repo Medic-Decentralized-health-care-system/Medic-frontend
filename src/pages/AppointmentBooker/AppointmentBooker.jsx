@@ -9,6 +9,7 @@ import { useSelector } from "react-redux";
 import Swal from "sweetalert2";
 import MoneyTransferABI from "../../constants/frontEndAbiLocation/MoneyTransfer.json";
 import { ethers } from "ethers";
+import { Navigate } from "react-router-dom";
 
 // const dummyDoctorObj = {
 //   fullName: "Dr. Aditi Singh",
@@ -62,53 +63,61 @@ function AppointmentBooker({ doctor }) {
 
   const handleAppointmentBooking = async () => {
     console.log(selectedDate , selectedTimeSlot)
-    // if (selectedDate && selectedTimeSlot) {
-    //   console.log({
-    //     patientId: userInfo.userInfo._id,
-    //     doctorId: userInfo.doctor._id,
-    //     date: selectedDate.toString(),
-    //     startTime: startTime,
-    //     endTime: endTime,
-    //   });
-    await depositEth('0.01');
-      // try {
-      //   console.log(selectedDate);
-      //   const res = await fetch(
-      //     process.env.REACT_APP_BACKEND_URL + "patient/setappointment",
-      //     {
-      //       method: "POST",
-      //       headers: {
-      //         "Content-Type": "application/json",
-      //       },
-      //       body: JSON.stringify({
-      //         patientId: userInfo.userInfo._id,
-      //         doctorId: userInfo.doctor._id,
-      //         patientName : userInfo.userInfo.name ,
-      //         doctorName : userInfo.doctor.name ,
-      //         startTime: startTime,
-      //         endTime: endTime,
-      //         date: selectedDate.toString(),
-      //       }),
-      //     }
-      //   );
-      //   const data = await res.json();
-      //   console.log(data)
-      // } catch (err) {
-      //   Swal.fire({
-      //     icon: "error",
-      //     title: "Oops...",
-      //     text: "Something went wrong!",
-      //   });
-      // }
-    // } 
-    // else {
-    //   setIsBookable(false);
-    //   Swal.fire({
-    //     icon: "warning",
-    //     title: "Oops...",
-    //     text: "Please select a date and time slot!",
-    //   });
-    // }
+    if (selectedDate && selectedTimeSlot) {
+      console.log({
+        patientId: userInfo.userInfo._id,
+        doctorId: userInfo.doctor._id,
+        date: selectedDate.toString(),
+        startTime: startTime,
+        endTime: endTime,
+      });
+    // await depositEth('0.01');
+      try {
+        console.log(selectedDate);
+        const res = await fetch(
+          process.env.REACT_APP_BACKEND_URL + "patient/setappointment",
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              patientId: userInfo.userInfo._id,
+              doctorId: userInfo.doctor._id,
+              patientName : userInfo.userInfo.name ,
+              doctorName : userInfo.doctor.name ,
+              startTime: startTime,
+              endTime: endTime,
+              date: selectedDate.toString(),
+            }),
+          }
+        );
+        const data = await res.json();
+        console.log(data)
+        if(data.status=='success'){
+          Swal.fire({
+            icon: "success",
+            title: "Appointment Booked Successfully!",
+            text: "Your appointment has been booked successfully!",
+          });
+          Navigate('/dashboard/user')
+        }
+      } catch (err) {
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: "Something went wrong!",
+        });
+      }
+    } 
+    else {
+      setIsBookable(false);
+      Swal.fire({
+        icon: "warning",
+        title: "Oops...",
+        text: "Please select a date and time slot!",
+      });
+    }
   };
 
   useEffect(() => {

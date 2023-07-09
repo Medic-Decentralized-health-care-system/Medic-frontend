@@ -55,12 +55,11 @@ function DocDash() {
   const [loading, setLoading] = useState(false);
   const [upcoming, setUpcoming] = useState([]);
   const [recent, setRecent] = useState([]);
-
   const getUpcomingAppointments = async () => {
     try {
       const res = await fetch(
         process.env.REACT_APP_BACKEND_URL +
-          "doctors/getupcomingappointments/649e79d6d3828be03c885fcb",
+          "doctors/getupcomingappointments/" + userInfo._id,
         {
           method: "GET",
           headers: {
@@ -99,7 +98,7 @@ function DocDash() {
     try {
       const res = await fetch(
         process.env.REACT_APP_BACKEND_URL +
-          "doctors/getrecentappointments/649e79d6d3828be03c885fcb",
+          "doctors/getrecentappointments/" + userInfo._id,
         {
           method: "GET",
           headers: {
@@ -286,11 +285,21 @@ function DocDash() {
                         <>
                           {recent.map((item) => {
                             return (
+                              <div
+                              
+                              onClick={(e) => {
+                                Navigate(
+                                  `/dashboard/doctor/upcoming-appointment/`,
+                                  { state: { item } }
+                                );
+                              }}
+                              >
                               <Info
                                 textRight={`${item.startTime}-${item.endTime}`}
-                              >
+                                >
                                 {item.patientName}
                               </Info>
+                                </div>
                             );
                           })}
                         </>

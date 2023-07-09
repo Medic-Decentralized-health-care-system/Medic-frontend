@@ -61,7 +61,6 @@ function DocUpApp() {
       }
     );
     const data = await res.json();
-    console.log(data);
     if (data.data.patient) {
       setPatient(data.data.patient);
       setLoading(false);
@@ -81,11 +80,14 @@ function DocUpApp() {
     setModal(false);
   };
 
-  const [pending, setIsPending] = useState(true);
+  const [pending, setIsPending] = useState(item.status!="Done");
 
-  const handleCompleteAppointment = () => {
-    // Handle the completion of the appointment in the backend
-
+  const handleCompleteAppointment = async () => {
+    const res = await fetch(`${process.env.REACT_APP_BACKEND_URL}doctors/completeappointment/`+item._id, {
+      method: "PUT",
+    })
+    const data = await res.json();
+    console.log(data);
     setIsPending(false);
   };
 
@@ -100,13 +102,10 @@ function DocUpApp() {
   );
   const getMedicalRecords = async () => {
     try {
-      console.log(contract);
       setLoading(true);
       const getAllmedRecords = await contract.getAllPrescriptions(
         patient.walletAddress
       );
-      console.log(getAllmedRecords);
-
       const fetchRequests = getAllmedRecords.map((medicalRecord, index) => {
         return fetch(
           `https://skywalker.infura-ipfs.io/ipfs/` + medicalRecord[0]
@@ -118,14 +117,10 @@ function DocUpApp() {
       });
 
       const fetchedRecords = await Promise.all(fetchRequests);
-      console.log(fetchedRecords);
       setMedRecords(fetchedRecords);
-
-      console.log(medRecords);
       if (medRecords.length > 0) {
         setPresEmpty(true);
       }
-      console.log(medRecords);
     } catch (err) {
       console.log(err);
     } finally {
@@ -192,7 +187,7 @@ function DocUpApp() {
                   }}
                 />
               }
-              link=""
+              onClick={() => Navigate("/dashboard/doctor")}
             />
             <div className={styles.PlusIconContainer}>
               <img src={PlusIcon} width="50px" alt="" />
@@ -227,7 +222,7 @@ function DocUpApp() {
                     <div className={styles.pendingStatusBox}>
                       {pending ? (
                         <Tag size="lg" style={{ fontSize: "0.8rem" }}>
-                          {item.status} <TimeRound />
+                          Pending <TimeRound />
                           {"  `"}
                         </Tag>
                       ) : (
@@ -269,15 +264,7 @@ function DocUpApp() {
                         }}
                       >
                         {pending ? (
-                          // <Link
-                          //   style={{ textDecoration: "none", color: "white" }}
-                          //   to={{
-                          //     pathname:"/view/medicalrecord",
-                          //     state: { patient},
-                          //   }}
-                          // >
                            " Add a prescription"
-                          // </Link>
                         ) : (
                           <Link
                             style={{
@@ -316,55 +303,43 @@ function DocUpApp() {
                     </div>
                     <div className={styles.appBoxBottomRightBody}>
                       <div className={styles.presContainer}>
-                        {!medRecords ? (
-                          <>
-                            <p
-                              style={{
-                                textAlign: "center",
-                                fontSize: "1.5rem",
-                              }}
+                      {!medRecords ? (
+                      <>
+                        <p style={{ textAlign: "center", fontSize: "1.5rem" }}>
+                          Loading...
+                        </p>
+                      </>
+                    ) : medRecords.length === 0 ? (
+                      <>
+                        <div className={styles.placeholderCont}>
+                          <p
+                            style={{ textAlign: "center", fontSize: "1.5rem" }}
+                          >
+                            No Prescriptions Yet
+                          </p>
+                        </div>
+                      </>
+                    ) : (
+                      <>
+                        {medRecords.map((item, index) => {
+                          return (
+                            <div
+                              key={index}
+                              onClick={() =>
+                                Navigate("/view/pastmedrecord", {
+                                  state: { item , patient : patient },
+                                })
+                              }
+                              className={styles.prevRecords}
                             >
-                              Loading...
-                            </p>
-                          </>
-                        ) : (
-                          <>
-                            {medRecords.length === 0 ? (
-                              <>
-                                <div className={styles.placeholderCont}>
-                                  <p
-                                    style={{
-                                      textAlign: "center",
-                                      fontSize: "1.5rem",
-                                    }}
-                                  >
-                                    No Prescriptions Yet
-                                  </p>
-                                </div>
-                              </>
-                            ) : (
-                              <>
-                                {medRecords.map((item, index) => {
-                                  return (
-                                    <div
-                                      key={index}
-                                      onClick={() =>
-                                        Navigate("/view/pastmedrecord", {
-                                          state: { item , patient},
-                                        })
-                                      }
-                                      className={styles.prevRecords}
-                                    >
-                                      <Info textRight={item.date.slice(0, 10)}>
-                                        {item.title}
-                                      </Info>
-                                    </div>
-                                  );
-                                })}
-                              </>
-                            )}
-                          </>
-                        )}
+                              <Info textRight={item.date.slice(0, 10)}>
+                                {item.title}
+                              </Info>
+                            </div>
+                          );
+                        })}
+                      </>
+                    )}
                       </div>
                     </div>
                   </Panel>

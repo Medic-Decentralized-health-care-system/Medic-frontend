@@ -298,10 +298,17 @@ function UserDash() {
               />
               <ButtonHollow
                 text="New Medical Card"
+                disabled = {true}
                 style={{ borderRadius: "100px" }}
                 ClickFunction={() => {
-                  Navigate("/view/medicalrecord");
-                }}
+                  // Navigate("/view/medicalrecord")
+                  Swal.fire({
+                    icon: "warning",
+                    title: "Oops...",
+                    text: "This feature is not available yet",
+                  });
+                }
+                }
               />
             </div>
             <div className={styles.mainNameBox}>
@@ -386,9 +393,18 @@ function UserDash() {
                         <Info textRight={"19/04/23"}>Dr. Rajesh Joshi</Info> */}
                         {recentAppointments.map((item, index) => {
                           return (
-                            <Info textRight={"19/04/23"}>
+                            <div className={styles.eachUpcomingAppointment} onClick={() => {
+                              navigate(
+                                "/dashboard/user/upcoming-appointment",
+                                { state: { item, medRecords } }
+                                );
+                              }}>
+
+                            <Info textRight={"19/04/23"}
+                              >
                               {item.doctorName}
                             </Info>
+                            </div>
                           );
                         })}
                       </>
@@ -439,7 +455,7 @@ function UserDash() {
                               key={index}
                               onClick={() =>
                                 navigate("/view/pastmedrecord", {
-                                  state: { item },
+                                  state: { item , patient : userInfo },
                                 })
                               }
                               className={styles.prevRecords}

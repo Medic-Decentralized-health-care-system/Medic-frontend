@@ -34,6 +34,7 @@ function MedRecord() {
   const location = useLocation();
   const {patient} = location.state;
   const userInfo = useSelector((state) => state.userInfo);
+  const [loading , setLoading] = useState(false);
   console.log(patient , userInfo)
 
   //Handle contract connection
@@ -60,6 +61,7 @@ function MedRecord() {
   };
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
     const body = JSON.stringify({
       title,
       date,
@@ -87,6 +89,9 @@ function MedRecord() {
     }
     catch(err){
       console.log(err);
+    }
+    finally{
+      setLoading(false);
     }
   };
   return (
@@ -246,6 +251,7 @@ function MedRecord() {
             <ButtonDark
               text="Save"
               style={{ borderRadius: "20px", width: "50%" }}
+              disabled = {loading}
               ClickFunction = {handleSubmit}
             />
           </div>
