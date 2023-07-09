@@ -41,7 +41,7 @@ function DocUpApp() {
   const dispatch = useDispatch();
   const userInfo = useSelector((state) => state.userInfo);
   const [patient, setPatient] = useState({});
-  const [medRecords, setMedRecords] = useState(null);
+  const [medRecords, setMedRecords] = useState([]);
   const [presEmpty, setPresEmpty] = useState(false);
   const [loading, setLoading] = useState(true);
   const location = useLocation();
@@ -50,7 +50,7 @@ function DocUpApp() {
   useEffect(() => {
     getPatientById();
     getMedicalRecords();
-  }, []);
+  }, [patient]);
 
   const getPatientById = async () => {
     const res = await fetch(
@@ -303,7 +303,7 @@ function DocUpApp() {
                     </div>
                     <div className={styles.appBoxBottomRightBody}>
                       <div className={styles.presContainer}>
-                      {!medRecords ? (
+                      {/* {!medRecords ? (
                       <>
                         <p style={{ textAlign: "center", fontSize: "1.5rem" }}>
                           Loading...
@@ -339,7 +339,27 @@ function DocUpApp() {
                           );
                         })}
                       </>
-                    )}
+                    )} */}
+                    {
+                      medRecords && medRecords.length != 0 && 
+                        medRecords.map((item, index) => {
+                        return (
+                          <div
+                            key={index}
+                            onClick={() =>
+                              Navigate("/view/pastmedrecord", {
+                                state: { item , patient : patient },
+                              })
+                            }
+                            className={styles.prevRecords}
+                          >
+                            <Info textRight={item.date.slice(0, 10)}>
+                              {item.title}
+                            </Info>
+                          </div>
+                        );
+                      })
+                    }
                       </div>
                     </div>
                   </Panel>
