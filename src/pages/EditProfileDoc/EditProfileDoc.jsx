@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styles from "./styles.module.css";
 import Avatar from "../../components/Avatar/Avatar";
 import { useState } from "react";
@@ -13,6 +13,7 @@ import {
   DatePicker,
   Form,
   Input,
+  InputGroup,
   InputNumber,
   InputPicker,
   Panel,
@@ -25,17 +26,18 @@ import { Icon } from "@rsuite/icons";
 import CameraRetroIcon from "@rsuite/icons/legacy/CameraRetro";
 import { createEntityAdapter } from "@reduxjs/toolkit";
 import { TagPicker } from "rsuite";
+import Swal from "sweetalert2";
 
 const timeSlots = [];
 for (let i = 8; i <= 20; i++) {
   const hour = i < 10 ? `0${i}` : i;
   timeSlots.push({
-    label: `${hour}:00AM-${hour}:30AM`,
-    value: `${hour}:00AM-${hour}:30AM`,
+    label: `${hour}:00-${hour}:30`,
+    value: `${hour}:00-${hour}:30`,
   });
   timeSlots.push({
-    label: `${hour}:30AM-${hour}:00PM`,
-    value: `${hour}:30AM-${hour}:00PM`,
+    label: `${hour}:30-${hour}:00`,
+    value: `${hour}:30-${hour}:00`,
   });
 }
 console.log(timeSlots);
@@ -62,13 +64,58 @@ function EditProfileDoc() {
   const dispatch = useDispatch();
   const userInfo = useSelector((state) => state.userInfo);
   console.log(userInfo);
+  const [firstName , setFirstName] = useState("");
+  const [lastName , setLastName] = useState("");
+  const [email , setEmail] = useState("");
+  const [clinicAddress , setClinicAddress] = useState("");
+  const [pPic , setPPic] = useState("");
+
+  useEffect(()=>{
+    setFirstName(userInfo.name.split(" ")[0]);
+    setLastName(userInfo.name.split(" ")[1]);
+    setEmail(userInfo.email);
+    setClinicAddress(userInfo.clinicAddress);
+    setPPic(userInfo.image);
+  },[])
 
   // We need to have a tag key in the userInfo object which is empty if there's no tag selectd and contains a string of the exact tag if it is selected. Temporarily using a temp string named userTag to simulate this implementation
   const userTag = "";
 
-  const handleUpdateDetails = () => {
+  const handleUpdateDetails = async () => {
     // TODO: Handle the updating of details in the backend
-    console.log("Details updated!");
+    console.log({
+      name:firstName + " " + lastName,
+      email:email,
+      clinicAddress:clinicAddress,
+    })
+    const res = await fetch(process.env.REACT_APP_BACKEND_URL + 'doctors/editdoctor/'+ userInfo._id , {
+      method:"PUT",
+      contentType:"application/json",
+      body:JSON.stringify({
+        name:firstName + " " + lastName,
+        email:email,
+        clinicAddress:clinicAddress,
+        // image:pPic
+    })
+    });
+    const data = await res.json();
+    console.log(data);
+    if(data.data){
+      console.log("Details updated!");
+      Swal.fire({
+        icon: 'success',
+        title: 'Details updated!',
+        showConfirmButton: true,
+      })
+    }
+    else{
+      console.log("Details not updated!");
+      Swal.fire({
+        icon: 'error',
+        title: 'Details not updated!',
+        showConfirmButton: true,
+      })
+    }
   };
 
   const [toggleChecked, setToggleChecked] = useState(false);
@@ -81,8 +128,9 @@ function EditProfileDoc() {
     }
   };
 
-  const [fileURL, setFileURL] = useState("");
+  const [fileURL, setFileURL] = useState(userInfo.image);
   const handleUpload = (file) => {
+    setPPic(file);
     setFileURL(URL.createObjectURL(file.blobFile));
   };
 
@@ -119,6 +167,7 @@ function EditProfileDoc() {
                         : fileURL
                     }
                     imgStyle={{ width: "200px", height: "200px" }}
+                    onChange={handleUpload}
                   />
                 </div>
                 <div className={styles.mainUploadContainer}>
@@ -171,6 +220,10 @@ function EditProfileDoc() {
                       id="fName"
                       appearance="ghost"
                       placeholder="First Name"
+                      value={firstName}
+                      onChange={(value)=>{
+                        setFirstName(value);
+                      }}
                     />
                   </div>
                   <div className={styles.lastName}>
@@ -180,9 +233,13 @@ function EditProfileDoc() {
                       id="lName"
                       appearance="ghost"
                       placeholder="Last Name"
+                      value={lastName}
+                      onChange={(value)=>{
+                        setLastName(value);
+                      }}
                     />
                   </div>
-                  <div className={styles.dob}>
+                  {/* <div className={styles.dob}>
                     <p>Date of Birth</p>
                     <DatePicker
                       style={{ backgroundColor: "white", borderRadius: "10px" }}
@@ -191,10 +248,10 @@ function EditProfileDoc() {
                       appearance="primary"
                       placeholder="Date Of Birth"
                     />
-                  </div>
+                  </div> */}
                 </div>
                 <div className={styles.bottomFormBox}>
-                  <div className={styles.sex}>
+                  {/* <div className={styles.sex}>
                     <p>Gender</p>
                     <InputPicker
                       data={sex}
@@ -202,7 +259,7 @@ function EditProfileDoc() {
                       appearance="default"
                       placeholder="Gender"
                     />
-                  </div>
+                  </div> */}
                   <div className={styles.email}>
                     <p>Email</p>
                     <Input
@@ -210,18 +267,34 @@ function EditProfileDoc() {
                       id="email"
                       appearance="default"
                       placeholder="Email"
+                      value={email}
+                      onChange={(value)=>{
+                        setEmail(value);
+                      }}
                     />
                   </div>
                   <div className={styles.pwd}>
-                    <p>Password</p>
+                    <p>Clinic Address</p>
                     <Input
-                      type="password"
+                      type="text"
                       id="pwd"
                       appearance="default"
-                      placeholder="Password"
+                      placeholder="Clinic Address"
+                      value={clinicAddress}
+                      onChange={(value)=>{
+                        setClinicAddress(value);
+                      }}
+
                     />
                   </div>
                 </div>
+                <Button
+                  appearance="primary"
+                  style={{ margin: "10px", backgroundColor: "#023020" }}
+                  onClick={handleUpdateDetails}
+                >
+                  Update Details
+                </Button>
                 <Panel className={styles.panelTagEdit}>
                   <p style={{ padding: "0.5rem", fontSize: "small" }}>
                     Add Time Slots
@@ -241,9 +314,22 @@ function EditProfileDoc() {
                     style={{ margin: "10px", backgroundColor: "#023020" }}
                     onClick={handleUpdateDetails}
                   >
-                    Update Details
+                    Update time slots for today
                   </Button>
                 </div>
+              </div>
+              <div className={styles.updateBtnBox}>
+                <InputGroup style={styles}>
+                  <InputGroup.Addon> Location</InputGroup.Addon>
+                  <Input />
+                </InputGroup>
+                <Button
+                  appearance="primary"
+                  style={{ margin: "10px", backgroundColor: "#023020" }}
+                  onClick={handleUpdateDetails}
+                >
+                  Update location
+                </Button>
               </div>
             </Panel>
           </div>

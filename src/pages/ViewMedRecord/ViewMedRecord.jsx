@@ -42,7 +42,7 @@ function ViewMedRecord() {
   console.log(userInfo);
   const location = useLocation();
   const { item , patient } = location.state;
-  console.log(item);
+  console.log(item , patient);
   const navigate = useNavigate();
 
   const [modal, setModal] = useState(false);
@@ -128,7 +128,7 @@ function ViewMedRecord() {
                 />
                 <div className={styles.leftHeaderSub}>
                   <h2 style={{ fontSize: "xx-large" }}>{item.title} Appointment</h2>
-                  <p>22/05/23</p>
+                  <p>{item.date.slice(0 , 10)}</p>
                 </div>
               </div>
             </div>

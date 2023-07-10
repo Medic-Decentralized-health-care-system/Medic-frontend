@@ -67,7 +67,6 @@ function UserUpApp() {
   const [loading, setLoading] = useState(true);
   const location = useLocation();
   const { item , medRecords } = location.state;
-  console.log(item)
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -243,7 +242,7 @@ function UserUpApp() {
                               key={index}
                               onClick={() =>
                                 navigate("/view/pastmedrecord", {
-                                  state: { item },
+                                  state: { item , patient :userInfo},
                                 })
                               }
                               className={styles.prevRecords}

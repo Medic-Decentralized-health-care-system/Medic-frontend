@@ -42,10 +42,13 @@ const data = ["iiitm", "nitk", "mits", "amity"].map((item) => ({
   value: item,
 }));
 function EditProfileUser() {
+  const [fname , setfname] = useState("");
+  const [lname , setlname] = useState("");
   const Navigate = useNavigate();
   const dispatch = useDispatch();
   const userInfo = useSelector((state) => state.userInfo);
   console.log(userInfo);
+  const [toShare , setToShare] = useState(false);
 
   // We need to have a tag key in the userInfo object which is empty if there's no tag selectd and contains a string of the exact tag if it is selected. Temporarily using a temp string named userTag to simulate this implementation
   const userTag = "";
