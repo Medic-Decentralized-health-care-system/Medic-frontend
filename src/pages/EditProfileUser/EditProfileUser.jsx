@@ -23,6 +23,7 @@ import { Icon } from "@rsuite/icons";
 
 import CameraRetroIcon from "@rsuite/icons/legacy/CameraRetro";
 import { createEntityAdapter } from "@reduxjs/toolkit";
+import Swal from "sweetalert2";
 
 const MetaMaskIcon = React.forwardRef((props, ref) => (
   <svg
@@ -37,7 +38,7 @@ const MetaMaskIcon = React.forwardRef((props, ref) => (
   </svg>
 ));
 
-const data = ["iiitm", "nitk", "mits", "amity"].map((item) => ({
+const data = ["IIITM", "NITK", "MITS", "AMITY" , "ITM"].map((item) => ({
   label: item,
   value: item,
 }));
@@ -49,11 +50,11 @@ function EditProfileUser() {
   const userInfo = useSelector((state) => state.userInfo);
   console.log(userInfo);
   const [toShare , setToShare] = useState(false);
+  const [userTag , setUserTag] = useState("");
 
   // We need to have a tag key in the userInfo object which is empty if there's no tag selectd and contains a string of the exact tag if it is selected. Temporarily using a temp string named userTag to simulate this implementation
-  const userTag = "";
 
-  const [modal, setModal] = useState(false);
+  const [modal, setModal] = useState(true);
   const toggleModal = () => {
     setModal(!modal);
   };
@@ -66,13 +67,52 @@ function EditProfileUser() {
     setModal(false);
   };
 
-  const handleUpdateDetails = () => {
+  const handleUpdateDetails =async () => {
     // TODO: Handle the updating of details in the backend
+    console.log(userTag)
+    const res = await fetch(process.env.REACT_APP_BACKEND_URL + 'patient/setorganization' , {
+      method : "PUT",
+      headers : {
+        "Content-Type" : "application/json"
+      },
+      body : JSON.stringify({
+        id:userInfo._id,
+        organization: userTag
+      })
+    })
+    const data = await res.json();
+    if(data.data){
+      Swal.fire({
+        icon: 'success',
+        title: 'Details Updated!',
+        showConfirmButton: false,
+        timer: 1500
+      })
+    }
+    else{
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'Something went wrong!',
+      })
+      
+    }
     console.log("Details updated!");
   };
 
-  const [toggleChecked, setToggleChecked] = useState(false);
-  const handleToggleChange = () => {
+  const [toggleChecked, setToggleChecked] = useState(userInfo.toShare);
+  const handleToggleChange =async () => {
+    await fetch(process.env.REACT_APP_BACKEND_URL + 'patient/giveaccestodata' , {
+      method : "PUT",
+      headers : {
+        "Content-Type" : "application/json"
+      },
+      body : JSON.stringify({
+        id:userInfo._id,
+        val: toggleChecked
+      })
+      
+    })
     setToggleChecked(!toggleChecked);
     if (userTag !== "") {
       // Display an empty select dropdown
@@ -248,7 +288,12 @@ function EditProfileUser() {
                         <SelectPicker
                           placement="topStart"
                           label="Tag"
+                          value={userTag}
                           data={data}
+                          onChange={(value) => {
+                            setUserTag(value);
+                          }
+                          }
                         />
                       </div>
                     </Panel>
