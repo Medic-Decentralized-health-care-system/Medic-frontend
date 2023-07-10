@@ -272,10 +272,11 @@ function UserDash() {
                 </a>
               </div> */}
             </div>
-            <Avatar
-              imgURL={require("../../../assets/images/pfptemplate.png")}
+            {/* <Avatar
+              imgURL={user}
               imgStyle={{ width: "50px", height: "50px" }}
-            />
+            /> */}
+            <img src={userInfo.image} style={{ width: "50px", height: "50px"  , borderRadius:"50%" , objectFit:"cover"}} />
             <Button
               appearance="primary"
               endIcon={<Icon as={MetaMaskIcon} />}
