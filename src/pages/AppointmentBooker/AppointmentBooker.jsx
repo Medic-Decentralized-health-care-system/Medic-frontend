@@ -94,7 +94,7 @@ function AppointmentBooker({ doctor }) {
         );
         const data = await res.json();
         console.log(data)
-        if(data.status=='success'){
+        if(data.data.appointment){
           Swal.fire({
             icon: "success",
             title: "Appointment Booked Successfully!",

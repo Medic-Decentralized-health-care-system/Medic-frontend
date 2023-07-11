@@ -82,7 +82,7 @@ function UserDash() {
     );
     const data = await res.json();
     console.log(data);
-    if (data.user) {
+    if (data.data.user) {
       Swal.fire({
         icon: "success",
         title: "Success",
@@ -120,6 +120,7 @@ function UserDash() {
       setAccountAddress(accounts[0]);
       setAccountBalance(bal);
       setIsConnected(true);
+      await walletAddress(userInfo._id , accountAddress);
       dispatch(setWalletAddress(accountAddress));
       dispatch(setBalance(accountBalance));
       console.log("hi");
