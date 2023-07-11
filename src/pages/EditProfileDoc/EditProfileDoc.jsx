@@ -28,19 +28,161 @@ import { createEntityAdapter } from "@reduxjs/toolkit";
 import { TagPicker } from "rsuite";
 import Swal from "sweetalert2";
 
-const timeSlots = [];
-for (let i = 8; i <= 20; i++) {
-  const hour = i < 10 ? `0${i}` : i;
-  timeSlots.push({
-    label: `${hour}:00-${hour}:30`,
-    value: `${hour}:00-${hour}:30`,
-  });
-  timeSlots.push({
-    label: `${hour}:30-${hour}:00`,
-    value: `${hour}:30-${hour}:00`,
-  });
-}
-console.log(timeSlots);
+// const timeSlots = [];
+// for (let i = 8; i <= 20; i++) {
+//   const hour = i < 10 ? `0${i}` : i;
+//   const amPMHour = i <= 11 ? hour : (i === 12 ? '12' : `0${i - 12}`);
+  
+//   const nextHour = i === 20 ? '08' : (i + 1 < 10 ? `0${i + 1}` : i + 1);
+//   const amPMNextHour = nextHour <= 11 ? nextHour : (nextHour === 12 ? '12' : `0${nextHour - 12}`);
+  
+//   timeSlots.push({
+//     label: `${amPMHour}:00 ${i <= 11 ? 'AM' : 'PM'} - ${amPMHour}:30 ${i <= 11 ? 'AM' : 'PM'}`,
+//     value: `${hour}:00-${hour}:30`,
+//   });
+//   timeSlots.push({
+//     label: `${amPMHour}:30 ${i <= 11 ? 'AM' : 'PM'} - ${amPMNextHour}:00 ${i === 20 ? 'AM' : (i <= 11 ? 'AM' : 'PM')}`,
+//     value: `${hour}:30-${nextHour}:00`,
+//   });
+// }
+const timeSlots = [
+  {
+    label: "08:00AM - 08:30AM",
+    value : {
+      startTime: "08:00AM",
+      endTime: "08:30AM"
+    }
+  },
+  {
+    label: "08:30AM - 09:00AM",
+    value:{
+      startTime: "08:30AM",
+      endTime: "09:00AM"
+    }
+  },
+  {
+    label: "09:00AM - 09:30AM",
+    value : {
+      startTime: "09:00AM",
+      endTime: "09:30AM"
+    }
+  },
+  {
+    label: "09:30AM - 10:00AM",
+    value :{
+      startTime: "09:30AM",
+      endTime: "10:00AM"
+    }
+  },
+  {
+    label: "10:00AM - 10:30AM",
+    value :{
+      startTime: "10:00AM",
+      endTime: "10:30AM"
+    }
+  },
+  {
+    label: "10:30AM - 11:00AM",
+    value : {
+      startTime: "10:30AM",
+      endTime: "11:00AM"
+    }
+  },
+  {
+    label: "11:00AM - 11:30AM",
+    value : {
+      startTime: "11:00AM",
+      endTime: "11:30AM"
+    }
+  },
+  {
+    label: "11:30AM - 12:00PM",
+    value : {
+      startTime: "11:30AM",
+      endTime: "12:00PM"
+    }
+  },
+  {
+    label: "12:00PM - 12:30PM",
+    value : {
+      startTime: "12:00PM",
+      endTime: "12:30PM"
+    }
+  },
+  {
+    label: "12:30PM - 01:00PM",
+    value : {
+      startTime: "12:30PM",
+      endTime: "01:00PM"
+    }
+  },
+  {
+    label: "01:00PM - 01:30PM",
+    value : {
+      startTime: "01:00PM",
+      endTime: "01:30PM"
+    }
+  },
+  {
+    label: "01:30PM - 02:00PM",
+    value :{
+      startTime: "01:30PM",
+      endTime: "02:00PM"
+    }
+  },
+  {
+    label: "02:00PM - 02:30PM",
+    value : "02:00-02:30"
+  },
+  {
+    label: "02:30PM - 03:00PM",
+    value : {
+      startTime: "02:30PM",
+      endTime: "03:00PM"
+    }
+  },
+  {
+    label: "03:00PM - 03:30PM",
+    value : "03:00-03:30"
+  },
+  {
+    label: "03:30PM - 04:00PM",
+    value : "03:30-04:00"
+  },
+  {
+    label: "04:00PM - 04:30PM",
+    value : "04:00-04:30"
+  },
+  {
+    label: "04:30PM - 05:00PM",
+    value : "04:30-05:00"
+  },
+  {
+    label: "05:00PM - 05:30PM",
+    value : "05:00-05:30"
+  },
+  {
+    label: "05:30PM - 06:00PM",
+    value : "05:30-06:00"
+  },
+  {
+    label: "06:00PM - 06:30PM",
+    value : "06:00-06:30"
+  },
+  {
+    label: "06:30PM - 07:00PM",
+    value : "06:30-07:00"
+  },
+  {
+    label: "07:00PM - 07:30PM",
+    value : "07:00-07:30"
+  },
+  {
+    label: "07:30PM - 08:00PM",
+    value : "07:30-08:00"
+  },
+]
+console.log(timeSlots)
 
 const MetaMaskIcon = React.forwardRef((props, ref) => (
   <svg
@@ -63,20 +205,21 @@ function EditProfileDoc() {
   const Navigate = useNavigate();
   const dispatch = useDispatch();
   const userInfo = useSelector((state) => state.userInfo);
-  console.log(userInfo);
-  const [firstName , setFirstName] = useState("");
-  const [lastName , setLastName] = useState("");
-  const [email , setEmail] = useState("");
-  const [clinicAddress , setClinicAddress] = useState("");
-  const [pPic , setPPic] = useState("");
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [email, setEmail] = useState("");
+  const [clinicAddress, setClinicAddress] = useState("");
+  const [pPic, setPPic] = useState("");
+  const [fee, setFee] = useState(userInfo.fees);
+  const [availability, setAvailability] = useState([]);
 
-  useEffect(()=>{
+  useEffect(() => {
     setFirstName(userInfo.name.split(" ")[0]);
     setLastName(userInfo.name.split(" ")[1]);
     setEmail(userInfo.email);
     setClinicAddress(userInfo.clinicAddress);
     setPPic(userInfo.image);
-  },[])
+  }, []);
 
   // We need to have a tag key in the userInfo object which is empty if there's no tag selectd and contains a string of the exact tag if it is selected. Temporarily using a temp string named userTag to simulate this implementation
   const userTag = "";
@@ -84,37 +227,81 @@ function EditProfileDoc() {
   const handleUpdateDetails = async () => {
     // TODO: Handle the updating of details in the backend
     console.log({
-      name:firstName + " " + lastName,
-      email:email,
-      clinicAddress:clinicAddress,
-    })
-    const res = await fetch(process.env.REACT_APP_BACKEND_URL + 'doctors/editdoctor/'+ userInfo._id , {
-      method:"PUT",
-      contentType:"application/json",
-      body:JSON.stringify({
-        name:firstName + " " + lastName,
-        email:email,
-        clinicAddress:clinicAddress,
-        // image:pPic
-    })
+      name: firstName + " " + lastName,
+      email: email,
+      clinicAddress: clinicAddress,
     });
+    const res = await fetch(
+      process.env.REACT_APP_BACKEND_URL + "doctors/editdoctor/" + userInfo._id,
+      {
+        method: "PUT",
+        contentType: "application/json",
+        body: JSON.stringify({
+          name: firstName + " " + lastName,
+          email: email,
+          clinicAddress: clinicAddress,
+          // image:pPic
+        }),
+      }
+    );
     const data = await res.json();
     console.log(data);
-    if(data.data){
+    if (data.data) {
       console.log("Details updated!");
       Swal.fire({
-        icon: 'success',
-        title: 'Details updated!',
+        icon: "success",
+        title: "Details updated!",
         showConfirmButton: true,
-      })
-    }
-    else{
+      });
+    } else {
       console.log("Details not updated!");
       Swal.fire({
-        icon: 'error',
-        title: 'Details not updated!',
+        icon: "error",
+        title: "Details not updated!",
         showConfirmButton: true,
-      })
+      });
+    }
+  };
+  const handleTimeSlotChange = (selectedTimeSlots) => {
+    setAvailability(selectedTimeSlots);
+  };
+  const handleFeeChange = (value) => {
+    setFee(value);
+  };
+
+  const handleSetAvailability = async () => {
+    console.log(availability)
+    console.log(fee);
+    const res = await fetch(
+      process.env.REACT_APP_BACKEND_URL + "doctors/doctor/setavailabilityofdoctor/",
+      {
+        method: "POST",
+        headers:{
+          "Content-Type":"application/json"
+        },
+        body: JSON.stringify({
+          doctorId: userInfo._id,
+          slots: availability,
+          fees:fee
+        }),
+      }
+    );
+    const data = await res.json();
+    console.log(data);
+    if (data.data) {
+      console.log("Details updated!");
+      Swal.fire({
+        icon: "success",
+        title: "Availability has been set!",
+        showConfirmButton: true,
+      });
+    } else {
+      console.log("Details not updated!");
+      Swal.fire({
+        icon: "error",
+        title: "Details not updated!",
+        showConfirmButton: true,
+      });
     }
   };
 
@@ -221,7 +408,7 @@ function EditProfileDoc() {
                       appearance="ghost"
                       placeholder="First Name"
                       value={firstName}
-                      onChange={(value)=>{
+                      onChange={(value) => {
                         setFirstName(value);
                       }}
                     />
@@ -234,7 +421,7 @@ function EditProfileDoc() {
                       appearance="ghost"
                       placeholder="Last Name"
                       value={lastName}
-                      onChange={(value)=>{
+                      onChange={(value) => {
                         setLastName(value);
                       }}
                     />
@@ -268,7 +455,7 @@ function EditProfileDoc() {
                       appearance="default"
                       placeholder="Email"
                       value={email}
-                      onChange={(value)=>{
+                      onChange={(value) => {
                         setEmail(value);
                       }}
                     />
@@ -281,10 +468,9 @@ function EditProfileDoc() {
                       appearance="default"
                       placeholder="Clinic Address"
                       value={clinicAddress}
-                      onChange={(value)=>{
+                      onChange={(value) => {
                         setClinicAddress(value);
                       }}
-
                     />
                   </div>
                 </div>
@@ -304,15 +490,20 @@ function EditProfileDoc() {
                     placement="topStart"
                     data={timeSlots}
                     placeholder="Select time slots"
+                    onChange={handleTimeSlotChange}
                   />
                   <p style={{ padding: "0.5rem", fontSize: "small" }}>Fees</p>
-                  <InputNumber prefix="₹" />
+                  <InputNumber
+                    prefix="₹"
+                    value={fee}
+                    onChange={handleFeeChange}
+                  />
                 </Panel>
                 <div className={styles.updateBtnBox}>
                   <Button
                     appearance="primary"
                     style={{ margin: "10px", backgroundColor: "#023020" }}
-                    onClick={handleUpdateDetails}
+                    onClick={handleSetAvailability}
                   >
                     Update time slots for today
                   </Button>

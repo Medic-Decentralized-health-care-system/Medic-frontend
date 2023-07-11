@@ -177,7 +177,7 @@ function DocDash() {
                 </Dropdown.Item>
                 <Dropdown.Item style={{ padding: 10, fontSize: "small" }}>
                   <Link
-                    to="/dashboard/user/editprofile"
+                    to="/dashboard/doctor/editprofile"
                     style={{ textDecoration: "none", color: "black" }}
                   >
                     Edit Profile
