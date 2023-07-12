@@ -120,7 +120,7 @@ function UserDash() {
       setAccountAddress(accounts[0]);
       setAccountBalance(bal);
       setIsConnected(true);
-      await walletAddress(userInfo._id , accountAddress);
+      await walletAddress(userInfo._id, accountAddress);
       dispatch(setWalletAddress(accountAddress));
       dispatch(setBalance(accountBalance));
       console.log("hi");
@@ -133,7 +133,6 @@ function UserDash() {
       setLoading(false);
     }
   };
-
   /******Get appointment details*** */
   const getUpcomingAppointments = async () => {
     const res = await fetch(
@@ -187,19 +186,21 @@ function UserDash() {
         userInfo.walletAddress
       );
       console.log(getAllmedRecords);
-  
+
       const fetchRequests = getAllmedRecords.map((medicalRecord, index) => {
-        return fetch(`https://skywalker.infura-ipfs.io/ipfs/` + medicalRecord[0])
+        return fetch(
+          `https://skywalker.infura-ipfs.io/ipfs/` + medicalRecord[0]
+        )
           .then((response) => response.json())
           .catch((error) => {
             console.error(error);
           });
       });
-  
+
       const fetchedRecords = await Promise.all(fetchRequests);
       console.log(fetchedRecords);
       setMedRecords(fetchedRecords);
-      
+
       console.log(medRecords);
       if (medRecords.length > 0) {
         setPresEmpty(true);
@@ -224,6 +225,22 @@ function UserDash() {
     );
   };
 
+  /***Extract dat** */
+
+  const getDate = (timestamp) => {
+    timestamp = parseInt(timestamp)
+    const date = new Date(timestamp);
+    const year = date.getFullYear();
+    const month = date.getMonth() + 1; // Months are zero-based, so we add 1
+    const day = date.getDate();
+
+    const formattedDate = `${year}-${month < 10 ? "0" + month : month}-${
+      day < 10 ? "0" + day : day
+    }`;
+
+    console.log(formattedDate);
+    return formattedDate;
+  };
   return (
     <>
       <div className={styles.container}>
@@ -277,7 +294,15 @@ function UserDash() {
               imgURL={user}
               imgStyle={{ width: "50px", height: "50px" }}
             /> */}
-            <img src={userInfo.image} style={{ width: "50px", height: "50px"  , borderRadius:"50%" , objectFit:"cover"}} />
+            <img
+              src={userInfo.image}
+              style={{
+                width: "50px",
+                height: "50px",
+                borderRadius: "50%",
+                objectFit: "cover",
+              }}
+            />
             <Button
               appearance="primary"
               endIcon={<Icon as={MetaMaskIcon} />}
@@ -300,7 +325,7 @@ function UserDash() {
               />
               <ButtonHollow
                 text="New Medical Card"
-                disabled = {true}
+                disabled={true}
                 style={{ borderRadius: "100px" }}
                 ClickFunction={() => {
                   // Navigate("/view/medicalrecord")
@@ -309,8 +334,7 @@ function UserDash() {
                     title: "Oops...",
                     text: "This feature is not available yet",
                   });
-                }
-                }
+                }}
               />
             </div>
             <div className={styles.mainNameBox}>
@@ -395,17 +419,18 @@ function UserDash() {
                         <Info textRight={"19/04/23"}>Dr. Rajesh Joshi</Info> */}
                         {recentAppointments.map((item, index) => {
                           return (
-                            <div className={styles.eachUpcomingAppointment} onClick={() => {
-                              navigate(
-                                "/dashboard/user/upcoming-appointment",
-                                { state: { item, medRecords } }
+                            <div
+                              className={styles.eachUpcomingAppointment}
+                              onClick={() => {
+                                navigate(
+                                  "/dashboard/user/upcoming-appointment",
+                                  { state: { item, medRecords } }
                                 );
-                              }}>
-
-                            <Info textRight={"19/04/23"}
-                              >
-                              {item.doctorName}
-                            </Info>
+                              }}
+                            >
+                              <Info textRight={getDate(item.createdAt)}>
+                                {item.doctorName}
+                              </Info>
                             </div>
                           );
                         })}
@@ -457,7 +482,7 @@ function UserDash() {
                               key={index}
                               onClick={() =>
                                 navigate("/view/pastmedrecord", {
-                                  state: { item , patient : userInfo },
+                                  state: { item, patient: userInfo },
                                 })
                               }
                               className={styles.prevRecords}

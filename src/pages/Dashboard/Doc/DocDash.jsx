@@ -151,6 +151,14 @@ function DocDash() {
       />
     );
   };
+
+  const getCurrentDate = () => {
+    const date = new Date();
+    const options = { weekday: 'long', day: 'numeric', month: 'numeric', year: '2-digit' };
+    const formattedDate = date.toLocaleDateString(undefined, options);
+  
+    return formattedDate;
+  };
   return (
     <>
       <div className={styles.container}>
@@ -227,7 +235,7 @@ function DocDash() {
                     {upAppEmpty ? (
                       <div style={{ textAlign: "left", width: "100%" }}>
                         <Tag size="lg" appearance="primary" color="blue">
-                          22/02/23
+                          {getCurrentDate()}
                         </Tag>
                         <div
                           style={{
@@ -293,6 +301,7 @@ function DocDash() {
                                   { state: { item } }
                                 );
                               }}
+                              style={{width:"100%"}}
                               >
                               <Info
                                 textRight={`${item.startTime}-${item.endTime}`}
