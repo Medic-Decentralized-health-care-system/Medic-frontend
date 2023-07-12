@@ -1,0 +1,184 @@
+* {
+  box-sizing: border-box;
+  --total-width: 100%;
+}
+input {
+  padding: 15px;
+  margin: 5px;
+  border-radius: 50px;
+  font-size: 0.7rem;
+}
+
+.fullscreenFrame {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  height: 100%;
+  background-image: url("../../../assets/images/bg1.jpg");
+  background-size: cover;
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: stretch;
+  flex-direction: column;
+  height: 100vh;
+  width: 75%;
+}
+
+.headingBox {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: row;
+  padding: 0.6rem;
+}
+
+.header {
+  width: 70%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  background: linear-gradient(
+    113.96deg,
+    rgba(255, 255, 255, 0.8) 0%,
+    rgba(255, 255, 255, 0.4) 100%
+  );
+  margin: 0;
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  box-shadow: 0px 10px 40px rgba(0, 0, 0, 0.15);
+  border-radius: 10px;
+}
+
+.dashBox {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(
+    113.96deg,
+    rgba(255, 255, 255, 0.8) 0%,
+    rgba(255, 255, 255, 0.4) 100%
+  );
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  box-shadow: 0px 10px 40px rgba(0, 0, 0, 0.15);
+
+  border-radius: 10px;
+}
+
+.dashContainer {
+  width: 100%;
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.prescriptionBox,
+.commonDetailBox,
+.drugBox,
+.instructionBox {
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+  justify-content: space-around;
+  width: 100%;
+}
+.prescriptionBox {
+  justify-content: space-between;
+  padding: 0px 10px 10px 10px;
+}
+
+.commonDetailBox {
+  justify-content: space-evenly;
+  padding: 10px;
+}
+
+.instructionBox {
+  padding: 10px 10px 0px 10px;
+}
+
+.instructionBox > input {
+  width: 100%;
+}
+
+#diagnosis {
+  flex: 2.5;
+}
+
+#bp {
+  flex: 1;
+}
+
+#pulse {
+  flex: 1;
+}
+
+.drugBox {
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+
+  border: 1px solid blue;
+  border-radius: 10px;
+  overflow-y: scroll;
+  height: 15rem;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  scroll-behavior: smooth;
+  scroll-snap-type: mandatory;
+}
+
+.drugBox::-webkit-scrollbar {
+  width: 0;
+}
+
+.drugHeader {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  width: 100%;
+  position: sticky;
+  top: 0px;
+  background: linear-gradient(
+    113.96deg,
+    rgba(255, 255, 255, 0.8) 0%,
+    rgba(255, 255, 255, 0.4) 100%
+  );
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  box-shadow: 0px 10px 40px rgba(0, 0, 0, 0.15);
+}
+
+.drugH1,
+.drugH2,
+.drugH3 {
+  line-height: 0.2;
+  font-size: 0.7rem;
+  color: white;
+  padding: 0px 10px 0px 10px;
+  margin: 8px;
+  height: fit-content;
+  background: rgba(5, 25, 35, 0.8);
+  border-radius: 50px;
+}
+
+.drugItemList {
+  width: 100%;
+}
+
+.drugItem {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100%;
+  padding: 2.5px;
+}

@@ -19,6 +19,7 @@ import UserUpApp from "./pages/UserUpcomingApp/UserUpApp";
 import DocUpApp from "./pages/DocUpcomingApp/DocUpApp";
 import EditProfileUser from "./pages/EditProfileUser/EditProfileUser";
 import EditProfileDoc from "./pages/EditProfileDoc/EditProfileDoc";
+import AdminDash from "./pages/Dashboard/Admin/AdminDash";
 
 function App() {
   return (
@@ -56,6 +57,7 @@ function App() {
           path="/dashboard/doctor/upcoming-appointment"
           element={<DocUpApp />}
         />
+        <Route path="/dashboard/admin" element={<AdminDash />} />
       </Routes>
     </BrowserRouter>
   );
