@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./styles.module.css";
 import WhiteButton from "../../../components/Buttons/WhiteButton";
 import ButtonDark from "../../../components/Buttons/ButtonDark";
@@ -19,75 +19,19 @@ console.log(data);
 function AdminDash() {
   //   const [drugItems, setDrugItems] = useState([]);
   const Navigate = useNavigate();
-  //   const [title , setTitle] = useState("");
-  //   const [date , setDate] = useState("");
-  //   const [diagnosis , setDiagnosis] = useState("");
-  //   const [bp , setBp] = useState("");
-  //   const [pulse , setPulse] = useState("");
-  //   const [remarks , setRemarks] = useState();
-  //   const location = useLocation();
-  //   const {patient} = location.state;
-  //   const userInfo = useSelector((state) => state.userInfo);
-  //   const [loading , setLoading] = useState(false);
-  //   console.log(patient , userInfo)
-
-  //   //Handle contract connection
-  //   const { Moralis, isWeb3Enabled, chainId: chainIdHex , web3 } = useMoralis()
-  //   const contractIPFSAddress = "0xa72736eC5d995780f370630346b48319eEfC4239"
-  //   const provider = new ethers.providers.Web3Provider(window.ethereum);
-  //   const signer = provider.getSigner();
-  //   console.log(signer , contractIPFSAddress , prescriptionIPFSABI )
-  //   const contract = new ethers.Contract(
-  //     contractIPFSAddress,
-  //     prescriptionIPFSABI,
-  //     signer
-  //   );
-  //   const handleAddItem = () => {
-  //     setDrugItems([...drugItems, { drugName: "", units: "", dosage: "" }]);
-  //   };
-  //   const handleInputChange = (index, field, value) => {
-  //     const updatedDrugItems = [...drugItems];
-  //     updatedDrugItems[index] = {
-  //       ...updatedDrugItems[index],
-  //       [field]: value,
-  //     };
-  //     setDrugItems(updatedDrugItems);
-  //   };
-  //   const handleSubmit = async (e) => {
-  //     e.preventDefault();
-  //     setLoading(true);
-  //     const body = JSON.stringify({
-  //       title,
-  //       date,
-  //       diagnosis,
-  //       bp,
-  //       pulse,
-  //       drugItems,
-  //       remarks,
-  //       doctorAddress:userInfo.walletAddress,
-  //       patientAddress: patient.walletAddress,
-  //     });
-  //     try{
-  //       const result = await ipfs.add(body);
-  //       const count = await contract.getPrescriptionCount(patient.walletAddress);
-  //       console.log(count.toNumber())
-  //       const data = await contract.addPrescription(result.path , patient.walletAddress, count.toNumber() , {
-  //           from : userInfo.walletAddress
-  //         });
-  //         const pres = await contract.getPrescription(patient.walletAddress , count.toNumber() , {
-  //             from :userInfo.walletAddress
-  //           })
-  //       console.log(pres)
-  //       console.log(result)
-  //       console.log(data);
-  //     }
-  //     catch(err){
-  //       console.log(err);
-  //     }
-  //     finally{
-  //       setLoading(false);
-  //     }
-  //   };
+  const [doctors , setDoctors] = useState([]);
+  const tag = 'IIITM'
+  const getDetails = async () => {
+    const res = await fetch(`${process.env.REACT_APP_BACKEND_URL}admin/getstats/${tag}` , {
+      method: "GET",
+    })  
+    const data = await res.json();
+    setDoctors(data.data.doctors);
+    console.log(doctors);
+  }
+  useEffect(()=>{
+    getDetails()
+  },[])
   const { Column, HeaderCell, Cell } = Table;
 
   const renderIconButton = (props, ref) => {
@@ -126,7 +70,7 @@ function AdminDash() {
             />
           </WhiteButton>
           <div className={styles.header}>
-            <h1>Admin Dashboard</h1>
+            <h1>Admin Dashboard (IIITM)</h1>
           </div>
           <WhiteButton
             style={{
@@ -157,34 +101,25 @@ function AdminDash() {
               height={400}
               bordered
               cellBordered
-              data={data}
+              data={doctors}
               onRowClick={(rowData) => {
                 console.log(rowData);
               }}
             >
-              <Column flexGrow={1}>
-                <HeaderCell>Id</HeaderCell>
-                <Cell dataKey="id" />
+              <Column flexGrow={2}>
+                <HeaderCell>Speaciality</HeaderCell>
+                <Cell dataKey="specialities[0]" />
               </Column>
 
               <Column flexGrow={3}>
                 <HeaderCell>First Name</HeaderCell>
-                <Cell dataKey="firstName" />
+                <Cell dataKey="name" />
               </Column>
 
-              <Column flexGrow={3}>
-                <HeaderCell>Last Name</HeaderCell>
-                <Cell dataKey="lastName" />
-              </Column>
-
-              <Column flexGrow={2}>
-                <HeaderCell>Gender</HeaderCell>
-                <Cell dataKey="gender" />
-              </Column>
 
               <Column flexGrow={1}>
-                <HeaderCell>Age</HeaderCell>
-                <Cell dataKey="age" />
+                <HeaderCell>Experience</HeaderCell>
+                <Cell dataKey="experience" />
               </Column>
 
               <Column flexGrow={3}>
