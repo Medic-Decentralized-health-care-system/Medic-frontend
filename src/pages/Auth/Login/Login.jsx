@@ -51,8 +51,12 @@ function Login() {
         });
         dispatch(setUser(data.user));
         // if(data.user.isDoct)
-        console.log(data.user)
-        if(data.user.isDoctor)
+        console.log(data.user) 
+        if(data.user.isAdmin){
+          navigate('/dashboard/admin')
+          return;
+        }
+        else if(data.user.isDoctor)
         navigate('/dashboard/doctor')
         else
         navigate('/dashboard/user')
