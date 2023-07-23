@@ -49,7 +49,7 @@ function EditProfileUser() {
   const dispatch = useDispatch();
   const userInfo = useSelector((state) => state.userInfo);
   console.log(userInfo);
-  const [toShare , setToShare] = useState(false);
+  const [toShare , setToShare] = useState(userInfo.toShare);
   const [userTag , setUserTag] = useState("");
 
   // We need to have a tag key in the userInfo object which is empty if there's no tag selectd and contains a string of the exact tag if it is selected. Temporarily using a temp string named userTag to simulate this implementation

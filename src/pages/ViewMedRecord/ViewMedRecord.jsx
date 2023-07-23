@@ -133,7 +133,7 @@ function ViewMedRecord() {
               </div>
             </div>
             <div className={styles.rightHeader}>
-              <div className={styles.rightHeaderContainer}>
+              {/* <div className={styles.rightHeaderContainer}>
                 <Button
                   appearance="ghost"
                   style={{
@@ -162,7 +162,7 @@ function ViewMedRecord() {
                 >
                   Delete Record
                 </Button>
-              </div>
+              </div> */}
             </div>
           </div>
           <div className={styles.mainBody}>

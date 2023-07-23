@@ -1,17 +1,10 @@
 import React, { useEffect, useState } from "react";
 import styles from "./styles.module.css";
 import WhiteButton from "../../../components/Buttons/WhiteButton";
-import ButtonDark from "../../../components/Buttons/ButtonDark";
-import DrugItem from "../../../components/DrugItem/DrugItem";
-import { json, useLocation, useNavigate } from "react-router-dom";
-import { create as ipfsHttpClient } from "ipfs-http-client";
-import { useMoralis, useWeb3Contract } from "react-moralis";
-import { ethers } from "ethers";
-import { contractAddresses } from "../../../constants/index.js";
-import prescriptionIPFSABI from "../../../constants/frontEndAbiLocation/PrescriptionIPFS.json";
+import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { Button, Dropdown, IconButton, Panel, Table } from "rsuite";
-import { ArrowDown, ArrowDownLine } from "@rsuite/icons";
+import { Dropdown, IconButton, Panel, Table } from "rsuite";
+import { ArrowDownLine } from "@rsuite/icons";
 import { mockUsers } from "./mock";
 
 const data = mockUsers(20);
@@ -20,9 +13,10 @@ function AdminDash() {
   //   const [drugItems, setDrugItems] = useState([]);
   const Navigate = useNavigate();
   const [doctors , setDoctors] = useState([]);
-  const tag = 'IIITM'
+  const userInfo = useSelector((state) => state.userInfo);
+  console.log(userInfo)
   const getDetails = async () => {
-    const res = await fetch(`${process.env.REACT_APP_BACKEND_URL}admin/getstats/${tag}` , {
+    const res = await fetch(`${process.env.REACT_APP_BACKEND_URL}admin/getstats/${userInfo.tag}` , {
       method: "GET",
     })  
     const data = await res.json();
@@ -65,12 +59,12 @@ function AdminDash() {
               src={require("../../../assets/images/homeIcon.png")}
               alt="home"
               onClick={() => {
-                Navigate("/dashboard/user");
+                Navigate("/login");
               }}
             />
           </WhiteButton>
           <div className={styles.header}>
-            <h1>Admin Dashboard (IIITM)</h1>
+            <h1>Admin Dashboard ({userInfo.tag})</h1>
           </div>
           <WhiteButton
             style={{
@@ -88,7 +82,7 @@ function AdminDash() {
                 style={{ padding: 10, width: 160, color: "black" }}
               >
                 <p>Signed in as</p>
-                <strong>name of Admin</strong>
+                <strong>{userInfo.tag}</strong>
               </Dropdown.Item>
               <Dropdown.Item>Sign out</Dropdown.Item>
             </Dropdown>
