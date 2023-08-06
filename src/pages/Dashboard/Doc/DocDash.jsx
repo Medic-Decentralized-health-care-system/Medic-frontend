@@ -181,7 +181,7 @@ function DocDash() {
                   style={{ padding: 10, fontSize: "medium" }}
                 >
                   <p>Signed in as</p>
-                  <strong>{`${"vgfrr"}`}</strong>
+                  <strong>{`${userInfo.name}`}</strong>
                 </Dropdown.Item>
                 <Dropdown.Item style={{ padding: 10, fontSize: "small" }}>
                   <Link
