@@ -4,7 +4,7 @@ import MenubarStyle from "./Menubar.module.css";
 import WhiteButton from "../Buttons/WhiteButton";
 
 const navbarPages = {
-  text: ["Pricing", "How it works", "Help Center"],
+  text: ["How it works", "Contact Us"],
 };
 
 const handleClick = () => {};
@@ -14,7 +14,12 @@ function Menubar(props) {
     <div className={MenubarStyle.menubar} onClick={handleClick}>
       {navbarPages.text.map((btnText, index) => (
         <WhiteButton key={index} value={btnText}>
-          {btnText}
+          <a
+            style={{ textDecoration: "None", color: "white" }}
+            href={`#${btnText.replaceAll(" ", "")}`}
+          >
+            {btnText}
+          </a>
         </WhiteButton>
       ))}
       <hr className={MenubarStyle.divider}></hr>
