@@ -1,4 +1,4 @@
-## Current Status: Working on Integration of the backend and frontend.
+## Current Status: Working on removing bugs and adding payment functionality.
 
 # Getting Started with this project
 
