@@ -1,6 +1,6 @@
 ## Current Status: Working on removing bugs and adding payment functionality.
 
-# Getting Started with this project
+# Get started with DeMedic
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
