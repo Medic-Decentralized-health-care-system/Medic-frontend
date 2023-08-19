@@ -9,7 +9,7 @@ import { useSelector } from "react-redux";
 import Swal from "sweetalert2";
 import MoneyTransferABI from "../../constants/frontEndAbiLocation/MoneyTransfer.json";
 import { ethers } from "ethers";
-import { Navigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 
 // const dummyDoctorObj = {
 //   fullName: "Dr. Aditi Singh",
@@ -49,6 +49,8 @@ function AppointmentBooker({ doctor }) {
   const [timingLoading, setTimingLoading] = useState(false);
   const userInfo = useSelector((state) => state);
 
+  const navigate = useNavigate();
+
   const handleDateSelect = (date) => {
     setSelectedDate(date);
     selectedTimeSlot !== "" ? setIsBookable(true) : setIsBookable(false);
@@ -59,21 +61,13 @@ function AppointmentBooker({ doctor }) {
     setStartTime(availabilityObj.slots[timeSlot].startTime);
     setEndTime(availabilityObj.slots[timeSlot].endTime);
     selectedDate ? setIsBookable(true) : setIsBookable(false);
+
+    console.log(startTime , endTime)
   };
 
   const handleAppointmentBooking = async () => {
-    console.log(selectedDate , selectedTimeSlot)
-    if (selectedDate && selectedTimeSlot) {
-      console.log({
-        patientId: userInfo.userInfo._id,
-        doctorId: userInfo.doctor._id,
-        date: selectedDate.toString(),
-        startTime: startTime,
-        endTime: endTime,
-      });
-    // await depositEth('0.01');
-      try {
-        console.log(selectedDate);
+    
+    if (selectedDate && startTime && endTime) {
         const res = await fetch(
           process.env.REACT_APP_BACKEND_URL + "patient/setappointment",
           {
@@ -93,23 +87,23 @@ function AppointmentBooker({ doctor }) {
           }
         );
         const data = await res.json();
-        console.log(data)
-        if(data.data.appointment){
+        if(data.status === 'success'){
           Swal.fire({
             icon: "success",
             title: "Appointment Booked Successfully!",
             text: "Your appointment has been booked successfully!",
           });
-          Navigate('/dashboard/user')
+          navigate('/dashboard/user')
         }
-      } catch (err) {
-        Swal.fire({
-          icon: "error",
-          title: "Oops...",
-          text: "Something went wrong!",
-        });
+        else{
+          Swal.fire({
+            icon: "error",
+            title: "Oops...",
+            text: "Something went wrong!",
+          });
+          return;
+        }
       }
-    } 
     else {
       setIsBookable(false);
       Swal.fire({
@@ -134,8 +128,6 @@ function AppointmentBooker({ doctor }) {
         );
         const jsonData = await response.json();
         setAvailabilityObj(jsonData.data.data);
-        console.log(availabilityObj);
-        console.log(availabilityObj.slots);
         setLoading(false);
         setShow(true);
       } catch (err) {
@@ -184,9 +176,6 @@ function AppointmentBooker({ doctor }) {
         <div className={styles.fullscreenFrame}>
           <p className={styles.logoText}>MEDIC.</p>
           <div className={styles.fullTop}>
-            {
-              console.log(userInfo.doctor)
-            }
             <CardSelected
               doctor={userInfo.doctor}
               avatarStyle={{ height: "200px", width: "200px" }}

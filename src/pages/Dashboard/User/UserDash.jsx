@@ -47,6 +47,7 @@ function UserDash() {
   const [recentAppointments, setRecentAppointments] = useState([]);
   const [medRecords, setMedRecords] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [alreadyInUse, setAlreadyInUse] = useState(false);
 
   const { ethereum } = window;
   const navigate = useNavigate();
@@ -66,7 +67,6 @@ function UserDash() {
   }, []);
 
   const walletAddress = async (id, walletAddress) => {
-    console.log("Hiiiii");
     const res = await fetch(
       process.env.REACT_APP_BACKEND_URL + "common/setwalletaddress",
       {
@@ -82,6 +82,10 @@ function UserDash() {
     );
     const data = await res.json();
     console.log(data);
+    if (data.message == "Wallet address already in use!") {
+      setAlreadyInUse(true);
+      return;
+    }
     if (data.data.user) {
       Swal.fire({
         icon: "success",
@@ -121,11 +125,18 @@ function UserDash() {
       setAccountBalance(bal);
       setIsConnected(true);
       await walletAddress(userInfo._id, accountAddress);
+      // console.log(alreadyInUse)
+      // if (alreadyInUse) {
+      //   Swal.fire({
+      //     icon: "warning",
+      //     title: "Please try again",
+      //     text: "Wallet address already in use!",
+      //   });
+      // }
       dispatch(setWalletAddress(accountAddress));
       dispatch(setBalance(accountBalance));
-      console.log("hi");
       console.log(userInfo._id);
-      // await walletAddress(userInfo._id, accountAddress);
+      await walletAddress(userInfo._id, accountAddress);
       console.log(accountAddress, accountBalance);
     } catch (error) {
       setIsConnected(false);
@@ -200,7 +211,6 @@ function UserDash() {
       const fetchedRecords = await Promise.all(fetchRequests);
       console.log(fetchedRecords);
       setMedRecords(fetchedRecords);
-
       console.log(medRecords);
       if (medRecords.length > 0) {
         setPresEmpty(true);
@@ -228,7 +238,7 @@ function UserDash() {
   /***Extract dat** */
 
   const getDate = (timestamp) => {
-    timestamp = parseInt(timestamp)
+    timestamp = parseInt(timestamp);
     const date = new Date(timestamp);
     const year = date.getFullYear();
     const month = date.getMonth() + 1; // Months are zero-based, so we add 1
@@ -237,8 +247,6 @@ function UserDash() {
     const formattedDate = `${year}-${month < 10 ? "0" + month : month}-${
       day < 10 ? "0" + day : day
     }`;
-
-    console.log(formattedDate);
     return formattedDate;
   };
   return (
@@ -363,7 +371,6 @@ function UserDash() {
                         <Info textRight={"19/04/23"}>Dr. Rajesh Joshi</Info>
                         <Info textRight={"19/04/23"}>Dr. Rajesh Joshi</Info>
                         <Info textRight={"19/04/23"}>Dr. Rajesh Joshi</Info> */}
-                        {console.log(upcomingAppointments)}
                         {upcomingAppointments.map((item, index) => {
                           return (
                             <div
