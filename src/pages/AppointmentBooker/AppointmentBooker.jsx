@@ -11,31 +11,6 @@ import MoneyTransferABI from "../../constants/frontEndAbiLocation/MoneyTransfer.
 import { ethers } from "ethers";
 import { Navigate, useNavigate } from "react-router-dom";
 
-// const dummyDoctorObj = {
-//   fullName: "Dr. Aditi Singh",
-//   degree: "MBBS",
-//   specialty: "General Physician",
-//   experience: "4 years",
-//   imgURL:
-//     "https://i.pinimg.com/originals/35/57/55/355755832670880825ad87838e18d6b6.jpg",
-//   availability: {
-//     days: ["Monday", "Tuesday", "Thursday"],
-//     time: [
-//       "10:00AM-11:00AM",
-//       "02:00PM-3:00PM",
-//       "03:30PM-4:30PM",
-//       "05:00PM-6:00PM",
-//       "06:30PM-7:30PM",
-//       "08:00PM-9:00PM",
-//       "09:30PM-10:30PM",
-//       "11:00PM-12:00AM",
-//       "12:30AM-01:30AM",
-//       "02:00AM-03:00AM",
-//       "03:30AM-04:30AM",
-//     ],
-//   },
-// };
-
 function AppointmentBooker({ doctor }) {
   const [show, setShow] = useState(false);
   const [doctors, setDoctors] = useState("");
@@ -47,6 +22,7 @@ function AppointmentBooker({ doctor }) {
   const [isBookable, setIsBookable] = useState(false);
   const [availabilityObj, setAvailabilityObj] = useState({});
   const [timingLoading, setTimingLoading] = useState(false);
+  const [fees, setFee] = useState(0);
   const userInfo = useSelector((state) => state);
 
   const navigate = useNavigate();
@@ -62,49 +38,47 @@ function AppointmentBooker({ doctor }) {
     setEndTime(availabilityObj.slots[timeSlot].endTime);
     selectedDate ? setIsBookable(true) : setIsBookable(false);
 
-    console.log(startTime , endTime)
+    console.log(startTime, endTime);
   };
 
   const handleAppointmentBooking = async () => {
-    
     if (selectedDate && startTime && endTime) {
-        const res = await fetch(
-          process.env.REACT_APP_BACKEND_URL + "patient/setappointment",
-          {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-              patientId: userInfo.userInfo._id,
-              doctorId: userInfo.doctor._id,
-              patientName : userInfo.userInfo.name ,
-              doctorName : userInfo.doctor.name ,
-              startTime: startTime,
-              endTime: endTime,
-              date: selectedDate.toString(),
-            }),
-          }
-        );
-        const data = await res.json();
-        if(data.status === 'success'){
-          Swal.fire({
-            icon: "success",
-            title: "Appointment Booked Successfully!",
-            text: "Your appointment has been booked successfully!",
-          });
-          navigate('/dashboard/user')
+      const res = await fetch(
+        process.env.REACT_APP_BACKEND_URL + "patient/setappointment",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            patientId: userInfo.userInfo._id,
+            doctorId: userInfo.doctor._id,
+            patientName: userInfo.userInfo.name,
+            doctorName: userInfo.doctor.name,
+            startTime: startTime,
+            endTime: endTime,
+            date: selectedDate.toString(),
+          }),
         }
-        else{
-          Swal.fire({
-            icon: "error",
-            title: "Oops...",
-            text: "Something went wrong!",
-          });
-          return;
-        }
+      );
+      const data = await res.json();
+      if (data.status === "success") {
+        Swal.fire({
+          icon: "success",
+          title: "Appointment Booked Successfully!",
+          text: "Your appointment has been booked successfully!",
+        });
+        await depositEth(availabilityObj.fees);
+        navigate("/dashboard/user");
+      } else {
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: "Something went wrong!",
+        });
+        return;
       }
-    else {
+    } else {
       setIsBookable(false);
       Swal.fire({
         icon: "warning",
@@ -112,6 +86,18 @@ function AppointmentBooker({ doctor }) {
         text: "Please select a date and time slot!",
       });
     }
+  };
+  const depositEth = async (amount) => {
+    const MoneyTransferAddress = "0x1853DD7650D3384DFAb172b9bfF6692F79Eb69DC";
+    const provider = new ethers.providers.Web3Provider(window.ethereum);
+    const signer = provider.getSigner();
+    let equivalentAmountInETH = amount * 0.00000724;
+    console.log(amount);
+    console.log(equivalentAmountInETH);
+    await signer.sendTransaction({
+      to: userInfo.doctor.walletAddress,
+      value: ethers.utils.parseEther(equivalentAmountInETH.toString()),
+    });
   };
 
   useEffect(() => {
@@ -140,36 +126,16 @@ function AppointmentBooker({ doctor }) {
   }, [userInfo.doctor]);
 
   /*Contract To send the ether*/
-  const MoneyTransferAddress = "0x1853DD7650D3384DFAb172b9bfF6692F79Eb69DC";
-  const provider = new ethers.providers.Web3Provider(window.ethereum);
-  const signer = provider.getSigner();
-  const contract = new ethers.Contract(
-    MoneyTransferAddress,
-    MoneyTransferABI,
-    signer
-  );
 
-  const sendEther = async () => {
-    try {
-      const balance = await contract.getBalance("0x490aeeA34202D19b42731f00371e949c01F2eC53");
-      console.log(balance.toString());
-    }
-    catch(err){
-      console.log(err)
-    }
-  };
-
-  const depositEth = async (amount) => {
-    const weiValue = ethers.utils.parseUnits(amount, 'wei');
-    console.log(weiValue);
-    try {
-      const transaction = await contract.addMoney(weiValue);
-      const balance = await contract.getBalance("0x490aeeA34202D19b42731f00371e949c01F2eC53");
-      console.log(balance.toString());
-    } catch (err) {
-      console.log(err);
-    }
-  };
+  // const sendEther = async () => {
+  //   try {
+  //     const balance = await contract.getBalance("0x490aeeA34202D19b42731f00371e949c01F2eC53");
+  //     console.log(balance.toString());
+  //   }
+  //   catch(err){
+  //     console.log(err)
+  //   }
+  // };
   return (
     <>
       <div className={styles.searchApp}>
