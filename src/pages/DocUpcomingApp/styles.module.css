@@ -1,0 +1,323 @@
+@import "rsuite/dist/rsuite.css";
+:root {
+  --width-header: 10%;
+}
+* {
+  box-sizing: border-box;
+}
+
+.container {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  background-image: url("../../assets/images/bg-gradient.png");
+  background-size: cover;
+}
+
+.placeholderCont {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+}
+
+.modal {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  height: 100vh;
+  backdrop-filter: blur(2px);
+  top: 0px;
+  left: 0px;
+  z-index: 10;
+}
+
+.header {
+  width: var(--width-header);
+  width: 100%;
+  margin: 0;
+  padding: 10px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logotext {
+  box-sizing: border-box;
+  position: relative;
+  font-family: Impact, Haettenschweiler, Franklin Gothic Bold, Charcoal,
+    Helvetica Inserat, Bitstream Vera Sans Bold, Arial Black, sans serif;
+  color: black;
+  top: 0px;
+  left: 0px;
+  padding: 0.5rem;
+  font-size: 1.4rem;
+}
+
+.dropdown > img {
+  color: black;
+  border-radius: 10px;
+  background-color: #f9f9f9;
+  padding: 5px;
+  min-width: max-content;
+}
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdownContent {
+  display: none;
+  position: absolute;
+
+  z-index: 1;
+}
+.dropdownContent > * {
+  padding: 10px;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.dropdown:hover .dropdownContent {
+  position: absolute;
+  top: 15px;
+  right: 0px;
+  display: flex;
+  flex-direction: column;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  padding: 12px 16px;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+}
+
+.pfBox {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+.main {
+  position: absolute;
+  width: 100%;
+  height: 90vh;
+  bottom: 0;
+  display: flex;
+  flex-direction: column;
+  border-top-left-radius: 2rem;
+  border-top-right-radius: 2rem;
+  background: linear-gradient(
+    113.96deg,
+    rgba(255, 255, 255, 1) 0%,
+    rgba(255, 255, 255, 1) 100%
+  );
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  box-shadow: 0px 10px 40px rgba(0, 0, 0, 0.15);
+}
+
+.mainHeader {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  justify-content: flex-start;
+  align-items: center;
+  /* gap: 70%; */
+  padding: 0.5% 0px 0px 0px;
+  border-top-left-radius: 100px;
+  border-top-right-radius: 100px;
+}
+
+.PlusIconContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0.5rem;
+  padding-left: 3rem;
+}
+
+.mainHeadingText {
+  text-align: center;
+  width: max-content;
+  padding: 10px;
+}
+
+.mainBody {
+  width: 100%;
+  height: max-content;
+  display: flex;
+  flex-direction: row;
+  justify-content: stretch;
+  align-items: center;
+
+  padding: 1.5rem;
+}
+
+.docInfoContainer {
+  width: 50%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.appBox {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  padding-left: 1rem;
+}
+.appBoxTop {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: left;
+}
+
+.appBoxTop > p {
+  width: 100%;
+  text-align: left;
+}
+
+.btnContainer {
+  display: flex;
+  flex-direction: row;
+}
+
+.btnBlack {
+  border: 1px solid black;
+  color: white;
+  background-color: black;
+}
+.btnBlack:hover {
+  color: rgb(255, 255, 255);
+  background-color: black;
+}
+
+.btnBlack:disabled {
+  color: rgb(255, 255, 255);
+  background-color: black;
+}
+
+.btnWhite {
+  border: 1px solid black;
+  color: black;
+  background-color: transparent;
+}
+
+.appTimeDateBoxContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  font-size: medium;
+  width: 100%;
+}
+
+.appTimeDateBox {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  border: 1px solid #acacac;
+  border-radius: 10px;
+  padding: 0.3rem;
+}
+
+.appDate {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.appTime {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.pendingStatusBox {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.appBoxBottom {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  margin-top: 0.3rem;
+}
+
+.appBoxBottomLeft {
+  background-color: #e4e4e4;
+  border-radius: 10px;
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  justify-content: stretch;
+  align-items: center;
+}
+.appBoxBottomLeftHeader {
+  width: 100%;
+  padding: 0.45rem;
+  font-size: x-large;
+  /* width: fit-content; */
+}
+
+.appBoxBottomLeftBody {
+  font-size: medium;
+  padding: 0.45rem;
+  width: fit-content;
+  height: 30vh;
+}
+
+.appBoxBottomRight {
+  background-color: #e4e4e4;
+  border-radius: 10px;
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  justify-content: stretch;
+  align-items: center;
+  margin: 0.35rem;
+}
+
+.appBoxBottomRightHeader {
+  width: 100%;
+  padding: 0.45rem;
+  font-size: x-large;
+}
+
+.appBoxBottomRightBody {
+  width: 100%;
+  padding: 10px;
+  height: 30vh;
+  font-size: small;
+}
+.appBoxBottomRightBody ::-webkit-scrollbar {
+  width: 0;
+}
+
+.presContainer {
+  width: auto;
+  height: 100%;
+  padding: 5px;
+  overflow: scroll;
+}

@@ -1,0 +1,293 @@
+@import "rsuite/dist/rsuite.css";
+:root {
+  --width-header: 10%;
+}
+* {
+  box-sizing: border-box;
+}
+
+.container {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  background-image: url("../../../assets/images/bg-gradient.png");
+  background-size: cover;
+}
+
+.placeholderCont {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+}
+
+.modal {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  height: 100vh;
+  backdrop-filter: blur(2px);
+  top: 0px;
+  left: 0px;
+  z-index: 10;
+}
+
+.header {
+  width: var(--width-header);
+  width: 100%;
+  margin: 0;
+  padding: 10px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logotext {
+  box-sizing: border-box;
+  position: relative;
+  font-family: Impact, Haettenschweiler, Franklin Gothic Bold, Charcoal,
+    Helvetica Inserat, Bitstream Vera Sans Bold, Arial Black, sans serif;
+  color: black;
+  top: 0px;
+  left: 0px;
+  padding: 0.5rem;
+  font-size: 1.4rem;
+}
+
+.dropdown > img {
+  color: black;
+  border-radius: 10px;
+  background-color: #f9f9f9;
+  padding: 5px;
+  min-width: max-content;
+}
+
+.dropdown {
+  position: relative;
+
+  display: inline-block;
+}
+
+.dropdownContent {
+  display: none;
+  position: absolute;
+
+  z-index: 1;
+}
+.dropdownContent > * {
+  padding: 10px;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.dropdown:hover .dropdownContent {
+  position: absolute;
+  top: 15px;
+  right: 0px;
+  display: flex;
+  flex-direction: column;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  padding: 12px 16px;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+}
+
+.pfBox {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+.main {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  border-top-left-radius: 4rem;
+  border-top-right-radius: 4rem;
+  background: linear-gradient(
+    113.96deg,
+    rgba(255, 255, 255, 0.8) 0%,
+    rgba(255, 255, 255, 0.4) 100%
+  );
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  box-shadow: 0px 10px 40px rgba(0, 0, 0, 0.15);
+}
+
+.mainHeader {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  gap: 70%;
+  padding: 10px;
+  border-top-left-radius: 100px;
+  border-top-right-radius: 100px;
+}
+
+.mainButtonContainer {
+  display: flex;
+  flex-direction: row;
+  padding: 2px;
+}
+
+.mainNameBox {
+  color: black;
+  padding: 2px;
+}
+
+.mainBody {
+  width: 100%;
+  height: max-content;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1.5rem;
+  padding: 60px;
+}
+
+.dashTop,
+.dashBottom {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  height: 25vh;
+}
+
+.upApp,
+.recApp {
+  display: flex;
+  width: 45vw;
+  flex-direction: column;
+  justify-content: space-between;
+  border: 1px solid black;
+  margin: 10px;
+  border-radius: 10px;
+}
+
+.upAppContainer,
+.recAppContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  overflow-y: scroll;
+  border-radius: 10px;
+}
+
+.upAppContainer::-webkit-scrollbar,
+.recAppContainer::-webkit-scrollbar {
+  width: 0;
+}
+
+.dashDivHeader {
+  text-align: center;
+  width: 100%;
+  padding: 7px;
+  position: sticky;
+  top: 0;
+  background: linear-gradient(
+    113.96deg,
+    rgba(255, 255, 255, 0.8) 0%,
+    rgba(255, 255, 255, 0.4) 100%
+  );
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  box-shadow: 0px 10px 40px rgba(0, 0, 0, 0.15);
+  border-radius: 10px;
+}
+
+.dashDivContent {
+  width: 100%;
+  height: 20vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 6px;
+}
+.eachUpcomingAppointment{
+  width:100%;
+}
+.prevRecords{
+  width:100%;
+  cursor:pointer;
+}
+
+.MedicalRecords {
+  display: flex;
+  width: 60vw;
+  flex-direction: column;
+  justify-content: space-between;
+  border: 1px solid black;
+  border-radius: 10px;
+  margin: 10px;
+}
+.RecTransactions {
+  display: flex;
+  width: 30vw;
+  flex-direction: column;
+  justify-content: space-between;
+  border: 1px solid black;
+  border-radius: 10px;
+  margin: 10px;
+}
+
+.MedicalRecordsContainer,
+.RecTransactionsContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  overflow-y: scroll;
+  border-radius: 10px;
+}
+
+.MedicalRecordsContainer::-webkit-scrollbar,
+.RecTransactionsContainer::-webkit-scrollbar {
+  width: 0;
+}
+
+
+.mainButtonContainer {
+  display: flex;
+  flex-direction: row;
+  padding: 2px;
+}
+
+.mainNameBox {
+  color: black;
+  padding: 2px;
+}
+
+.mainBody {
+  width: 100%;
+  height: max-content;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1.5rem;
+  padding: 60px;
+}
+
+.dashTop,
+.dashBottom {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  height: 25vh;
+}

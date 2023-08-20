@@ -1,71 +1,169 @@
 import React, { useState } from "react";
-import { ReactDOM } from "react-dom";
 import Homestyle from "./Home.module.css";
 
-import {Link, useNavigate} from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 
 import ButtonLight from "../../components/Buttons/ButtonLight.jsx";
 import ButtonDark from "../../components/Buttons/ButtonDark.jsx";
 import ButtonHollow from "../../components/Buttons/ButtonHollow.jsx";
 import Menubar from "../../components/Menubar/Menubar";
+import Footer from "../../components/Footer/Footer";
+import { Header, Panel, Steps } from "rsuite";
+import { Check, Explore, Search, Shield, Time, UserBadge } from "@rsuite/icons";
 
+function Home() {
+  const [onClick, setOnClick] = useState();
+  const navigate = useNavigate();
+  const handleClicktoLogin = () => {
+    navigate("/login");
+    console.log("clicked");
+  };
+  const handleClicktoSearch = () => {
+    navigate("/search");
+    console.log("Clicked");
+  };
 
+  return (
+    <>
+      <section id={Homestyle.landing} className={Homestyle.container}>
+        <div className={Homestyle.section}>
+          <div className={Homestyle.actualsection}>
+            <div className={Homestyle.navbar}>
+              <p className={Homestyle.logotext}>DeMedic.</p>
 
-function Home () {
-	const [onClick, setOnClick] = useState(); 
-	const navigate = useNavigate();
-	const handleClick= ()=>{
-		navigate("/login");
-	}
-	return(
-		<div className={Homestyle.container}>
-			<div className={Homestyle.section}>
-				<div className={Homestyle.actualsection}>
-					<div className={Homestyle.navbar}>
-						<p className={Homestyle.logotext}>MEDIC.</p>
-						<p className={Homestyle.bannertext}>Make an appointment with a doctor without a queue. Buy medicines</p>
-						<ButtonDark text="LOGIN" handleClick={handleClick}>
-						</ButtonDark>
-						<ButtonLight children="Are you a doctor?" />
-					</div>
-					<Menubar/>
-				</div>
-				<div className={Homestyle.main}>
-					<div className={Homestyle.mainLeft}>
-						<p style={{fontSize: "4rem", color: "white", margin: "0", padding: "50px"}}>CONSULT ON</p>
-						<div className={Homestyle.mainLeftSecond}>
-							<p style={{fontSize: "0.8rem", color: "white",maxWidth: "fit-content", margin: "0"}}>Store all your<br/> medical records in a <br/> secure vault with <br/> our decentralized<br/> solution</p>
-							<p style={{fontSize: "4rem", margin: "0"}}>ANY ISSUE</p>
-						</div>
-						<div className={Homestyle.mainLeftThird}>
-							<img src={require("../../assets/images/avatargroupimg.png")} height="60rem"/>
-							<p style={{color:"white",fontSize: "4rem",margin:"0", padding: "50px"}}>ONLINE</p>
-						</div>
-					</div>
-					<div className={Homestyle.mainRight}>
-						<img src={require("../../assets/images/mainleftimg.png")}/>
-					</div>
-				</div>
-				<div className={Homestyle.mainDown}>
-					<ButtonDark children="Book an Appointment"/>
-					<ButtonHollow>Search for doctors</ButtonHollow>
-				</div>
-			</div>
-			{/* TODO: Make a footer component: */}
-			<div className={Homestyle.footer}>
-				<div className={Homestyle.footer1}>
-					trusted by
-				</div>
-				<div className={Homestyle.footer2}>
-					<img src={require('../../assets/images/fblogo.png')} alt="facebook"width={"150px"}/>
-					<img src={require('../../assets/images/instalogo.png')} alt="instagram"width={"150px"}/>
-					<img src={require('../../assets/images/githublogo.png')} alt="github"width={"150px"}/>
-					<img src={require('../../assets/images/dribblelogo.png')} alt="dribble"width={"150px"}/>
-					<img src={require('../../assets/images/behancelogo.png')} alt="behance"width={"150px"}/>
-				</div>
-			</div>
-		</div>
-	)
+              <ButtonDark
+                text="LOGIN"
+                ClickFunction={handleClicktoLogin}
+                style={{
+                  fontSize: "15px",
+                  borderRadius: "20px",
+                  marginRight: "15px",
+                }}
+              ></ButtonDark>
+              <ButtonLight
+                children="Are you a doctor?"
+                ClickFunction={handleClicktoLogin}
+                style={{
+                  fontSize: "15px",
+                  borderRadius: "20px",
+                  marginRight: "15px",
+                  minWidth: "max-content",
+                }}
+              />
+            </div>
+            <Menubar />
+          </div>
+          <div className={Homestyle.main}>
+            <div className={Homestyle.mainLeft}>
+              <p className={Homestyle.text1}>CONSULT ON</p>
+              <div className={Homestyle.mainLeftSecond}>
+                {/* <p style={{fontSize: "0.8rem", color: "white",maxWidth: "fit-content", margin: "0"}}>Store all your<br/> medical records in a <br/> secure vault with <br/> our decentralized<br/> solution</p> */}
+                <p className={Homestyle.text2}>ANY ISSUE</p>
+              </div>
+              <div className={Homestyle.mainLeftThird}>
+                <img
+                  src={require("../../assets/images/avatargroupimg.png")}
+                  alt="avatar"
+                  height="60rem"
+                />
+                <p className={Homestyle.text1}>ONLINE</p>
+              </div>
+            </div>
+            <div className={Homestyle.mainRight}>
+              <img
+                src={require("../../assets/images/mainleftimg.png")}
+                alt="healthpluslogo"
+              />
+            </div>
+          </div>
+          <div className={Homestyle.mainDown}>
+            <ButtonDark
+              style={{ fontSize: "15px" }}
+              text="Book an Appointment"
+            />
+            <ButtonHollow
+              ClickFunction={handleClicktoSearch}
+              style={{ fontSize: "15px" }}
+              type="white"
+              text="Search for doctors"
+            ></ButtonHollow>
+          </div>
+        </div>
+        <Footer />
+      </section>
+      <section id="Howitworks" className={Homestyle.Howitworks}>
+        <section className={Homestyle.block}>
+          <section className={Homestyle.PatientStepsBox}>
+            <div className={Homestyle.imgBlock}>
+              <h2 id={Homestyle.howItWorksHeading}>How it Works</h2>
+              <img
+                alt=""
+                height="400px"
+                src={require("../../assets/images/blockhealth.png")}
+              />
+            </div>
+            <Panel shaded style={{ backgroundColor: "white", padding: "2rem" }}>
+              <Steps
+                current={100}
+                vertical
+                style={{ fontSize: "small", color: "black" }}
+              >
+                <Steps.Item
+                  style={{ color: "black" }}
+                  title="Sign Up"
+                  description="Patient signs up for DeMedic"
+                  icon={
+                    <UserBadge
+                      style={{ fontSize: "x-large", color: "#3498FF" }}
+                    />
+                  }
+                />
+                <Steps.Item
+                  title="Search"
+                  description="Patient searches for doctors according to their specialty and proximity."
+                  icon={
+                    <Search style={{ fontSize: "x-large", color: "#3498FF" }} />
+                  }
+                />
+                <Steps.Item
+                  title="Browse"
+                  description="Patient browses the results of the search deciding which doctor to choose from."
+                  icon={
+                    <Explore
+                      style={{ fontSize: "x-large", color: "#3498FF" }}
+                    />
+                  }
+                />
+                <Steps.Item
+                  title="Reserve"
+                  description="Patient reserves or books an appointment slot with the doctor according to their availability and pays the fees for the doctor."
+                  icon={
+                    <Time style={{ fontSize: "x-large", color: "#3498FF" }} />
+                  }
+                />
+                <Steps.Item
+                  title="Payment"
+                  description="The doctor receives the payment for the fees examines the patient, his medical records"
+                  icon={
+                    <Shield style={{ fontSize: "x-large", color: "#3498FF" }} />
+                  }
+                />
+                <Steps.Item
+                  title="Appointment"
+                  description="Doctor examines the patient adds a prescription if required, and marks the appointment complete."
+                  icon={
+                    <Check style={{ fontSize: "x-large", color: "#3498FF" }} />
+                  }
+                />
+              </Steps>
+            </Panel>
+          </section>
+        </section>
+      </section>
+      <section id="Pricing" className={Homestyle.pricing}></section>
+      <section id={Homestyle.contact} className={Homestyle.container}></section>
+    </>
+  );
 }
 
 export default Home;

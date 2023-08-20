@@ -1,0 +1,115 @@
+* {
+  font-family: "Outfit";
+}
+
+.card {
+  box-sizing: border-box;
+  height: 90%;
+  width: 100%;
+  border-radius: 0.625rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  padding: 1rem;
+  margin: 8px;
+  background: linear-gradient(
+    180deg,
+    rgba(5, 130, 202, 0.4) 0%,
+    rgba(5, 130, 202, 0.2) 100%
+  );
+  border: 0.0625rem solid rgba(255, 255, 255, 0.1);
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.nameBox {
+  border-radius: 0rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 0.5rem;
+  background: linear-gradient(
+    180deg,
+    rgba(0, 0, 0, 0.8) 0%,
+    rgba(0, 0, 0, 0.6) 100%
+  );
+  border: 1px
+    linear-gradient(180deg, rgba(0, 0, 0, 0.6) 0%, rgba(0, 0, 0, 0.2) 100%);
+  border-radius: 10px;
+  font-size: 16px;
+}
+.text2 {
+  text-align: left;
+  vertical-align: top;
+  font-size: 22px;
+  font-family: Poppins;
+
+  color: white;
+}
+.infoBox {
+  min-width: max-content;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px;
+  font-size: 18px;
+}
+
+.text3 {
+  text-align: left;
+  vertical-align: top;
+
+  font-family: Poppins;
+  padding: 0px 10px 0px 10px;
+  color: rgba(0, 0, 0, 0.8);
+}
+.text4 {
+  text-align: left;
+  vertical-align: top;
+
+  font-family: Poppins;
+  line-height: 100%;
+  padding: 0px 10px 0px 10px;
+  color: rgba(0, 0, 0, 0.8);
+}
+.text5 {
+  text-align: left;
+  vertical-align: top;
+
+  padding: 0px 10px 0px 10px;
+  font-family: Poppins;
+  line-height: 100%;
+  color: rgba(0, 0, 0, 0.8);
+}
+.buttonDark {
+  border-radius: 0.625rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: flex-start;
+  padding: 0.25rem 1rem;
+  background: linear-gradient(
+    135deg,
+    rgba(5, 25, 35, 0.6) 0%,
+    rgba(0, 0, 0, 0.2) 100%
+  );
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+}
+.text6 {
+  text-align: left;
+  vertical-align: top;
+  font-size: 8px;
+  font-family: Poppins;
+  line-height: 100%;
+  color: #ffffff;
+}

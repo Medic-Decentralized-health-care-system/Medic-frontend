@@ -1,33 +1,30 @@
 import React from "react";
 import { ReactDOM } from "react-dom";
 import MenubarStyle from "./Menubar.module.css";
-import ButtonHollow from "../Buttons/ButtonHollow.jsx";
-
+import WhiteButton from "../Buttons/WhiteButton";
 
 const navbarPages = {
-	'text': [
-		'Pricing',
-		'How it works',
-		'Help Center',
-		'News'
-	]
-}
+  text: ["How it works", "Contact Us"],
+};
 
-const buttonType = "white";
+const handleClick = () => {};
 
 function Menubar(props) {
-	return (
-
-
-		<div className={MenubarStyle.menubar}>
-			{
-				navbarPages.text.map((btnText, index) => (
-						<ButtonHollow type={buttonType} key={index} value={btnText}>{btnText}</ButtonHollow>
-					))
-			}
-			<hr className={MenubarStyle.divider}></hr>
-		</div>
-	)
+  return (
+    <div className={MenubarStyle.menubar} onClick={handleClick}>
+      {navbarPages.text.map((btnText, index) => (
+        <WhiteButton key={index} value={btnText}>
+          <a
+            style={{ textDecoration: "None", color: "white" }}
+            href={`#${btnText.replaceAll(" ", "")}`}
+          >
+            {btnText}
+          </a>
+        </WhiteButton>
+      ))}
+      <hr className={MenubarStyle.divider}></hr>
+    </div>
+  );
 }
 
 export default Menubar;

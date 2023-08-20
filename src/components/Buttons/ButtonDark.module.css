@@ -1,4 +1,4 @@
-.blackButton {
+.btn {
 	background-color: black;
 	color: white;
 	border: none;
@@ -6,15 +6,29 @@
 	border-radius: 4px;
 	cursor: pointer;
 	transition: background-color 0.3s ease;
+	min-width: max-content;
+
   }
   
-  .btn:hover {
+.btn:hover {
 	background: #3f3f3f;
 	text-decoration: none;
 	cursor:pointer;
   }
 
-  .btnSmall:hover {
+.btnSmall {
+	background-color: black;
+	color: white;
+	border: none;
+	padding: 0.5rem 1rem;
+	border-radius: 4px;
+	cursor: pointer;
+	transition: background-color 0.3s ease;
+	min-width: max-content;
+
+  }
+
+.btnSmall:hover {
 	background: #3f3f3f;
 	text-decoration: none;
   }

@@ -1,11 +1,25 @@
 .menubar {
 	display: flex;
 	align-items: center;
-	
+	/* flex-wrap: wrap; */
 }
 
 
 .divider {
 	width: 100%;
 	border-bottom: 2px solid black;
+}
+
+@media all and (max-width: 480px) {
+
+	.menubar{
+		flex-direction: column;
+		align-items: stretch;
+		flex-wrap: wrap;
+	}
+
+	.menubar > hr {
+		display: none;
+		
+	}
 }

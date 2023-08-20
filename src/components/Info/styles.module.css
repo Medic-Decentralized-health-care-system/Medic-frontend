@@ -1,0 +1,34 @@
+p {
+  width: max-content;
+}
+
+.infoContainer {
+  background-color: white;
+  padding: 8px;
+  margin: 5px;
+  border-radius: 100px;
+  display: flex;
+  width: 100%;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.textRight {
+    width: 100%;
+}
+
+.rightContainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 1.5rem;
+    padding: 1px;
+    align-items: center;
+}
+
+.rightContainer > p {
+  margin: 0;
+}
+
+

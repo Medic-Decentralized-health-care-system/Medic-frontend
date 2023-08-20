@@ -1,0 +1,45 @@
+.container {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  width: 80%;
+}
+
+select:invalid { color: gray; }
+
+.sel1 {
+  font-family: "Outfit", sans-serif;
+  padding: 10px;
+  box-sizing: border-box;
+  font-size: 20px;
+  border: 1px solid white;
+  border-bottom-left-radius: 50px;
+  border-top-left-radius: 50px;
+  margin-right: 1px;
+  overflow: auto;
+}
+
+.sel1 option[default][disabled][selected] {
+  color: aquamarine;
+}
+
+.sel2 {
+  font-family: "Outfit", sans-serif;
+  padding: 10px;
+  box-sizing: border-box;
+  font-size: 20px;
+  border: 1px solid white;
+  border-radius: 50px;
+  margin-left: 1px;
+  overflow: auto;
+}
+
+.sel1 option,
+.sel2 option {
+  font-size: 14px;
+}
+
+
+

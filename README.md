@@ -1,9 +1,6 @@
-## Current Status:
-- [x] Login Page completed without using a lot of components (almost pure JSX i.e. returning the pure html)
-- [ ]  Start working on registration page
+## Current Status: Working on removing bugs and adding payment functionality.
 
-
-# Getting Started with Create React App
+# Get started with DeMedic
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
