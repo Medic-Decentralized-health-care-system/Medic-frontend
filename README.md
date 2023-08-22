@@ -1,4 +1,4 @@
-## Current Status: Working on removing bugs and adding payment functionality.
+## Current Status: Working on removing bugs.
 
 # Get started with DeMedic
 
