@@ -80,7 +80,7 @@ export default function Search() {
     }
   };
 
-  const handleClickSearch =async () => {
+  const handleClickSearch = async () => {
     try{
       setLoading(true);
       const res = await fetch(process.env.REACT_APP_BACKEND_URL + `doctors/doctors-within/800/center/${long},${lat}/unit/km/`+selectedSpecialty, {

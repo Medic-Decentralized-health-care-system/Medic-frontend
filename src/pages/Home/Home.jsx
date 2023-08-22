@@ -102,7 +102,7 @@ function Home() {
                 src={require("../../assets/images/blockhealth.png")}
               />
             </div>
-            <Panel shaded style={{ backgroundColor: "white", padding: "2rem" }}>
+            <Panel shaded style={{ backgroundColor: "white", padding: "1.2rem" }}>
               <Steps
                 current={100}
                 vertical
@@ -160,8 +160,7 @@ function Home() {
           </section>
         </section>
       </section>
-      <section id="Pricing" className={Homestyle.pricing}></section>
-      <section id={Homestyle.contact} className={Homestyle.container}></section>
+      
     </>
   );
 }
