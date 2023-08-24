@@ -54,7 +54,7 @@ function EditProfileUser() {
 
   // We need to have a tag key in the userInfo object which is empty if there's no tag selectd and contains a string of the exact tag if it is selected. Temporarily using a temp string named userTag to simulate this implementation
 
-  const [modal, setModal] = useState(true);
+  const [modal, setModal] = useState(false);
   const toggleModal = () => {
     setModal(!modal);
   };
