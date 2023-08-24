@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styles from "./styles.module.css";
 import Avatar from "../../components/Avatar/Avatar";
 import { useState } from "react";
@@ -38,23 +38,21 @@ const MetaMaskIcon = React.forwardRef((props, ref) => (
   </svg>
 ));
 
-const data = ["IIITM", "NITK", "MITS", "AMITY" , "ITM"].map((item) => ({
+const data = ["IIITM", "NITK", "MITS", "AMITY", "ITM"].map((item) => ({
   label: item,
   value: item,
 }));
 function EditProfileUser() {
-  const [fname , setfname] = useState("");
-  const [lname , setlname] = useState("");
+  const [fname, setfname] = useState("");
+  const [lname, setlname] = useState("");
   const Navigate = useNavigate();
   const dispatch = useDispatch();
   const userInfo = useSelector((state) => state.userInfo);
   console.log(userInfo);
-  const [toShare , setToShare] = useState(userInfo.toShare);
-  const [userTag , setUserTag] = useState("");
+  const [toShare, setToShare] = useState(false);
+  const [userTag, setUserTag] = useState("")
 
-  // We need to have a tag key in the userInfo object which is empty if there's no tag selectd and contains a string of the exact tag if it is selected. Temporarily using a temp string named userTag to simulate this implementation
-
-  const [modal, setModal] = useState(true);
+  const [modal, setModal] = useState(false);
   const toggleModal = () => {
     setModal(!modal);
   };
@@ -67,58 +65,79 @@ function EditProfileUser() {
     setModal(false);
   };
 
-  const handleUpdateDetails =async () => {
+  const handleUpdateDetails = async () => {
     // TODO: Handle the updating of details in the backend
-    console.log(userTag)
-    const res = await fetch(process.env.REACT_APP_BACKEND_URL + 'patient/setorganization' , {
-      method : "PUT",
-      headers : {
-        "Content-Type" : "application/json"
-      },
-      body : JSON.stringify({
-        id:userInfo._id,
-        organization: userTag
-      })
-    })
+    console.log(userTag);
+    const res = await fetch(
+      process.env.REACT_APP_BACKEND_URL + "patient/setorganization",
+      {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          id: userInfo._id,
+          organization: userTag,
+        }),
+      }
+    );
     const data = await res.json();
-    if(data.data){
+    if (data.data) {
       Swal.fire({
-        icon: 'success',
-        title: 'Details Updated!',
+        icon: "success",
+        title: "Details Updated!",
         showConfirmButton: false,
-        timer: 1500
-      })
-    }
-    else{
+        timer: 1500,
+      });
+    } else {
       Swal.fire({
-        icon: 'error',
-        title: 'Oops...',
-        text: 'Something went wrong!',
-      })
-      
+        icon: "error",
+        title: "Oops...",
+        text: "Something went wrong!",
+      });
     }
     console.log("Details updated!");
   };
 
   const [toggleChecked, setToggleChecked] = useState(userInfo.toShare);
-  const handleToggleChange =async () => {
-    await fetch(process.env.REACT_APP_BACKEND_URL + 'patient/giveaccestodata' , {
-      method : "PUT",
-      headers : {
-        "Content-Type" : "application/json"
-      },
-      body : JSON.stringify({
-        id:userInfo._id,
-        val: toggleChecked
-      })
-      
-    })
+  const handleToggleChange = async () => {
+    // console.log('initialData'+ toShare)
+    // const data = await fetch(process.env.REACT_APP_BACKEND_URL + 'patient/giveaccestodata' , {
+    //   method : "PUT",
+    //   headers : {
+    //     "Content-Type" : "application/json"
+    //   },
+    //   body : JSON.stringify({
+    //     id:userInfo._id,
+    //     val: !toggleChecked
+    //   })
+
+    // })
+    // const res = await data.json();
+    // console.log(res)
+    // setToShare(toShare);
+    // // setToggleChecked();
+    // if (userTag !== "") {
+    //   // Display an empty select dropdown
+    // } else {
+    //   // Display an already selected tag from the select dropdown
+    // }
+    console.log("initialData" + toggleChecked)
+    const data = await fetch(
+      process.env.REACT_APP_BACKEND_URL + "patient/giveaccestodata",
+      {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          id: userInfo._id,
+          val: !toggleChecked,
+        }),
+      }
+    );
     setToggleChecked(!toggleChecked);
-    if (userTag !== "") {
-      // Display an empty select dropdown
-    } else {
-      // Display an already selected tag from the select dropdown
-    }
+    console.log("finalData" + toggleChecked)
   };
 
   const [fileURL, setFileURL] = useState("");
@@ -292,8 +311,7 @@ function EditProfileUser() {
                           data={data}
                           onChange={(value) => {
                             setUserTag(value);
-                          }
-                          }
+                          }}
                         />
                       </div>
                     </Panel>

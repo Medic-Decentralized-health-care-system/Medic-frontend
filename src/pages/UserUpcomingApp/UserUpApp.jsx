@@ -67,6 +67,7 @@ function UserUpApp() {
   const [loading, setLoading] = useState(true);
   const location = useLocation();
   const { item , medRecords } = location.state;
+    console.log(item)
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -172,7 +173,7 @@ function UserUpApp() {
                 <div className={styles.appTimeDateBoxContainer}>
                   <div className={styles.appTimeDateBox}>
                     <div className={styles.appDate}>
-                      <p>23rd May</p>
+                      <p>24 Aug</p>
                     </div>
                     <Divider vertical style={{ backgroundColor: "black" }} />
                     <div className={styles.appTime}>

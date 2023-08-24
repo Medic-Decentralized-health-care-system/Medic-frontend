@@ -66,7 +66,13 @@ function DocUpApp() {
       setLoading(false);
     }
   };
-
+  const getCurrentDate = () => {
+    const date = new Date();
+    const options = { weekday: 'long', day: 'numeric', month: 'numeric', year: '2-digit' };
+    const formattedDate = date.toLocaleDateString(undefined, options);
+  
+    return formattedDate;
+  };
   const [modal, setModal] = useState(false);
   const toggleModal = () => {
     setModal(!modal);
@@ -210,7 +216,7 @@ function DocUpApp() {
                 <div className={styles.appTimeDateBoxContainer}>
                   <div className={styles.appTimeDateBox}>
                     <div className={styles.appDate}>
-                      <p>23rd May</p>
+                      <p>  {getCurrentDate()}</p>
                     </div>
                     <Divider vertical style={{ backgroundColor: "black" }} />
                     <div className={styles.appTime}>

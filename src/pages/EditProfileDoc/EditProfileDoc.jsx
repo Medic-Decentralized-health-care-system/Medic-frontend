@@ -544,7 +544,7 @@ function EditProfileDoc() {
                   </Button>
                 </div>
               </div>
-              <div className={styles.updateBtnBox}>
+              {/* <div className={styles.updateBtnBox}>
                 <InputGroup style={styles}>
                   <InputGroup.Addon> Location</InputGroup.Addon>
                   <Input />
@@ -556,7 +556,7 @@ function EditProfileDoc() {
                 >
                   Update location
                 </Button>
-              </div>
+              </div> */}
             </Panel>
           </div>
         </div>

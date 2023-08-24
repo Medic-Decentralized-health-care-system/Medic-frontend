@@ -7,6 +7,7 @@ const initialState = {
   userToken: null,
   walletAddress: "",
   balance: "",
+  toShare: false,
   doctor: {},
   error: null,
   success: false,
@@ -24,6 +25,9 @@ const authSlice = createSlice({
     },
     setWalletAddress: (state, action) => {
       state.balance = action.payload;
+    },
+    setToShare: (state, action) => {
+      state.toShare = action.payload;
     },
     setBalance: (state, action) => {
       state.balance = action.payload;

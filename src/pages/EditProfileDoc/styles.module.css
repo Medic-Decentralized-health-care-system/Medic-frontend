@@ -8,12 +8,13 @@
 
 .container {
   width: 100%;
-  height: 100%;
+  height: 1000px;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
   background-image: url("../../assets/images/bg-gradient.png");
+  background-repeat: repeat;
   background-size: cover;
 }
 
@@ -22,7 +23,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 100%;
+  width: 500px;
   height: 100%;
 }
 
@@ -165,7 +166,9 @@
   gap: 1.5rem;
   padding: 2rem;
 }
-
+.rs-panel-body{
+  width:600px;
+}
 .panel1 {
   background-color: #b30b0b17;
 }
@@ -185,6 +188,7 @@
 
 .updateBtnBox {
   text-align: center;
+  margin-top: 40px;
 }
 
 .topFormBox,

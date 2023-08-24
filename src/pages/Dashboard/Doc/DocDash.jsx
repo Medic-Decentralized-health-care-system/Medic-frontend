@@ -332,7 +332,7 @@ function DocDash() {
                 <div className={styles.RecTransactions}>
                   <div className={styles.RecTransactionsContainer}>
                     <div className={styles.dashDivHeader}>
-                      Recent Transactions
+                      Connect wallet with metamask
                     </div>
                     <div className={styles.dashDivContent}>
                       {recTransEmpty ? (
@@ -353,33 +353,19 @@ function DocDash() {
                                 fontSize: "1.5rem",
                               }}
                             >
-                              No Transactions to show
+                               <IconButton
+                            appearance="primary"
+                            classPrefix="btn-icon"
+                            icon={
+                              <Icon as={MetaMaskIcon} appearance="primary" />
+                            }
+                            // onClick={connectWallet}
+                          />
                             </p>
-                            {/* <IconButton
-                              appearance="primary"
-                              icon={<Icon as={MetaMaskIcon} />}
-                              onClick={connectWallet}
-                            />
-                            {isConnected ? (
-                              loading ? (
-                                <Loader
-                                  type="bubble-loop"
-                                  bgColor="#FFFFFF"
-                                  color="#FFFFFF"
-                                  size={30}
-                                />
-                              ) : (
-                                `${accountAddress.slice(
-                                  0,
-                                  5
-                                )}...${accountAddress.slice(38, 42)}`
-                              )
-                            ) : (
-                              "Connect wallet"
-                            )} */}
                           </div>
                         </>
                       )}
+                      Connect wallet
                     </div>
                   </div>
                 </div>

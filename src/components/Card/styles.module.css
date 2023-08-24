@@ -24,7 +24,7 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: stretch;
+  align-items: center
 }
 
 .nameBox {
@@ -48,7 +48,8 @@
   vertical-align: top;
   font-size: 16px;
   font-family: Poppins;
-
+  padding-right:10px;
+  padding-left: 10px;
   color: rgba(255, 255, 255, 0.8);
 }
 .infoBox {

@@ -508,7 +508,7 @@ function UserDash() {
               <div className={styles.RecTransactions}>
                 <div className={styles.RecTransactionsContainer}>
                   <div className={styles.dashDivHeader}>
-                    Recent Transactions
+                    Wallet
                   </div>
                   <div className={styles.dashDivContent}>
                     {recTransEmpty ? (
@@ -529,7 +529,7 @@ function UserDash() {
                               fontSize: "1.5rem",
                             }}
                           >
-                            No Transactions to show
+                            Connect your metamask wallet
                           </p>
                           <IconButton
                             appearance="primary"

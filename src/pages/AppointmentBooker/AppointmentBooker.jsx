@@ -62,13 +62,13 @@ function AppointmentBooker({ doctor }) {
         }
       );
       const data = await res.json();
+      await depositEth(availabilityObj.fees);
       if (data.status === "success") {
         Swal.fire({
           icon: "success",
           title: "Appointment Booked Successfully!",
           text: "Your appointment has been booked successfully!",
         });
-        await depositEth(availabilityObj.fees);
         navigate("/dashboard/user");
       } else {
         Swal.fire({
